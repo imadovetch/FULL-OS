@@ -1,0 +1,171 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  
+  html {
+    --dark: theme(colors.zinc.950);
+    --dark-t: theme(colors.zinc.900);
+    --light: theme(colors.zinc.100);
+    --primary: theme(colors.lime.600);
+    --shadow: #00000025;
+  }
+
+  body {
+    background-color: var(--dark);
+    color: var(--light);
+    height: 100vh;
+  }
+
+}
+
+@layer components {
+
+  /* Containers */
+  .main {
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+
+.topbarre {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 15px; 
+  filter: drop-shadow(8px 8px 10px gray);
+  opacity: 0.3;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--light);
+  transition: opacity 0.3s ease, height 0.3s ease;
+}
+
+.topbarre:hover {
+  height: 80px;
+  opacity: 0.8;
+  cursor: pointer;
+  filter: drop-shadow(8px 8px 15px gray);
+}
+
+.navigationtools {
+  filter: drop-shadow(8px 8px 10px gray);
+  opacity: 0.3;
+  background-color: var(--light);
+  transition: opacity 0.3s ease; 
+}
+}
+
+@layer utilities {
+
+  .animate-toright {
+    animation: kfr-toright 1s;
+  }
+
+  @keyframes kfr-toright {
+    from {
+      transform: translate(-100%);
+      opacity: 0;
+    }
+  }
+  @keyframes ripple {
+    0% {
+      background-color: transparent;
+    }
+  
+    30% {
+      background-color: var(--cell-color);
+    }
+  
+    60% {
+      background-color: transparent;
+    }
+  
+    100% {
+      background-color: transparent;
+    }
+  }
+  .animate-toleft {
+    animation: kfr-toleft 2s;
+  }
+
+  @keyframes kfr-toleft {
+    from {
+      transform: translate(100%);
+      opacity: 0;
+    }
+  }
+
+  .animate-rotate45 {
+    animation: kfr-rotate45 2s;
+  }
+
+  @keyframes kfr-rotate45 {
+    from {
+      transform: rotate(45deg);
+      opacity: 0;
+    }
+  }
+  .clignote {
+    animation: clignotes 1.5s infinite;
+  }
+
+  @keyframes clignotes {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }}
+
+  .animate-zoom {
+    animation: kfr-zoom 2s;
+  }
+
+  @keyframes kfr-zoom {
+    from {
+      transform: scale(0);
+      opacity: 0;
+    }
+  }
+
+  .blocks {
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+    --color: var(--app-dark);
+    background-color: var(--app--dark);
+    background-image: linear-gradient(
+        0deg,
+        transparent 24%,
+        var(--color) 25%,
+        var(--color) 26%,
+        transparent 27%,
+        transparent 74%,
+        var(--color) 75%,
+        var(--color) 76%,
+        transparent 77%,
+        transparent
+      ),
+      linear-gradient(
+        90deg,
+        transparent 24%,
+        var(--color) 25%,
+        var(--color) 26%,
+        transparent 27%,
+        transparent 74%,
+        var(--color) 75%,
+        var(--color) 76%,
+        transparent 77%,
+        transparent
+      );
+    background-size: 55px 55px;
+  }
+
+}
