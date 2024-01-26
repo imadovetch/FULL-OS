@@ -58,7 +58,7 @@ export function Window({
 
     return (
         <div
-            className={`bg-dark absolute z-50 rounded-md shadow-md ${data.hide ? 'animate-hide' : 'animate-open'}`}
+            className={`bg-dark absolute z-50 rounded-md shadow-md  ${data.hide ? 'animate-hide' : 'animate-open'}`}
             style={{
                 left: data.fullscreen ? 0 : data.x,
                 top: data.fullscreen ? 0 : data.y,

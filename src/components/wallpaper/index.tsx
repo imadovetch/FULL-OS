@@ -4,7 +4,7 @@ import { WALLPAPER_LINK } from "@/data/const"
 export function Wallpaper(){
     return (
         <Image
-            className="fixed w-full h-full object-cover"
+            className="fixed -z-10 w-full h-full object-cover"
             src={WALLPAPER_LINK}
             alt={"wallpaper"}
             width={1000}

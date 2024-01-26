@@ -9,3 +9,5 @@ export { Header } from './header'
 
 // Apps
 export { Apps } from './apps'
+// Widgets
+export { Widgets } from './widgets'

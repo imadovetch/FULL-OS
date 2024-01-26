@@ -1,6 +1,6 @@
 "use client"
 
-import { Wallpaper, Header, Apps } from "@/components"
+import { Wallpaper, Header, Apps , Widgets } from "@/components"
 import { Provider } from "react-redux"
 import { store } from "@/data/store"
 
@@ -12,6 +12,7 @@ export default function Home() {
         <Wallpaper />
         <Header/>
         <Apps/>
+        <Widgets/>
       </main>
     </Provider>
   )
