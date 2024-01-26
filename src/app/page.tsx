@@ -1,12 +1,12 @@
 "use client"
 import Link from "next/link"
-import {Wallpaper, Header, Desktop } from "@/components"
+import { Wallpaper, Header, Desktop } from "@/components"
 
 export default function Home() {
 
   return (
     <main className="main">
-      {/* <Wallpaper/> */}
+      <Wallpaper />
       <Header/>
       <Desktop/>
     </main>

@@ -11,9 +11,10 @@ const config: Config = {
       colors:{
         'dark': 'var(--dark)',
         'dark-t': 'var(--dark-t)',
-        '--light': 'var(--light)',
-        '--primary': 'var(--primary)',
-        '--shadow': 'var(--shadow)',
+        'light': 'var(--light)',
+        'shadow-light': 'var(--shadow-light)',
+        'shadow-dark': 'var(--shadow-dark)',
+        'primary': 'var(--primary)',
       }
     },
   },

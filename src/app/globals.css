@@ -3,63 +3,44 @@
 @tailwind utilities;
 
 @layer base {
-  
+
   html {
     --dark: theme(colors.zinc.950);
     --dark-t: theme(colors.zinc.900);
     --light: theme(colors.zinc.100);
-    --primary: theme(colors.lime.600);
-    --shadow: #00000025;
+    --shadow-dark: #00000030;
+    --shadow-light: #ffffff30;
+    --primary: theme(colors.rose.600);
   }
 
   body {
     background-color: var(--dark);
     color: var(--light);
     height: 100vh;
+    overflow: hidden;
+  }
+
+  .see {
+    @apply border border-red-500
   }
 
 }
 
 @layer components {
 
-  /* Containers */
   .main {
-    width: 100vw;
-    height: 100vh;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
+    @apply w-full h-full flex flex-col
   }
 
+  .btn-simple {
+    @apply w-full h-full p-2 duration-300 hover:bg-shadow-light
+  }
 
-.topbarre {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 15px; 
-  filter: drop-shadow(8px 8px 10px gray);
-  opacity: 0.3;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--light);
-  transition: opacity 0.3s ease, height 0.3s ease;
-}
+  
+  .btn-dark {
+    @apply bg-dark w-full h-full p-2 duration-300 hover:bg-dark-t rounded-md
+  }
 
-.topbarre:hover {
-  height: 80px;
-  opacity: 0.8;
-  cursor: pointer;
-  filter: drop-shadow(8px 8px 15px gray);
-}
-
-.navigationtools {
-  filter: drop-shadow(8px 8px 10px gray);
-  opacity: 0.3;
-  background-color: var(--light);
-  transition: opacity 0.3s ease; 
-}
 }
 
 @layer utilities {
@@ -74,23 +55,25 @@
       opacity: 0;
     }
   }
+
   @keyframes ripple {
     0% {
       background-color: transparent;
     }
-  
+
     30% {
       background-color: var(--cell-color);
     }
-  
+
     60% {
       background-color: transparent;
     }
-  
+
     100% {
       background-color: transparent;
     }
   }
+
   .animate-toleft {
     animation: kfr-toleft 2s;
   }
@@ -112,6 +95,7 @@
       opacity: 0;
     }
   }
+
   .clignote {
     animation: clignotes 1.5s infinite;
   }
@@ -120,9 +104,11 @@
     0% {
       opacity: 0;
     }
+
     100% {
       opacity: 1;
-    }}
+    }
+  }
 
   .animate-zoom {
     animation: kfr-zoom 2s;
@@ -141,8 +127,7 @@
     z-index: 0;
     --color: var(--app-dark);
     background-color: var(--app--dark);
-    background-image: linear-gradient(
-        0deg,
+    background-image: linear-gradient(0deg,
         transparent 24%,
         var(--color) 25%,
         var(--color) 26%,
@@ -151,10 +136,8 @@
         var(--color) 75%,
         var(--color) 76%,
         transparent 77%,
-        transparent
-      ),
-      linear-gradient(
-        90deg,
+        transparent),
+      linear-gradient(90deg,
         transparent 24%,
         var(--color) 25%,
         var(--color) 26%,
@@ -163,8 +146,7 @@
         var(--color) 75%,
         var(--color) 76%,
         transparent 77%,
-        transparent
-      );
+        transparent);
     background-size: 55px 55px;
   }
 
