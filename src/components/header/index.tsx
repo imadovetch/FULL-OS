@@ -12,11 +12,11 @@ export function Header() {
 
     return (
         <div
-            className={`absolute w-full bg-shadow-light flex items-center justify-between gap-2 backdrop-blur-md shadow z-50 duration-300 ${expand ? '' : '-translate-y-full'}`}
+            className={`absolute w-full bg-shadow-light flex items-center justify-between backdrop-blur-md shadow-md z-50 duration-300 ${expand ? '' : '-translate-y-full'}`}
             onMouseLeave={() => setExpand(false)}
         >
             <div
-                className={`absolute h-full w-full flex items-center justify-center translate-y-full duration-300 ${expand ? 'opacity-0 rotate-180' : ''}`}
+                className={`absolute h-full w-full flex items-center justify-center translate-y-full duration-300 ${expand ? 'opacity-0' : ''}`}
                 onMouseEnter={() => setExpand(true)}
             >
                 <I type="more" />
@@ -31,36 +31,19 @@ export function Header() {
 function Apps() {
 
     const dispatch = useDispatch()
-    const [title, setTitle] = useState<{ x: number, y: number, name: string } | null>(null)
-    const funcShowBudge = (e: any, name: string) => {
-        setTitle({x: e.clientX, y: e.clientY, name})
-    }
-
+    
     return (
-        <div className="flex items-center pl-4">
-            {
-                title &&
-                <span
-                    className="absolute -translate-x-1/2 translate-y-1/2 bg-light text-dark capitalize text-sm rounded-md px-2 opacity-50 animate-open"
-                    style={{
-                        left: title.x,
-                        top: title.y
-                    }}
-                >
-                    {title.name}
-                </span>
-            }
+        <div className="flex items-center">
             {
                 AVAILABLE_APPS.map(name => {
                     return (
-                        <div
-                            className="group hover:animate-move cursor-pointer relative flex items-center justify-center h-full p-2"
+                        <button
+                            className="btn-simple"
+                            title={name}
                             onClick={() => dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
-                            onMouseEnter={(e) => funcShowBudge(e, name)}
-                            onMouseLeave={() => setTitle(null)}
                         >
                             <I type={name} />
-                        </div>
+                        </button>
                     )
                 })
             }

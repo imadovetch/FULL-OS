@@ -4,7 +4,9 @@ import { useDispatch } from "react-redux"
 import { I } from "@/components"
 import { APP_DATA_TYPE } from "@/data/const"
 import { APPS_ACTIONS } from "@/data/store/apps"
-
+import { useGSAP } from "@gsap/react"
+import { useRef } from "react"
+import gsap from "gsap"
 
 export function Window({
     data,
@@ -15,15 +17,18 @@ export function Window({
 }>) {
 
     const dispatch = useDispatch()
+    const window = useRef(null)
+
     const funcUpdatePosition = (event: any) => {
+
         const [shiftX, shiftY] = [event.clientX - data.x, event.clientY - data.y]
+
         const move = (event: any) => {
             dispatch(APPS_ACTIONS.UPDATE({
                 id: data.id,
                 newProps: {
-                    x: event.clientX - (data.fullscreen ? data.x : shiftX),
-                    y: event.clientY - (data.fullscreen ? 0 : shiftY),
-                    fullscreen: false
+                    x: event.clientX - shiftX,
+                    y: event.clientY - shiftY,
                 }
             }))
         }
@@ -34,7 +39,8 @@ export function Window({
         document.addEventListener('mousemove', move)
         document.addEventListener('mouseup', rest)
     }
-    const funcHide = () => {
+    const funcHide = (e: any) => {
+        e.stopPropagation()
         dispatch(APPS_ACTIONS.UPDATE({
             id: data.id,
             newProps: {
@@ -42,7 +48,8 @@ export function Window({
             }
         }))
     }
-    const funcFullScreen = () => {
+    const funcFullScreen = (e: any) => {
+        e.stopPropagation()
         dispatch(APPS_ACTIONS.UPDATE({
             id: data.id,
             newProps: {
@@ -50,20 +57,63 @@ export function Window({
             }
         }))
     }
-    const funcClose = () => {
+    const funcClose = (e: any) => {
+        e.stopPropagation()
         dispatch(APPS_ACTIONS.CLOSE({
             id: data.id,
         }))
     }
 
+    useGSAP(() => {
+        gsap.from(window.current, {
+            rotate: 15,
+            scale: 0,
+            duration: .5,
+            ease: 'power2'
+        })
+    }, { scope: window })
+
+    useGSAP(() => {
+        if (data.hide) gsap.to(window.current, {
+            rotate: 15,
+            scale: 0,
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            duration: .5,
+            ease: 'power2'
+        })
+    }, { scope: window, dependencies: [data.hide] })
+
+    useGSAP(() => {
+        if (data.fullscreen) gsap.to(window.current, {
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            duration: .5,
+            ease: 'power2'
+        })
+        else gsap.to(window.current, {
+            top: data.x,
+            left: data.y,
+            width: data.width,
+            height: data.height,
+            duration: .5,
+            ease: 'power2'
+        })
+    }, { scope: window, dependencies: [data.fullscreen] })
+
     return (
         <div
-            className={`bg-dark absolute z-50 rounded-md shadow-md  ${data.hide ? 'animate-hide' : 'animate-open'}`}
+            ref={window}
+            className={`select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
             style={{
-                left: data.fullscreen ? 0 : data.x,
-                top: data.fullscreen ? 0 : data.y,
-                width: data.fullscreen ? '100%' : data.width,
-                height: data.fullscreen ? '100%' : data.height,
+                left: data.x,
+                top: data.y,
+                width: data.width,
+                height: data.height,
             }}
         >
 
@@ -78,13 +128,13 @@ export function Window({
                 </div>
 
                 <div className="flex">
-                    <button className="btn-simple" onClick={funcHide}>
+                    <button className="btn-simple" onMouseDown={funcHide}>
                         <I type="minimize" />
                     </button>
-                    <button className="btn-simple" onClick={funcFullScreen}>
+                    <button className="btn-simple" onMouseDown={funcFullScreen}>
                         <I type="maximize" />
                     </button>
-                    <button className="btn-simple" onClick={funcClose}>
+                    <button className="btn-simple" onMouseDown={funcClose}>
                         <I type="close" />
                     </button>
                 </div>
@@ -95,4 +145,5 @@ export function Window({
 
         </div>
     )
+
 }

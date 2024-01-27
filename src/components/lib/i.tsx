@@ -11,7 +11,7 @@ import { VscChromeMinimize } from "react-icons/vsc"
 import { TbMenu  } from "react-icons/tb"
 
 export function I({
-    type = '',
+    type,
     size = 20,
     className = 'stroke-light'
 }: {

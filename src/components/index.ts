@@ -11,3 +11,5 @@ export { Header } from './header'
 export { Apps } from './apps'
 // Widgets
 export { Widgets } from './widgets'
+
+export { Settings } from './settings'
