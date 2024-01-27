@@ -8,6 +8,7 @@ import { IoGameController, IoBrowsers } from "react-icons/io5"
 import { IoMdClose } from "react-icons/io"
 import { VscChromeMaximize } from "react-icons/vsc"
 import { VscChromeMinimize } from "react-icons/vsc"
+import { TbMenu  } from "react-icons/tb"
 
 export function I({
     type = '',
@@ -32,11 +33,13 @@ export function I({
         case 'browser':
             return <IoBrowsers size={size} className={className} />
         case 'minimize':
-            return <VscChromeMinimize  size={size} className={className} />
+            return <VscChromeMinimize size={size} className={className} />
         case 'maximize':
             return <VscChromeMaximize size={size} className={className} />
         case 'close':
-            return <IoMdClose  size={size} className={className} />
+            return <IoMdClose size={size} className={className} />
+        case 'more':
+            return <TbMenu size={size} className={className} />
         default:
             return <CgSmileNone />
     }

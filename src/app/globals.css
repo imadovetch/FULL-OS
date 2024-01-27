@@ -28,15 +28,11 @@
 
 @layer components {
 
-  .main {
-    @apply w-full h-full flex flex-col
-  }
-
   .btn-simple {
     @apply w-full h-full p-2 duration-300 hover:bg-shadow-light
   }
 
-  
+
   .btn-dark {
     @apply bg-dark w-full h-full p-2 duration-300 hover:bg-dark-t rounded-md
   }
@@ -44,110 +40,42 @@
 }
 
 @layer utilities {
-
-  .animate-toright {
-    animation: kfr-toright 1s;
+  .animate-move {
+    animation: kfr-animate-move 1s infinite;
   }
 
-  @keyframes kfr-toright {
-    from {
-      transform: translate(-100%);
-      opacity: 0;
-    }
-  }
-
-  @keyframes ripple {
+  @keyframes kfr-animate-move {
     0% {
-      background-color: transparent;
+      transform: rotate(-10deg);
     }
-
-    30% {
-      background-color: var(--cell-color);
+    50% {
+      transform: rotate(10deg);
     }
-
-    60% {
-      background-color: transparent;
-    }
-
     100% {
-      background-color: transparent;
+      transform: rotate(-10deg);
     }
   }
-
-  .animate-toleft {
-    animation: kfr-toleft 2s;
+  .animate-hide {
+    animation: kfr-animate-hide .3s forwards;
   }
 
-  @keyframes kfr-toleft {
-    from {
-      transform: translate(100%);
-      opacity: 0;
-    }
-  }
-
-  .animate-rotate45 {
-    animation: kfr-rotate45 2s;
-  }
-
-  @keyframes kfr-rotate45 {
-    from {
-      transform: rotate(45deg);
-      opacity: 0;
-    }
-  }
-
-  .clignote {
-    animation: clignotes 1.5s infinite;
-  }
-
-  @keyframes clignotes {
-    0% {
-      opacity: 0;
-    }
-
+  @keyframes kfr-animate-hide {
     100% {
-      opacity: 1;
-    }
-  }
-
-  .animate-zoom {
-    animation: kfr-zoom 2s;
-  }
-
-  @keyframes kfr-zoom {
-    from {
       transform: scale(0);
       opacity: 0;
+      display: hidden;
     }
   }
 
-  .blocks {
-    width: 100%;
-    height: 100%;
-    z-index: 0;
-    --color: var(--app-dark);
-    background-color: var(--app--dark);
-    background-image: linear-gradient(0deg,
-        transparent 24%,
-        var(--color) 25%,
-        var(--color) 26%,
-        transparent 27%,
-        transparent 74%,
-        var(--color) 75%,
-        var(--color) 76%,
-        transparent 77%,
-        transparent),
-      linear-gradient(90deg,
-        transparent 24%,
-        var(--color) 25%,
-        var(--color) 26%,
-        transparent 27%,
-        transparent 74%,
-        var(--color) 75%,
-        var(--color) 76%,
-        transparent 77%,
-        transparent);
-    background-size: 55px 55px;
+  .animate-open {
+    animation: kfr-animate-open .3s forwards;
   }
 
+  @keyframes kfr-animate-open {
+    0% {
+      transform: scale(0);
+      opacity: 0;
+      display: hidden;
+    }
+  }
 }

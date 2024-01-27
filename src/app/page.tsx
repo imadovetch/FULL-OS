@@ -1,15 +1,19 @@
 "use client"
-import Link from "next/link"
-import { Wallpaper, Header, Desktop } from "@/components"
+
+import { Wallpaper, Header, Apps } from "@/components"
+import { Provider } from "react-redux"
+import { store } from "@/data/store"
 
 export default function Home() {
 
   return (
-    <main className="main">
-      <Wallpaper />
-      <Header/>
-      <Desktop/>
-    </main>
+    <Provider store={store}>
+      <main className="w-full h-full flex flex-col">
+        <Wallpaper />
+        <Header/>
+        <Apps/>
+      </main>
+    </Provider>
   )
 
 }

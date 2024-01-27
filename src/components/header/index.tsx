@@ -2,7 +2,9 @@
 
 import { useEffect, useState } from 'react'
 import { I } from '@/components'
-import { APPS } from '@/data/const'
+import { AVAILABLE_APPS } from '@/data/const'
+import { useDispatch } from 'react-redux'
+import { APPS_ACTIONS } from '@/data/store/apps'
 
 export function Header() {
 
@@ -10,10 +12,15 @@ export function Header() {
 
     return (
         <div
-            className={`bg-shadow-light flex items-center justify-between gap-2 backdrop-blur-md shadow p-4 z-50 duration-300 ${expand ? 'h-[60px]' : 'h-[40px]'}`}
-            onMouseEnter={() => setExpand(true)}
+            className={`absolute w-full bg-shadow-light flex items-center justify-between gap-2 backdrop-blur-md shadow z-50 duration-300 ${expand ? '' : '-translate-y-full'}`}
             onMouseLeave={() => setExpand(false)}
         >
+            <div
+                className={`absolute h-full w-full flex items-center justify-center translate-y-full duration-300 ${expand ? 'opacity-0 rotate-180' : ''}`}
+                onMouseEnter={() => setExpand(true)}
+            >
+                <I type="more" />
+            </div>
             <Apps />
             <Information />
         </div>
@@ -23,16 +30,36 @@ export function Header() {
 
 function Apps() {
 
+    const dispatch = useDispatch()
+    const [title, setTitle] = useState<{ x: number, y: number, name: string } | null>(null)
+    const funcShowBudge = (e: any, name: string) => {
+        setTitle({x: e.clientX, y: e.clientY, name})
+    }
+
     return (
-        <div className="flex items-center gap-2">
+        <div className="flex items-center pl-4">
             {
-                APPS.map(app => {
+                title &&
+                <span
+                    className="absolute -translate-x-1/2 translate-y-1/2 bg-light text-dark capitalize text-sm rounded-md px-2 opacity-50 animate-open"
+                    style={{
+                        left: title.x,
+                        top: title.y
+                    }}
+                >
+                    {title.name}
+                </span>
+            }
+            {
+                AVAILABLE_APPS.map(name => {
                     return (
-                        <div className="group cursor-pointer relative flex items-center justify-center bg-shadow-light w-[30px] h-[30px] rounded-md">
-                            <I type={app.icon}/>
-                            <span className="group-hover:opacity-100 group-hover:rotate-0 rotate-45 opacity-0 duration-300 absolute left-1/2 -translate-x-1/2 -bottom-2 translate-y-full capitalize text-sm bg-light text-dark rounded-full px-2">
-                                {app.name}
-                            </span>
+                        <div
+                            className="group hover:animate-move cursor-pointer relative flex items-center justify-center h-full p-2"
+                            onClick={() => dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
+                            onMouseEnter={(e) => funcShowBudge(e, name)}
+                            onMouseLeave={() => setTitle(null)}
+                        >
+                            <I type={name} />
                         </div>
                     )
                 })
@@ -90,7 +117,7 @@ function Information() {
     }
 
     return (
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4 pr-4">
             <Connection />
             <CurrentTime />
         </div>
