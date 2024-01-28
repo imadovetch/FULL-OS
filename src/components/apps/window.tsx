@@ -45,15 +45,19 @@ export function Window({
             id: data.id,
             newProps: {
                 hide: !data.hide,
+               
             }
         }))
     }
     const funcFullScreen = (e: any) => {
         e.stopPropagation()
+        console.log(data.x,data.y)
         dispatch(APPS_ACTIONS.UPDATE({
             id: data.id,
             newProps: {
                 fullscreen: !data.fullscreen,
+                x: 0,
+                y: 0,
             }
         }))
     }
