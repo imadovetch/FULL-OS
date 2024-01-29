@@ -5,12 +5,12 @@
 @layer base {
 
   html {
-    --dark: theme(colors.zinc.950);
-    --dark-t: theme(colors.zinc.900);
+    --dark: theme(colors.zinc.900);
+    --dark-t: theme(colors.zinc.800);
     --light: theme(colors.zinc.100);
     --shadow-dark: #00000030;
     --shadow-light: #ffffff30;
-    --primary: theme(colors.rose.600);
+    --primary: theme(colors.emerald.300);
   }
 
   body {

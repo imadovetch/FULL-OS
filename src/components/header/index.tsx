@@ -12,14 +12,14 @@ export function Header() {
 
     return (
         <div
-            className={`absolute w-full bg-shadow-light flex items-center justify-between backdrop-blur-md shadow-md z-50 duration-300 ${expand ? '' : '-translate-y-full'}`}
+            className={`absolute w-full bg-dark-t flex items-center justify-between backdrop-blur-md shadow-md z-50 duration-300 ${expand ? '' : '-translate-y-full'}`}
             onMouseLeave={() => setExpand(false)}
         >
             <div
                 className={`absolute h-full w-full flex items-center justify-center translate-y-full duration-300 ${expand ? 'opacity-0' : ''}`}
                 onMouseEnter={() => setExpand(true)}
             >
-                <I type="more" />
+                <I type="more" size={30}/>
             </div>
             <Apps />
             <Information />
@@ -43,7 +43,7 @@ function Apps() {
                             title={name}
                             onClick={() => dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
                         >
-                            <I type={name} />
+                            <I type={name}/>
                         </button>
                     )
                 })
