@@ -1,37 +1,54 @@
 "use client"
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { I } from '@/components'
 import { AVAILABLE_APPS } from '@/data/const'
 import { useDispatch } from 'react-redux'
 import { APPS_ACTIONS } from '@/data/store/apps'
+import gsap from 'gsap'
+import { useGSAP } from '@gsap/react'
 
 export function Header() {
 
-    const [expand, setExpand] = useState(false)
+    const [display, setDisplay] = useState(false)
+    const navbar = useRef(null)
+    const sensor = useRef(null)
+
+    useGSAP(() => {
+        if (display) {
+            gsap.to(navbar.current, { yPercent: 0, duration: 0.5 })
+            gsap.to(sensor.current, { opacity: 0, duration: 0.5 })
+        } else {
+            gsap.to(navbar.current, { yPercent: -100, duration: 0.5 })
+            gsap.to(sensor.current, { opacity: 1, duration: 0.5 })
+        }
+    }, {dependencies: [display]})
 
     return (
         <div
-            className={`absolute w-full bg-dark-t flex items-center justify-between backdrop-blur-md shadow-md z-50 duration-300 ${expand ? '' : '-translate-y-full'}`}
-            onMouseLeave={() => setExpand(false)}
+            ref={navbar}
+            className=" bg-dark flex items-center justify-between w-full z-[1000]"
+            onMouseLeave={() => setDisplay(false)}
+            onMouseEnter={() => setDisplay(true)}
         >
             <div
-                className={`absolute h-full w-full flex items-center justify-center translate-y-full duration-300 ${expand ? 'opacity-0' : ''}`}
-                onMouseEnter={() => setExpand(true)}
+                ref={sensor}
+                className="sensor absolute flex items-center justify-center h-full w-full translate-y-full"
+
             >
-                <I type="more" size={30}/>
+                <I type="more" size={30} />
             </div>
-            <Apps />
+            <Apps display={display} />
             <Information />
         </div>
     )
 
 }
 
-function Apps() {
+function Apps({ display }: { display: boolean }) {
 
     const dispatch = useDispatch()
-    
+
     return (
         <div className="flex items-center">
             {
@@ -43,7 +60,7 @@ function Apps() {
                             title={name}
                             onClick={() => dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
                         >
-                            <I type={name}/>
+                            <I type={name} />
                         </button>
                     )
                 })
