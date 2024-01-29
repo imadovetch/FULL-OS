@@ -38,6 +38,7 @@ function Apps() {
                 AVAILABLE_APPS.map(name => {
                     return (
                         <button
+                            key={name}
                             className="btn-simple"
                             title={name}
                             onClick={() => dispatch(APPS_ACTIONS.OPEN({ appName: name }))}

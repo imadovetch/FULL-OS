@@ -20,9 +20,7 @@ export function Window({
     const window = useRef(null)
 
     const funcUpdatePosition = (event: any) => {
-
         const [shiftX, shiftY] = [event.clientX - data.x, event.clientY - data.y]
-
         const move = (event: any) => {
             dispatch(APPS_ACTIONS.UPDATE({
                 id: data.id,
@@ -69,15 +67,6 @@ export function Window({
     }
 
     useGSAP(() => {
-        gsap.from(window.current, {
-            rotate: 15,
-            scale: 0,
-            duration: .5,
-            ease: 'power2'
-        })
-    }, { scope: window })
-
-    useGSAP(() => {
         if (data.hide) gsap.to(window.current, {
             rotate: 15,
             scale: 0,
@@ -86,40 +75,43 @@ export function Window({
             width: '100%',
             height: '100%',
             duration: .5,
-            ease: 'power2'
         })
     }, { scope: window, dependencies: [data.hide] })
 
     useGSAP(() => {
-        if (data.fullscreen) gsap.to(window.current, {
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: '100%',
-            duration: .5,
-            ease: 'power2'
-        })
-        else gsap.to(window.current, {
-            top: data.x,
-            left: data.y,
-            width: data.width,
-            height: data.height,
-            duration: .5,
-            ease: 'power2'
-        })
+
+        if (data.fullscreen) {
+            gsap.fromTo(window.current, {
+                x: data.x,
+                y: data.y,
+                width: data.width,
+                height: data.height,
+            }, {
+                x: 0,
+                y: 0,
+                width: '100%',
+                height: '100%',
+                duration: 1,
+            })
+        }
+
     }, { scope: window, dependencies: [data.fullscreen] })
 
     return (
         <div
             ref={window}
             className={`select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
-            style={{
-                left: data.x,
-                top: data.y,
-                width: data.width,
-                height: data.height,
-            }}
+            style={
+                !data.fullscreen ? {
+                    left: data.x,
+                    top: data.y,
+                    width: data.width,
+                    height: data.height,
+                } : {}
+            }
         >
+
+            { data.fullscreen && <Effect />}
 
             <div
                 className="bg-dark-t flex items-center justify-between"
@@ -150,4 +142,25 @@ export function Window({
         </div>
     )
 
+}
+
+function Effect() {
+
+    const effect = useRef(null)
+
+    useGSAP(() => {
+        gsap.from('.arrow', {rotate: 90, scale: 0.5, stagger: 0.1, borderRadius: 100, filter: 'brightness(18)', duration: 0.1})
+    }, {scope: effect})
+
+    return (
+        <div
+            ref={effect}
+            className="absolute bg-primary w-full h-full pointer-events-none -z-50"
+        >
+            <div className="arrow absolute w-[60px] h-[60px] -top-[30px] -left-[30px] border-[20px] border-primary border-b-transparent border-r-transparent shadow-[-10px_-10px_0px_5px] shadow-light"></div>
+            <div className="arrow absolute w-[60px] h-[60px] -bottom-[30px] -left-[30px] border-[20px] border-primary border-t-transparent border-r-transparent shadow-[-10px_10px_0px_5px] shadow-light"></div>
+            <div className="arrow absolute w-[60px] h-[60px] -top-[30px] -right-[30px] border-[20px] border-primary border-b-transparent border-l-transparent shadow-[10px_-10px_0px_5px] shadow-light"></div>
+            <div className="arrow absolute w-[60px] h-[60px] -bottom-[30px] -right-[30px] border-[20px] border-primary border-t-transparent border-l-transparent shadow-[10px_10px_0px_5px] shadow-light"></div>
+        </div>
+    )
 }

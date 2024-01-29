@@ -12,7 +12,7 @@ export default function Home() {
         <Wallpaper />
         <Header/>
         <Apps/>
-        <Widgets/>
+        {/* <Widgets/> */}
       </main>
     </Provider>
   )
