@@ -41,7 +41,15 @@ const s = createSlice({
         },
         CLOSE(state: APP_DATA_TYPE[], action: PayloadAction<{ id: number }>){
             return state.filter(app => app.id !== action.payload.id)
-        }
+        },
+        SWITCH_DISPLAY(state: APP_DATA_TYPE[], action: PayloadAction<{ name: string }>){
+            return state.map(app => {
+                return app.name === action.payload.name ? {
+                    ...app,
+                    hide: !app.hide
+                } : app
+            })
+        },
     }
 
 })

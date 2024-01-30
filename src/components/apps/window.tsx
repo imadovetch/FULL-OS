@@ -68,6 +68,10 @@ export function Window({
             rotate: 15,
             scale: 0,
             duration: .5,
+        }); else gsap.to(window.current, {
+            rotate: 0,
+            scale: 1,
+            duration: .5,
         })
     }, { scope: window, dependencies: [data.hide] })
 

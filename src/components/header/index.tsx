@@ -3,10 +3,11 @@
 import { useEffect, useRef, useState } from 'react'
 import { I } from '@/components'
 import { AVAILABLE_APPS } from '@/data/const'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { APPS_ACTIONS } from '@/data/store/apps'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { STORE_DATA_TYPE } from '@/data/store'
 
 export function Header() {
 
@@ -22,12 +23,12 @@ export function Header() {
             gsap.to(navbar.current, { yPercent: -100, duration: 0.5 })
             gsap.to(sensor.current, { opacity: 1, duration: 0.5 })
         }
-    }, {dependencies: [display]})
+    }, { dependencies: [display] })
 
     return (
         <div
             ref={navbar}
-            className=" bg-dark flex items-center justify-between w-full z-[1000]"
+            className="bg-dark flex items-center justify-between w-full z-[1000]"
             onMouseLeave={() => setDisplay(false)}
             onMouseEnter={() => setDisplay(true)}
         >
@@ -48,6 +49,8 @@ export function Header() {
 function Apps({ display }: { display: boolean }) {
 
     const dispatch = useDispatch()
+    const apps = useSelector((state: STORE_DATA_TYPE) => state.apps)
+    const active_apps = apps.map(app => app.name)
 
     return (
         <div className="flex items-center">
@@ -56,9 +59,9 @@ function Apps({ display }: { display: boolean }) {
                     return (
                         <button
                             key={name}
-                            className="btn-simple"
+                            className={`btn-simple ${active_apps.includes(name) ? 'active' : ''}`}
                             title={name}
-                            onClick={() => dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
+                            onClick={() => active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
                         >
                             <I type={name} />
                         </button>

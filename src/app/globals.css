@@ -29,7 +29,11 @@
 @layer components {
 
   .btn-simple {
-    @apply w-full h-full p-2 hover:bg-shadow-light
+    @apply w-full h-full p-2 border border-dark hover:bg-dark-t
+  }
+
+  .btn-simple.active {
+    @apply bg-dark-t
   }
 
 
