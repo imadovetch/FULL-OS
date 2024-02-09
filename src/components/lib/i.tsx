@@ -9,6 +9,7 @@ import { IoMdClose } from "react-icons/io"
 import { VscChromeMaximize } from "react-icons/vsc"
 import { VscChromeMinimize } from "react-icons/vsc"
 import { TbMenu  } from "react-icons/tb"
+import { SiHiveBlockchain } from "react-icons/si"
 
 export function I({
     type,
@@ -40,6 +41,8 @@ export function I({
             return <IoMdClose size={size} className={className} />
         case 'more':
             return <TbMenu size={size} className={className} />
+        case 'manager':
+            return <SiHiveBlockchain size={size} className={className} />
         default:
             return <CgSmileNone />
     }

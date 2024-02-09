@@ -2,6 +2,7 @@
 
 // Lib
 export { I } from './lib/i'
+export { Title } from './lib/title'
 
 // Home
 export { Wallpaper } from './wallpaper'

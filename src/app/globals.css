@@ -5,8 +5,8 @@
 @layer base {
 
   html {
-    --dark: theme(colors.zinc.900);
-    --dark-t: theme(colors.zinc.800);
+    --dark: theme(colors.zinc.950);
+    --dark-t: theme(colors.zinc.900);
     --light: theme(colors.zinc.100);
     --shadow-dark: #00000030;
     --shadow-light: #ffffff30;
@@ -29,16 +29,16 @@
 @layer components {
 
   .btn-simple {
-    @apply w-full h-full p-2 border border-dark hover:bg-dark-t
+    @apply w-full h-full p-2 hover:bg-shadow-light
   }
 
   .btn-simple.active {
-    @apply bg-dark-t
+    @apply bg-shadow-light
   }
 
 
   .btn-dark {
-    @apply bg-dark w-full h-full p-2 duration-300 hover:bg-dark-t rounded-md
+    @apply bg-dark-t p-2 duration-300 hover:bg-shadow-light rounded-md
   }
 
 }

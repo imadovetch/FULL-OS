@@ -1,52 +1,24 @@
 "use client"
 
-import { useEffect, useRef, useState } from 'react'
-import { I } from '@/components'
+import { useEffect, useState } from 'react'
+import { I, Title } from '@/components'
 import { AVAILABLE_APPS } from '@/data/const'
 import { useDispatch, useSelector } from 'react-redux'
 import { APPS_ACTIONS } from '@/data/store/apps'
-import gsap from 'gsap'
-import { useGSAP } from '@gsap/react'
 import { STORE_DATA_TYPE } from '@/data/store'
 
 export function Header() {
 
-    const [display, setDisplay] = useState(false)
-    const navbar = useRef(null)
-    const sensor = useRef(null)
-
-    useGSAP(() => {
-        if (display) {
-            gsap.to(navbar.current, { yPercent: 0, duration: 0.5 })
-            gsap.to(sensor.current, { opacity: 0, duration: 0.5 })
-        } else {
-            gsap.to(navbar.current, { yPercent: -100, duration: 0.5 })
-            gsap.to(sensor.current, { opacity: 1, duration: 0.5 })
-        }
-    }, { dependencies: [display] })
-
     return (
-        <div
-            ref={navbar}
-            className="bg-dark flex items-center justify-between w-full z-[1000]"
-            onMouseLeave={() => setDisplay(false)}
-            onMouseEnter={() => setDisplay(true)}
-        >
-            <div
-                ref={sensor}
-                className="sensor absolute flex items-center justify-center h-full w-full translate-y-full"
-
-            >
-                <I type="more" size={30} />
-            </div>
-            <Apps display={display} />
+        <div className="bg-dark-t flex items-center justify-between">
+            <Apps />
             <Information />
         </div>
     )
 
 }
 
-function Apps({ display }: { display: boolean }) {
+function Apps() {
 
     const dispatch = useDispatch()
     const apps = useSelector((state: STORE_DATA_TYPE) => state.apps)
@@ -59,10 +31,10 @@ function Apps({ display }: { display: boolean }) {
                     return (
                         <button
                             key={name}
-                            className={`btn-simple ${active_apps.includes(name) ? 'active' : ''}`}
-                            title={name}
+                            className={`btn-simple relative group ${active_apps.includes(name) ? 'active' : ''}`}
                             onClick={() => active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
                         >
+                            <Title text={name} side="top" />
                             <I type={name} />
                         </button>
                     )

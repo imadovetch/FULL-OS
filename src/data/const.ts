@@ -3,7 +3,7 @@
 export const WALLPAPER_LINK = "/wallpaperflare.com_wallpaper.jpg"
 
 // Available applications
-export const AVAILABLE_APPS = ['calculator', 'alarm', 'game', 'browser']
+export const AVAILABLE_APPS = ['manager', 'calculator', 'alarm', 'game', 'browser']
 export type APP_DATA_TYPE = {
     id: number,
     name: string,
