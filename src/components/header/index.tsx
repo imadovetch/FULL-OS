@@ -32,7 +32,7 @@ function Apps() {
                         <button
                             key={name}
                             className={`btn-simple relative group ${active_apps.includes(name) ? 'active' : ''}`}
-                            onClick={() => active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
+                            onClick={() => {console.log(name + 'i,ad'); active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}}
                         >
                             <Title text={name} side="top" />
                             <I type={name} />

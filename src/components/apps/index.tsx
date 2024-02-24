@@ -17,11 +17,15 @@ export function Apps() {
     return apps && (
         <div className="w-full h-full relative">
             {
+                
                 apps.map((data: APP_DATA_TYPE) => {
-                    if(data.name === AVAILABLE_APPS[0]) return <Calculator key={data.id} data={data} />
-                    if(data.name === AVAILABLE_APPS[1]) return <Alarm key={data.id} data={data} />
-                    if(data.name === AVAILABLE_APPS[2]) return <Game key={data.id} data={data} />
-                    if(data.name === AVAILABLE_APPS[3]) return <Browser key={data.id} data={data} />
+                    console.log(data.name + 'g');
+                    if(data.name === AVAILABLE_APPS[0]) return <Browser key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[1]) return <Calculator key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[2]) return <Alarm key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[3]) return <Game key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[4]) return <Browser key={data.id} data={data} />
+                    // ['manager', 'calculator', 'alarm', 'game', 'browser']
                 })
             }
         </div>

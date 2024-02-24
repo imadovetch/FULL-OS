@@ -20,11 +20,11 @@ export default function Home() {
   return (
     <Provider store={store}>
       <main ref={main} className="bg-dark relative w-full h-full flex flex-col z-50">
-        {/* <Wallpaper /> */}
-        <div className="h-full flex justify-center items-center text-6xl">MLIT :(</div>
-        <Apps/>
+         <Wallpaper /> 
+       
         <Header/>
-        {/* <Widgets/> */}
+        <Apps/>
+         <Widgets/> 
       </main>
     </Provider>
   )
