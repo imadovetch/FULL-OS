@@ -14,3 +14,5 @@ export { Apps } from './apps'
 export { Widgets } from './widgets'
 
 export { Settings } from './settings'
+
+export { Shortcuts } from './shortcuts'

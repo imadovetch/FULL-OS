@@ -3,7 +3,8 @@ import { APP_DATA_TYPE } from "@/data/const"
 
 const SLICE_NAME = 'APPS'
 const DATA_INIT: APP_DATA_TYPE[] = []
-
+const max = 50
+const min = 0
 const s = createSlice({
 
     name: SLICE_NAME,
@@ -21,12 +22,12 @@ const s = createSlice({
             state.push({
                 id: new Date().getTime(),
                 name: action.payload.appName,
-                x: 0,
-                y: 0,
+                x: Math.floor(Math.random() * (1380 - 0) + 0),
+                y: Math.floor(Math.random() * (max - min) + min),
                 width: 500,
                 height: 500,
                 hide: false,
-                fullscreen: true,
+                fullscreen: false,
                 data: null
             })
             return state

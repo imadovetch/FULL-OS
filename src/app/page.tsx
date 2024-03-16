@@ -5,7 +5,7 @@ import { store } from "@/data/store"
 import { useGSAP } from "@gsap/react"
 import { useRef } from "react"
 import gsap from "gsap"
-import { Wallpaper, Header, Apps , Widgets } from "@/components"
+import { Wallpaper, Header, Apps , Widgets ,Shortcuts} from "@/components"
 
 export default function Home() {
 
@@ -21,10 +21,10 @@ export default function Home() {
     <Provider store={store}>
       <main ref={main} className="bg-dark relative w-full h-full flex flex-col z-50">
          <Wallpaper /> 
-       
         <Header/>
         <Apps/>
          <Widgets/> 
+        <Shortcuts/>
       </main>
     </Provider>
   )

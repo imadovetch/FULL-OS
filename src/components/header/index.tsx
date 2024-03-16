@@ -10,7 +10,7 @@ import { STORE_DATA_TYPE } from '@/data/store'
 export function Header() {
 
     return (
-        <div className="bg-dark-t flex items-center justify-between">
+        <div className="bg-dark-t flex items-center z-50 justify-between">
             <Apps />
             <Information />
         </div>
@@ -25,16 +25,16 @@ function Apps() {
     const active_apps = apps.map(app => app.name)
 
     return (
-        <div className="flex items-center">
+        <div className="flex h-8  items-center">
             {
                 AVAILABLE_APPS.map(name => {
                     return (
                         <button
                             key={name}
-                            className={`btn-simple relative group ${active_apps.includes(name) ? 'active' : ''}`}
-                            onClick={() => {console.log(name + 'i,ad'); active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}}
+                            className={`btn-simple relative group ${active_apps.includes(name) ? 'active' : 'hidden'}`}
+                            onClick={() => {  dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) }}
                         >
-                            <Title text={name} side="top" />
+                            <Title text={name} side="bottom" />
                             <I type={name} />
                         </button>
                     )

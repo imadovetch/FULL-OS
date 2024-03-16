@@ -15,9 +15,9 @@ export function Apps() {
     const apps = useSelector((state: STORE_DATA_TYPE) => state.apps)
 
     return apps && (
-        <div className="w-full h-full relative">
+        <div className="w-full h-full absolute ">
             {
-                
+
                 apps.map((data: APP_DATA_TYPE) => {
                     console.log(data.name + 'g');
                     if(data.name === AVAILABLE_APPS[0]) return <Browser key={data.id} data={data} />

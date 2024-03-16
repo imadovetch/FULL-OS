@@ -29,7 +29,7 @@
 @layer components {
 
   .btn-simple {
-    @apply w-full h-full p-2 hover:bg-shadow-light
+    @apply w-full h-full p-1 hover:bg-shadow-light
   }
 
   .btn-simple.active {
@@ -40,7 +40,9 @@
   .btn-dark {
     @apply bg-dark-t p-2 duration-300 hover:bg-shadow-light rounded-md
   }
+  .appsbackground{
 
+    box-shadow: rgba(212, 208, 208, 0.4) 0px 2px 4px, rgba(216, 216, 216, 0.3) 0px 7px 13px -3px, rgba(247, 247, 247, 0.2) 0px -3px 0px , rgba(59, 59, 59, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(2, 2, 2, 0.09) 0px 8px 4px, rgba(71, 71, 71, 0.09) 0px 16px 8px, rgba(92, 92, 92, 0.137) 0px 32px 16px;  }
 }
 
 @layer utilities {
@@ -82,4 +84,9 @@
       display: hidden;
     }
   }
+  .iconholder:hover .icon{
+ 
+    transition: transform 0.3s ease;
+    transform: rotate(360deg);
+    }
 }
