@@ -5,9 +5,10 @@ import { APP_DATA_TYPE, AVAILABLE_APPS } from '@/data/const'
 import { STORE_DATA_TYPE } from '@/data/store'
 
 import { Calculator } from './calculator'
-import { Alarm } from './alarm'
+import { Camera } from './camera'
 import { Game } from './game'
 import { Browser } from './browser'
+import { Chat } from './chat'
 
 
 export function Apps() {
@@ -22,9 +23,11 @@ export function Apps() {
                     console.log(data.name + 'g');
                     if(data.name === AVAILABLE_APPS[0]) return <Browser key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[1]) return <Calculator key={data.id} data={data} />
-                    if(data.name === AVAILABLE_APPS[2]) return <Alarm key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[2]) return <Camera key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[3]) return <Game key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[4]) return <Browser key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[5]) return <Chat key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[6]) return <Chat key={data.id} data={data} />
                     // ['manager', 'calculator', 'alarm', 'game', 'browser']
                 })
             }

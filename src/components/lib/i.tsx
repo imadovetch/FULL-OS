@@ -10,7 +10,10 @@ import { VscChromeMaximize } from "react-icons/vsc"
 import { VscChromeMinimize } from "react-icons/vsc"
 import { TbMenu  } from "react-icons/tb"
 import { SiHiveBlockchain } from "react-icons/si"
-
+import { FaChessBishop } from "react-icons/fa";
+import { IoChatbubbles } from "react-icons/io5";
+import { MdLocalGroceryStore } from "react-icons/md";
+import { FaCamera } from "react-icons/fa";
 export function I({
     type,
     size = 20,
@@ -30,7 +33,7 @@ export function I({
         case 'alarm':
             return <BsFillAlarmFill size={size} className={className} />
         case 'game':
-            return <IoGameController size={size} className={className} />
+            return <FaChessBishop size={size} className={className} />
         case 'browser':
             return <IoBrowsers size={size} className={className} />
         case 'minimize':
@@ -41,9 +44,16 @@ export function I({
             return <IoMdClose size={size} className={className} />
         case 'more':
             return <TbMenu size={size} className={className} />
+        case 'chat':
+            return <IoChatbubbles size={size} className={className} />
         case 'manager':
             return <SiHiveBlockchain size={size} className={className} />
-        default:
+        case 'store':
+            return <MdLocalGroceryStore size={size} className={className} />
+        case 'camera':
+            return <FaCamera size={size} className={className} />
+    
+            default:
             return <CgSmileNone />
     }
 }
