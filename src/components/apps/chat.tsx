@@ -2,37 +2,28 @@ import { APP_DATA_TYPE } from "@/data/const"
 import { Window } from './window'
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import  { Messages }  from  '@/../../APPS/ChatApp'
 export function Chat({ data }: { data: APP_DATA_TYPE }) {
     const [messages, setMessages] = useState([]);
-    // State to store the current message
     const [currentMessage, setCurrentMessage] = useState('');
-
-    // Define socket in the component scope
-    const socket = io('http://localhost:3001'); // Connect to port 3001
+    const socket = io('http://localhost:3001'); 
 
     useEffect(() => {
-        // Listen for incoming messages
         socket.on('message', (message) => {
             console.log(message);
             setMessages((prevMessages) => [...prevMessages, message]);
         });
-
-        // Clean up the socket connection on unmount
         return () => {
             socket.disconnect();
         };
-    }, [socket]); // Make sure to include socket in the dependency array
-
+    }, [socket]);
     const sendMessage = () => {
-        // Send the message to the server
         socket.emit('message', currentMessage);
-        // Clear the currentMessage state
         setCurrentMessage('');
     };
-
     return (
         <Window data={data}>
-           <div>
+           {/* <div>
             {messages.map((message, index) => (
                 <p key={index}>{message}</p>
             ))}
@@ -44,7 +35,8 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
             />
 
             <button onClick={sendMessage}>Send</button>
-        </div>
+        </div> */}
+        <Messages/>
         </Window>
     )
 
@@ -320,6 +312,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
           </div>
         </div>
       </div> */}
+
     //   audio
     //   "use client"
     //   import React, { useState } from 'react';
