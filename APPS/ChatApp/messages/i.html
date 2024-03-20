@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resizable Div</title>
+<style>
+    #myDiv {
+        width: 200px;
+        height: 200px;
+        background-color: lightblue;
+        resize: horizontal; /* Allow horizontal resizing */
+        overflow: auto; /* Allow content to overflow and show scrollbars */
+        padding: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div id="myDiv">
+    <p>This is a resizable div.</p>
+</div>
+
+<script>
+    var startX, startWidth;
+
+    document.getElementById('myDiv').addEventListener('mousedown', function(event) {
+        startX = event.clientX;
+        startWidth = parseInt(document.defaultView.getComputedStyle(document.getElementById('myDiv')).width, 10);
+        document.documentElement.addEventListener('mousemove', doDrag, false);
+        document.documentElement.addEventListener('mouseup', stopDrag, false);
+    }, false);
+
+    function doDrag(event) {
+        var diffX = event.clientX - startX;
+        document.getElementById('myDiv').style.width = startWidth + diffX + 'px';
+    }
+
+    function stopDrag() {
+        document.documentElement.removeEventListener('mousemove', doDrag, false);
+        document.documentElement.removeEventListener('mouseup', stopDrag, false);
+    }
+</script>
+
+</body>
+</html>

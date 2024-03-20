@@ -97,7 +97,7 @@ export function Window({
     return (
         <div
             ref={window}
-            className={`select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
+            className={`  resize-x select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
             style={
              !data.fullscreen ? {
                     left: data.x,
