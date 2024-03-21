@@ -1,4 +1,12 @@
 export default function Conversation({whichConversation}) {
+
+    function conversationchossed(id:number){
+
+        whichConversation(id);
+
+    }
+
+
     return(
         <div className="h-full bg-white w-96 border border-black flex">
             <div className="flex flex-col w-full gap-4">
@@ -16,7 +24,6 @@ export default function Conversation({whichConversation}) {
                         </svg>
                     </div>
                 </div>
-
                 <div className="flex flex-row gap-1 bg-white/80 border rounded-md py-1 px-4 w-4/5 mx-auto">
                     <svg viewBox="0 0 344 384" height="26.72093023255814" width="17" className="text-gray-700">
                         <path fill="#000000" d="M170.5 192q-35.5 0-60.5-25t-25-60.5T110 46t60.5-25T231 46t25 60.5t-25 60.5t-60.5 25zm0 43q31.5 0 69.5 9t69.5 29.5T341 320v43H0v-43q0-26 31.5-46.5T101 244t69.5-9z"/>
@@ -41,7 +48,6 @@ export default function Conversation({whichConversation}) {
                             
                                 <div className="ml-4 text-xs text-black ">
                                     <img width="15" height="15" src="https://img.icons8.com/material-rounded/24/00FF32/100-percents.png" alt="Status Icon"/>
-                                    
                                 </div>
                             </div>
                             

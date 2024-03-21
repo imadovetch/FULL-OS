@@ -4,24 +4,7 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import  { Messages , Conversations }  from  '@/../../APPS/ChatApp'
 export function Chat({ data }: { data: APP_DATA_TYPE }) {
-    const [messages, setMessages] = useState([]);
-    const [currentMessage, setCurrentMessage] = useState('');
-    const socket = io('http://localhost:3001'); 
-
-    useEffect(() => {
-        socket.on('message', (message) => {
-            console.log(message);
-            setMessages((prevMessages) => [...prevMessages, message]);
-        });
-        return () => {
-            socket.disconnect();
-        };
-    }, [socket]);
-    const sendMessage = () => {
-        socket.emit('message', currentMessage);
-        setCurrentMessage('');
-    };
-
+    
     function Varfromconv(){}
     return (
         <Window data={data}>
@@ -40,7 +23,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
         </div> */}
         <div className="flex w-full h-full ">
         <Conversations whichConversation={Varfromconv}/>
-        <Messages/>
+        <Messages owner={1} receiver={2}/>
         </div>
         
         </Window>
