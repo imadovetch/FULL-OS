@@ -5,7 +5,7 @@ import { I } from "@/components"
 import { APP_DATA_TYPE } from "@/data/const"
 import { APPS_ACTIONS } from "@/data/store/apps"
 import { useGSAP } from "@gsap/react"
-import { useRef } from "react"
+import { useRef , useEffect, useState } from "react"
 import gsap from "gsap"
 
 export function Window({
@@ -17,7 +17,7 @@ export function Window({
 }>) {
 
     const dispatch = useDispatch()
-    const window = useRef(null)
+    const windowref = useRef(null)
 
     const funcUpdatePosition = (event: any) => {
         const [shiftX, shiftY] = [event.clientX - data.x, event.clientY - data.y]
@@ -64,21 +64,21 @@ export function Window({
     }
 
     useGSAP(() => {
-        if (data.hide) gsap.to(window.current, {
+        if (data.hide) gsap.to(windowref.current, {
             rotate: 15,
             scale: 0,
             duration: .5,
-        }); else gsap.to(window.current, {
+        }); else gsap.to(windowref.current, {
             rotate: 0,
             scale: 1,
             duration: .5,
         })
-    }, { scope: window, dependencies: [data.hide] })
+    }, { scope: windowref, dependencies: [data.hide] })
 
     useGSAP(() => {
 
         if (data.fullscreen) {
-            gsap.fromTo(window.current, {
+            gsap.fromTo(windowref.current, {
                 x: data.x,
                 y: data.y,
                 width: data.width,
@@ -92,12 +92,82 @@ export function Window({
             })
         }
 
-    }, { scope: window, dependencies: [data.fullscreen] })
+    }, { scope: windowref, dependencies: [data.fullscreen] })
+    
+    const [startX, setStartX] = useState<number | null>(null);
+    const [startY, setStartY] = useState<number | null>(null);
+    const [startWidth, setStartWidth] = useState<number | null>(null);
+    const [startHeight, setStartHeight] = useState<number | null>(null);
+    const [isDragging, setIsDragging] = useState(false);
+    const [resizing, setresizing] = useState(false);
 
+    useEffect(() => {
+        if (isDragging) {
+            document.documentElement.addEventListener('mousemove', handleDrag);
+            document.documentElement.addEventListener('mouseup', handleMouseUp);
+        } else {
+            document.documentElement.removeEventListener('mousemove', handleDrag);
+            document.documentElement.removeEventListener('mouseup', handleMouseUp);
+        }
+
+        return () => {
+            document.documentElement.removeEventListener('mousemove', handleDrag);
+            document.documentElement.removeEventListener('mouseup', handleMouseUp);
+        };
+    }, [isDragging]);
+
+    function handleMouseDown(event) {
+        const marginBorder = 10; 
+        
+        const rightEdge = data.x + data.width;
+        const bottomEdge = data.y + data.height;
+    
+        if (
+            (rightEdge - event.clientX <= marginBorder) ||
+            (bottomEdge - event.clientY <= marginBorder)
+        ) {
+            setresizing(!resizing);
+            setStartX(event.clientX);
+            setStartY(event.clientY);
+            setStartWidth(data.width);
+            setStartHeight(data.height);
+            setIsDragging(true);
+        }
+    }
+    
+
+    function handleDrag(event) {
+        if (!isDragging) return;
+
+        const diffX = event.clientX - startX!;
+        const diffY = event.clientY - startY!;
+        let finalWidth = startWidth! + diffX;
+        let finalHeight = startHeight! + diffY;
+
+        // You might want to adjust this restriction according to your needs
+        finalWidth = Math.max(finalWidth, 500);
+        finalHeight = Math.max(finalHeight, 500);
+
+        dispatch(APPS_ACTIONS.UPDATE({
+            id: data.id,
+            newProps: {
+                width: finalWidth,
+                height: finalHeight
+            }
+        }));
+    }
+
+    function handleMouseUp() {
+        setIsDragging(false);
+        setresizing(!resizing);
+    }
+    
     return (
         <div
-            ref={window}
-            className={`  resize-x select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
+            
+            ref={windowref}
+            
+            className={`  select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
             style={
              !data.fullscreen ? {
                     left: data.x,
@@ -133,8 +203,10 @@ export function Window({
                 </div>
 
             </div>
-
+            <div className={` ${resizing ? 'cursor-e-resize' : ''}  h-full`}  onMouseDown={handleMouseDown}>
             {children}
+            </div>
+            
 
         </div>
     )

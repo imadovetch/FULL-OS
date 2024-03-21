@@ -51,6 +51,14 @@ const s = createSlice({
                 } : app
             })
         },
+        RESIZE(state:APP_DATA_TYPE[],action :PayloadAction<{ id :number, newProps:{} }>){
+            return state.map(app =>{
+                return app.id === action.payload.id ? {
+                    ...app,
+                    ...action.payload.newProps
+                } : app
+            })
+        },
     }
 
 })

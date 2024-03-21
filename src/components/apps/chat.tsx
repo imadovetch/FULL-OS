@@ -2,7 +2,7 @@ import { APP_DATA_TYPE } from "@/data/const"
 import { Window } from './window'
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
-import  { Messages }  from  '@/../../APPS/ChatApp'
+import  { Messages , Conversations }  from  '@/../../APPS/ChatApp'
 export function Chat({ data }: { data: APP_DATA_TYPE }) {
     const [messages, setMessages] = useState([]);
     const [currentMessage, setCurrentMessage] = useState('');
@@ -21,6 +21,8 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
         socket.emit('message', currentMessage);
         setCurrentMessage('');
     };
+
+    function Varfromconv(){}
     return (
         <Window data={data}>
            {/* <div>
@@ -36,7 +38,11 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
 
             <button onClick={sendMessage}>Send</button>
         </div> */}
+        <div className="flex w-full h-full ">
+        <Conversations whichConversation={Varfromconv}/>
         <Messages/>
+        </div>
+        
         </Window>
     )
 
