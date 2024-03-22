@@ -1,15 +1,60 @@
+import { useState } from "react";
+
 export default function Conversation({whichConversation}) {
+    const [activeConversation, setActiveConversation] = useState(null);
 
-    function conversationchossed(id:number){
+    const [conversations, setConversations] = useState([
+        {
+            id: 1,
+            avatar: 'https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg',
+            title: 'New Movie! Expendables',
+            status: 'https://img.icons8.com/material-rounded/24/00FF32/100-percents.png',
+            unreadMessages: 3,
+            time: '12:45 pm'
+        },
+        {
+            id: 2,
+            avatar: 'https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg',
+            title: 'Project Discussion',
+            status: 'https://img.icons8.com/material-rounded/24/00FF32/100-percents.png',
+            unreadMessages: 1,
+            time: '1:30 pm'
+        },
+        {
+            id: 3,
+            avatar: 'https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg',
+            title: 'Team Meeting',
+            status: 'https://img.icons8.com/material-rounded/24/00FF32/100-percents.png',
+            unreadMessages: 2,
+            time: '2:15 pm'
+        },
+        {
+            id: 4,
+            avatar: 'https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg',
+            title: 'Weekly Update',
+            status: 'https://img.icons8.com/material-rounded/24/00FF32/100-percents.png',
+            unreadMessages: 0,
+            time: '3:00 pm'
+        },
+        // Add more conversation objects as needed
+    ]);
 
+    const handleConversationClick = (id) => {
+        console.log(`Clicked conversation ID: ${id}`);
+        setActiveConversation(id);
         whichConversation(id);
+    };
 
-    }
+    
+        
+        
+
+    
 
 
     return(
-        <div className="h-full bg-white w-96 border border-black flex">
-            <div className="flex flex-col w-full gap-4">
+        <div className="h-full bg-white w-96 border border-black flex   ">
+            <div className="flex flex-col w-full gap-4 h-full">
                 <div className="w-full border justify-center gap-4 py-2 px-3 bg-gray-200 flex items-center">
                     <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Avatar"/>
                     <div className="ml-4 flex items-center ">
@@ -31,44 +76,40 @@ export default function Conversation({whichConversation}) {
                     <input id="" name="" placeholder="Search contact" type="text" className="text-black px-2 rounded-md focus:outline-none flex-1"/>
                 </div>
 
-                <div className="bg-gray-100 border h-full p-4 rounded-md gap-2 w-full overflow-auto flex-1"> 
-                    <div className="px-3 border-t pt-2  mt-2 flex w-full items-center bg-gray-200 cursor-pointer rounded-md">
-                        <div className="relative">
-                    
-                            <img className="h-12 w-12 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="Contact Avatar"/>
-                    
-                            <span className="absolute bottom-0 right-0 inline-block w-3 h-3 bg-green-500 rounded-full"></span>
+                <div className=" bg-gray-100 border h-full p-4 rounded-md gap-2 w-full overflow-auto flex-1">
+            {conversations.map(conversation => (
+                <div 
+                    key={conversation.id} 
+                    className={`px-3 hover:cursor-pointer border-t pt-2 mt-2 flex w-full items-center cursor-pointer rounded-md ${activeConversation === conversation.id ? 'bg-black' : 'bg-gray-200 hover:bg-gray-300'}`}
+                    onClick={() => handleConversationClick(conversation.id)}
+                >
+                    <div className="relative flex-shrink-0">
+                        <img className="h-12 w-12 rounded-full" src={conversation.avatar} alt="Contact Avatar"/>
+                        <span className="absolute bottom-0 left-0 inline-block w-3 h-3 bg-green-500 rounded-full"></span>
+                    </div>
+                    <div className="ml-4 w-full border-b border-gray-300">
+                        <div className="flex items-center justify-between  w-full">
+                            <p className="text-black font-thin text-xl truncate">{conversation.title}</p>
+                            <div className="ml-4 text-xs text-black">
+                                <img width="15" height="15" src={conversation.status} alt="Status Icon"/>
+                            </div>
                         </div>
-                        <div className="ml-4 flex-1 border-b border-gray-300">
-                        
-                            <div className="flex items-center justify-between">
-                                <p className="text-black   font-thin   text-xl">
-                                    New Movie! Expendables 
-                                </p>
-                            
-                                <div className="ml-4 text-xs text-black ">
-                                    <img width="15" height="15" src="https://img.icons8.com/material-rounded/24/00FF32/100-percents.png" alt="Status Icon"/>
-                                </div>
-                            </div>
-                            
-                            <div className="flex items-center justify-between mt-2">
-                                <p className="text-gray-500 font-mono font-bold flex gap-2 items-center text-sm">
-                                    Get Andrés on ...
-                                    <div className="">
-                                        <div style={{ position: 'relative', display: 'inline-block' }}>
-                                            <img width="25" height="25" src="https://img.icons8.com/sf-black/25/A20000/filled-circle.png" alt="filled-circle"/>
-                                            <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '12px', color: '#fff' }}>3</div>
-                                        </div>
+                        <div className="flex items-center justify-between mt-2">
+                            <p className="text-gray-500 font-mono font-bold flex gap-2 items-center text-sm">
+                                Get Andrés on ...
+                                <div className="">
+                                    <div style={{ position: 'relative', display: 'inline-block' }}>
+                                        <img width="25" height="25" src="https://img.icons8.com/sf-black/25/A20000/filled-circle.png" alt="filled-circle"/>
+                                        <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '12px', color: '#fff' }}>{conversation.unreadMessages}</div>
                                     </div>
-
-                                </p>
-                                <p className="text-xs text-black">
-                                    12:45 pm
-                                </p>
-                            </div>
+                                </div>
+                            </p>
+                            <p className="text-xs text-black">{conversation.time}</p>
                         </div>
                     </div>
                 </div>
+            ))}
+        </div>
                 
 
 

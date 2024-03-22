@@ -21,9 +21,9 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
 
             <button onClick={sendMessage}>Send</button>
         </div> */}
-        <div className="flex w-full h-full ">
+        <div className="flex w-full h-full  overflow-hidden">
         <Conversations whichConversation={Varfromconv}/>
-        <Messages owner={1} receiver={2}/>
+        <Messages owner={1} totext={2}/>
         </div>
         
         </Window>
