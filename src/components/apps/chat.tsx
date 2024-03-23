@@ -3,9 +3,14 @@ import { Window } from './window'
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 import  { Messages , Conversations }  from  '@/../../APPS/ChatApp'
+type ConversationId = number | null;
 export function Chat({ data }: { data: APP_DATA_TYPE }) {
-    
-    function Varfromconv(){}
+    const [conversationid,setcovid] = useState<ConversationId>(null);  
+
+    function Varfromconv(id:number){
+      setcovid(id)
+      console.log(id)
+    }
     return (
         <Window data={data}>
            {/* <div>
@@ -23,7 +28,13 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
         </div> */}
         <div className="flex w-full h-full  overflow-hidden">
         <Conversations whichConversation={Varfromconv}/>
-        <Messages owner={1} totext={2}/>
+        {
+          !conversationid ?
+          <div>walo layjib</div>
+          :
+          <Messages owner={1} totext={conversationid}/>
+        }
+        
         </div>
         
         </Window>

@@ -24,6 +24,10 @@
     @apply border border-red-500
   }
 
+  .convchoosed{
+	background-color: rgb(58, 19, 199);
+	
+  }
 
 /* camera */
 video {

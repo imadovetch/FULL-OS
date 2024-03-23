@@ -15,6 +15,7 @@ io.on('connection', (socket) => {
 
     // Listen for incoming messages and broadcast to all clients
     socket.on('message', (message) => {
+      console.log( message);
         io.emit('message', message);
     });
 

@@ -2,44 +2,60 @@ import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 export default function Messages({owner , totext }) {
  
-    const [currentMessage, setCurrentMessage] = useState('');
-    const socket = io('http://localhost:3001'); 
-    const [messages, setMessages] = useState([]);
-    useEffect(() => {
-        socket.on('message', (message) => {
-            console.log(message);
-            if((message.receiver == totext && message.sender == owner)
-            || (message.receiver == owner && message.sender == totext)){
-              console.log(message)
-              setMessages((prevMessages) => [...prevMessages, message]);
-            }
-        });
-        return () => {
-            socket.disconnect();
-        };
-    }, [socket]);
+  const [currentMessage, setCurrentMessage] = useState('');
+  const [messages, setMessages] = useState([]);
+  const [socket, setSocket] = useState(null);
 
-    const sendMessage = () => {
-       var messagepack = {sender : 1, receiver : 2, msg:currentMessage};
-      
-        socket.emit('message', messagepack);
-        if((messagepack.receiver == totext && messagepack.sender == owner)
-            || (messagepack.receiver == owner && messagepack.sender == totext)){
-          setMessages((prevMessages) => [...prevMessages, messagepack]);
-          
+  useEffect(() => {
+      // Connect socket when component mounts
+      const newSocket = io('http://localhost:3001');
+      setSocket(newSocket);
+
+      // Disconnect socket when component unmounts
+      return () => {
+          if (newSocket) {
+              newSocket.disconnect();
           }
-        setCurrentMessage('');
-    };
+      };
+  }, []); // Empty dependency array to run effect only once
+
+  useEffect(() => {
+      if (!socket) return;
+
+      // Listen for incoming messages and update state
+      socket.on('message', (message) => {
+        console.log(message)
+          if ((message.receiver === totext && message.sender === owner) ||
+              (message.receiver === owner && message.sender === totext)) {
+              setMessages(prevMessages => [...prevMessages, message]);
+          }
+      });
+      setMessages([]);
+      // Cleanup socket listener when component unmounts
+      return () => {
+          socket.off('message');
+      };
+      
+  }, [socket, owner, totext]);
+
+  const sendMessage = () => {
+      if (!socket) return;
+      const messagepack = { sender: owner, receiver: totext, msg: currentMessage };
+      socket.emit('message', messagepack);
+      setCurrentMessage('');
+  };
 
     return (
          <div className="flex flex-col  h-full flex-auto">
         <div
           className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full p-4"
         >
+           
           <div className="flex flex-col h-full overflow-x-auto mb-4">
             <div className="flex flex-col h-full">
             return (
                 <div className="grid grid-cols-12 gap-y-2">
+                 
                   {messages.map((element, index) => {
                     if (element.sender === owner) {
                       return (
@@ -104,7 +120,7 @@ export default function Messages({owner , totext }) {
                 <input
                   type="text"
                   onChange={(e) => setCurrentMessage(e.target.value)}
-                  className="flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                  className="text-black flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                 />
                 <button
                   className="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
