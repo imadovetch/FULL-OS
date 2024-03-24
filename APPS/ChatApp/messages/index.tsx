@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+
 export default function Messages({owner , totext }) {
  
   const [currentMessage, setCurrentMessage] = useState('');
@@ -31,6 +32,37 @@ export default function Messages({owner , totext }) {
           }
       });
       setMessages([]);
+      const fetchmessages = async ()=>{
+        try {
+          const response = await fetch('/api/Getmessages', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json'
+              },
+              body: JSON.stringify({ user1: owner, user2: totext }) 
+          });
+  
+          if (!response.ok) {
+              throw new Error('Failed to fetch messages');
+          }
+  
+          const responseData = await response.json();
+            console.log('Messages fetched successfully:', responseData.messages);
+
+            const messagesToAdd = responseData.messages.map(message => {
+                if (Number(message.senderId) == owner) {
+                    return { sender: Number(message.senderId), receiver: totext, msg: message.content };
+                } else {
+                    return { sender: Number(message.senderId), receiver: owner, msg: message.content };
+                }
+            });
+            console.log(messagesToAdd)
+            setMessages(messagesToAdd);
+      } catch (error) {
+          console.error('Error fetching messages:', error);
+      }
+      }
+      fetchmessages();
       // Cleanup socket listener when component unmounts
       return () => {
           socket.off('message');
@@ -38,12 +70,37 @@ export default function Messages({owner , totext }) {
       
   }, [socket, owner, totext]);
 
-  const sendMessage = () => {
-      if (!socket) return;
-      const messagepack = { sender: owner, receiver: totext, msg: currentMessage };
-      socket.emit('message', messagepack);
-      setCurrentMessage('');
+  const sendMessage = async  () => {
+    if (!socket) return;
+    const messagepack = { sender: owner, receiver: totext, msg: currentMessage };
+    socket.emit('message', messagepack);
+    setCurrentMessage('');
+    const messageData = {
+      user1: owner, 
+      user2: totext, 
+      senderId: owner, 
+      content: currentMessage 
   };
+
+  try {
+      const response = await fetch('/api/conversations', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(messageData)
+      });
+
+      if (!response.ok) {
+          throw new Error('Failed to send message');
+      }
+
+      const responseData = await response.json();
+      console.log('Message sent successfully:', responseData);
+  } catch (error) {
+      console.error('Error sending message:', error);
+  }
+};
 
     return (
          <div className="flex flex-col  h-full flex-auto">
@@ -70,7 +127,7 @@ export default function Messages({owner , totext }) {
                           </div>
                         </div>
                       );
-                    } else if (element.receiver === owner) {
+                    } else if (element.sender === totext) {
                       return (
                         <div key={index} className="col-start-6 col-end-13 p-3 rounded-lg">
                           <div className="flex items-center justify-start flex-row-reverse">
