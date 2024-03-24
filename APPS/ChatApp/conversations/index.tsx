@@ -27,6 +27,14 @@ export default function Conversation({whichConversation}) {
         if (filteredConversations.length === 0 && searchText) {
             console.log('Empty');
             setnewfriends(true);
+            // fetch('http://localhost:8000/nonfriends',{
+            //     method: 'GET',
+            //     headers: {
+            //       'Content-Type': 'application/json',
+            //       'Accept': 'application/json',
+            //       // Add any other headers you need, such as Authorization
+            //     },
+            //   })
             setnonfriends([
                 { id: 1, name: 'imad', email: 'imad@example.com' },
                 { id: 2, name: 'ilyas', email: 'ilyas@example.com' },
