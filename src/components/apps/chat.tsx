@@ -2,6 +2,7 @@ import { APP_DATA_TYPE } from "@/data/const"
 import { Window } from './window'
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import Image from 'next/image';
 import  { Messages , Conversations }  from  '@/../../APPS/ChatApp'
 type ConversationId = number | null;
 export function Chat({ data }: { data: APP_DATA_TYPE }) {
@@ -26,13 +27,14 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
 
             <button onClick={sendMessage}>Send</button>
         </div> */}
-        <div className="flex w-full h-full  overflow-hidden">
-        <Conversations whichConversation={Varfromconv}/>
+        <div className="flex w-full h-full border-t-[1px]  overflow-hidden">
+        
+        <Conversations data={data}  whichConversation={Varfromconv}/>
         {
           !conversationid ?
-          <div>walo layjib</div>
+          <></>
           :
-          <Messages owner={1} totext={conversationid}/>
+          <Messages data={data} owner={1} totext={conversationid}/>
         }
         
         </div>

@@ -144,7 +144,6 @@ export function Window({
         let finalWidth = startWidth! + diffX;
         let finalHeight = startHeight! + diffY;
 
-        // You might want to adjust this restriction according to your needs
         finalWidth = Math.max(finalWidth, 500);
         finalHeight = Math.max(finalHeight, 500);
 

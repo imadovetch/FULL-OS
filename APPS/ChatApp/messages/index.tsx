@@ -1,29 +1,36 @@
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-export default function Messages({owner , totext }) {
+import { ChatGalery } from "../index"
+
+export default function Messages({owner ,data, totext }) {
  
   const [currentMessage, setCurrentMessage] = useState('');
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
+  const [ChatGalerie, setChatgalery] = useState(false);
+
+  function showChatGalery(){
+    setChatgalery(!ChatGalerie);
+  }
+  function getPhoto(){
+
+  }
 
   useEffect(() => {
-      // Connect socket when component mounts
       const newSocket = io('http://localhost:3001');
       setSocket(newSocket);
 
-      // Disconnect socket when component unmounts
       return () => {
           if (newSocket) {
               newSocket.disconnect();
           }
       };
-  }, []); // Empty dependency array to run effect only once
+  }, []); 
 
   useEffect(() => {
       if (!socket) return;
 
-      // Listen for incoming messages and update state
       socket.on('message', (message) => {
         console.log(message)
           if ((message.receiver === totext && message.sender === owner) ||
@@ -108,8 +115,12 @@ export default function Messages({owner , totext }) {
           className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full p-4"
         >
            
-          <div className="flex flex-col h-full overflow-x-auto mb-4">
-            <div className="flex flex-col h-full">
+          <div className="flex flex-col h-full overflow-x-auto mb-4 ">
+          <div className='h-16 w-full flex justify-start items-center shadow bg-white rounded-lg px-4'>
+            <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-10 w-10 rounded-lg  mr-4' />
+            <span className='text-lg ml-4 text-black font-mono'>Alice Moon</span>
+        </div>
+            <div className="flex flex-col h-full ">
             return (
                 <div className="grid grid-cols-12 gap-y-2">
                  
@@ -153,7 +164,7 @@ export default function Messages({owner , totext }) {
             className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
           >
             <div>
-              <button
+              <button onClick={()=>{showChatGalery()}}
                 className="flex items-center justify-center text-gray-400 hover:text-gray-600"
               >
                 <svg
@@ -171,6 +182,7 @@ export default function Messages({owner , totext }) {
                   ></path>
                 </svg>
               </button>
+              <ChatGalery data={data} status={ChatGalerie}/>
             </div>
             <div className="flex-grow ml-4">
               <div className="relative w-full">
