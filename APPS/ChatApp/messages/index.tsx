@@ -9,12 +9,16 @@ export default function Messages({owner ,data, totext }) {
   const [messages, setMessages] = useState([]);
   const [socket, setSocket] = useState(null);
   const [ChatGalerie, setChatgalery] = useState(false);
-
+  const [msgtype, setmessagetype] = useState('text');
+  const [photo, setphoto] = useState('');
   function showChatGalery(){
     setChatgalery(!ChatGalerie);
   }
-  function getPhoto(){
-
+  function getPhotoparent(photopath:string){
+    console.log('photois here' + photopath)
+    setphoto(photopath)
+    setmessagetype('image')
+    setCurrentMessage(photopath);
   }
 
   useEffect(() => {
@@ -58,9 +62,9 @@ export default function Messages({owner ,data, totext }) {
 
             const messagesToAdd = responseData.messages.map(message => {
                 if (Number(message.senderId) == owner) {
-                    return { sender: Number(message.senderId), receiver: totext, msg: message.content };
+                    return { sender: Number(message.senderId), receiver: totext, type:message.type, msg: message.content };
                 } else {
-                    return { sender: Number(message.senderId), receiver: owner, msg: message.content };
+                    return { sender: Number(message.senderId), receiver: owner, type:message.type ,msg: message.content };
                 }
             });
             console.log(messagesToAdd)
@@ -79,16 +83,17 @@ export default function Messages({owner ,data, totext }) {
 
   const sendMessage = async  () => {
     if (!socket) return;
-    const messagepack = { sender: owner, receiver: totext, msg: currentMessage };
+    const messagepack = { sender: owner, receiver: totext, type:msgtype, msg: currentMessage };
     socket.emit('message', messagepack);
     setCurrentMessage('');
     const messageData = {
       user1: owner, 
       user2: totext, 
       senderId: owner, 
-      content: currentMessage 
+      content: currentMessage ,
+      type:msgtype
   };
-
+  setmessagetype('text');
   try {
       const response = await fetch('/api/conversations', {
           method: 'POST',
@@ -121,42 +126,54 @@ export default function Messages({owner ,data, totext }) {
             <span className='text-lg ml-4 text-black font-mono'>Alice Moon</span>
         </div>
             <div className="flex flex-col h-full ">
-            return (
+            
                 <div className="grid grid-cols-12 gap-y-2">
                  
-                  {messages.map((element, index) => {
-                    if (element.sender === owner) {
-                      return (
-                        <div key={index} className="col-start-1 col-end-8 p-3 rounded-lg">
-                          <div className="flex flex-row items-center">
-                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                              A
-                            </div>
-                            <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
-                              <div className="text-black">{element.msg}</div>
-                            </div>
-                          </div>
+                {messages.map((element, index) => {
+              if (element.sender === owner) {
+                if (element.type == 'text') {
+                  return (
+                    <div key={index} className="col-start-1 col-end-8 p-3 rounded-lg">
+                      <div className="flex flex-row items-center">
+                        <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
+                        <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                          <div className="text-black">{element.msg}</div>
                         </div>
-                      );
-                    } else if (element.sender === totext) {
-                      return (
-                        <div key={index} className="col-start-6 col-end-13 p-3 rounded-lg">
-                          <div className="flex items-center justify-start flex-row-reverse">
-                            <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">
-                              A
-                            </div>
-                            <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                              <div className="text-black">{element.msg}</div>
-                            </div>
-                          </div>
+                      </div>
+                    </div>
+                  );
+                } else if (element.type === 'image') {
+                  return (
+                    <div key={index} className="col-start-1 col-end-8 p-3 rounded-lg">
+                      <div className="flex flex-row items-center">
+                        <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
+                        <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                          <img src={element.msg} alt="Message Image" />
                         </div>
-                      );
-                    } else {
-                      return null; // Handle other cases if necessary
-                    }
-                  })}
+                      </div>
+                    </div>
+                  );
+                } else if (element.type === 'audio') {
+
+                  return null;
+                }
+              } else if (element.sender === totext) {
+                return (
+                  <div key={index} className="col-start-6 col-end-13 p-3 rounded-lg">
+                    <div className="flex items-center justify-start flex-row-reverse">
+                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
+                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                        <div className="text-black">{element.msg}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              } else {
+                return null; 
+              }
+            })}
                 </div>
-              );
+              
 
             </div>
           </div>
@@ -182,7 +199,7 @@ export default function Messages({owner ,data, totext }) {
                   ></path>
                 </svg>
               </button>
-              <ChatGalery data={data} status={ChatGalerie}/>
+              <ChatGalery data={data} getphoto={getPhotoparent} status={ChatGalerie}/>
             </div>
             <div className="flex-grow ml-4">
               <div className="relative w-full">

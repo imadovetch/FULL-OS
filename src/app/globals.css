@@ -29,6 +29,21 @@
 	
   }
 
+  /* Chat */
+  .cardPhotoChat {
+	width: 100%;
+	margin: auto;
+	height: 200px;
+	border-radius: 5px;
+	background: #e0e0e0;
+	box-shadow: 2px 2px 3px #bebebe,
+				  -1px -1px 3px #ffffff;
+   }
+   .Chatphotoholder{
+	
+	background-color: rgba(75, 176, 219, 0.74);
+	border-radius:10px 0 10px 0;
+   }
 /* camera */
 video {
 	height: 100%;

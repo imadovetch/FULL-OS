@@ -6,8 +6,9 @@ import { Connecttomongodb } from '../../utils/modules';
 export default async function handler(req, res) {
     try {
         // Extract data from the request
-        const { user1, user2, senderId, content } = req.body;
-
+        const { user1, user2, senderId, content , type } = req.body;
+      
+        
         const sortedUserIds = [user1, user2].sort();
 
       
@@ -18,11 +19,11 @@ export default async function handler(req, res) {
         let conversation = await ConversationModel.findOne({ id: conversationId });
 
         if (conversation) {
-            conversation.msgs.push({ senderId, content });
+            conversation.msgs.push({ senderId, content , type });
         } else {
             conversation = await ConversationModel.create({
                 id: `between${user1}and${user2}`,
-                msgs: [{ senderId, content }]
+                msgs: [{ senderId, content , type}]
             });
         }
 
