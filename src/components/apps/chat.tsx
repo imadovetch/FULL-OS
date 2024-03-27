@@ -32,7 +32,11 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
         <Conversations data={data}  whichConversation={Varfromconv}/>
         {
           !conversationid ?
-          <></>
+           <div  className={` ${((data.width < 700) || data.fullscreen) ? 'hidden':''} flex-1 h-full bg-white ${data.fullscreen ? 'p-10' : 'p-3'}`}>
+           
+          <Image className={`h-full w-[${data.width > 700 ? (data.width - (data.width - 300))+'px': 'w-full'}]  select-none `} src="/undraw_Mobile_encryption_re_yw3o.png" alt="Mobile Encryption" width={1000} height={1000} />
+     
+             </div>
           :
           <Messages data={data} owner={1} totext={conversationid}/>
         }
@@ -43,6 +47,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
     )
 
 }
+// 
 {/* <div class="flex flex-col flex-auto h-full p-6">
         <div
           class="flex flex-col flex-auto flex-shrink-0 rounded-2xl bg-gray-100 h-full p-4"

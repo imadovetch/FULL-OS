@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState,useRef, useEffect } from 'react';
 import io from 'socket.io-client';
 
 import { ChatGalery } from "../index"
@@ -11,6 +11,8 @@ export default function Messages({owner ,data, totext }) {
   const [ChatGalerie, setChatgalery] = useState(false);
   const [msgtype, setmessagetype] = useState('text');
   const [photo, setphoto] = useState('');
+  const messagesRef = useRef(null);
+
   function showChatGalery(){
     setChatgalery(!ChatGalerie);
   }
@@ -19,6 +21,7 @@ export default function Messages({owner ,data, totext }) {
     setphoto(photopath)
     setmessagetype('image')
     setCurrentMessage(photopath);
+    setChatgalery(false);
   }
 
   useEffect(() => {
@@ -82,15 +85,25 @@ export default function Messages({owner ,data, totext }) {
   }, [socket, owner, totext]);
 
   const sendMessage = async  () => {
+    var contenttosend = '';
+    if(photo == ''){
+      contenttosend = currentMessage
+      
+    }else if( photo !== ''){
+      contenttosend = photo
+      setphoto('')
+    }
     if (!socket) return;
-    const messagepack = { sender: owner, receiver: totext, type:msgtype, msg: currentMessage };
+    const messagepack = { sender: owner, receiver: totext, type:msgtype, msg: contenttosend };
     socket.emit('message', messagepack);
     setCurrentMessage('');
+    
+   
     const messageData = {
       user1: owner, 
       user2: totext, 
       senderId: owner, 
-      content: currentMessage ,
+      content: contenttosend ,
       type:msgtype
   };
   setmessagetype('text');
@@ -112,22 +125,31 @@ export default function Messages({owner ,data, totext }) {
   } catch (error) {
       console.error('Error sending message:', error);
   }
+
+  if (messagesRef.current) {
+    console.log("hihhhh")
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }
 };
 
+function CancelSendingphotot(){
+      setphoto('');
+      setCurrentMessage('')
+}
     return (
          <div className="flex flex-col  h-full flex-auto">
         <div
-          className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full p-4"
+          className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full py-2 px-3"
         >
            
-          <div className="flex flex-col h-full overflow-x-auto mb-4 ">
-          <div className='h-16 w-full flex justify-start items-center shadow bg-white rounded-lg px-4'>
-            <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-10 w-10 rounded-lg  mr-4' />
-            <span className='text-lg ml-4 text-black font-mono'>Alice Moon</span>
+          <div ref={messagesRef} className="relative flex  items-center flex-col h-full overflow-y-auto mb-4  ">
+          <div className={` fixed m-auto  h-10 z-10 ${((data.width > 700) && (data.with < 2000) ) ?'hidden' : 'w-2/5'}  flex justify-start items-center shadow bg-white rounded-lg px-4`}>
+            <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-4/5 w-10 rounded-lg  mr-4' />
+            <span className='text-sm ml-1  text-black font-mono'>Alice Moon</span>
         </div>
-            <div className="flex flex-col h-full ">
+            <div   className="flex flex-col h-full  w-full">
             
-                <div className="grid grid-cols-12 gap-y-2">
+                
                  
                 {messages.map((element, index) => {
               if (element.sender === owner) {
@@ -172,7 +194,7 @@ export default function Messages({owner ,data, totext }) {
                 return null; 
               }
             })}
-                </div>
+                
               
 
             </div>
@@ -202,12 +224,29 @@ export default function Messages({owner ,data, totext }) {
               <ChatGalery data={data} getphoto={getPhotoparent} status={ChatGalerie}/>
             </div>
             <div className="flex-grow ml-4">
+              
               <div className="relative w-full">
-                <input
-                  type="text"
-                  onChange={(e) => setCurrentMessage(e.target.value)}
-                  className="text-black flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
-                />
+
+                  <div className='relative'>
+                    {
+                      photo !== '' && 
+
+                  <div onClick={()=>{CancelSendingphotot()}} className=' absolute  bg-white shadow rounded-lg p-1  bottom-11 right-0  w-3/5 h-40 border'>
+                    <img className='h-full w-full' src={photo} alt="" /> 
+                  
+                  </div>
+                    }
+
+                  <input
+                    type="text"
+                    value={photo === '' ? currentMessage : ''}
+                    onChange={(e) => setCurrentMessage(e.target.value)}
+                    className="text-black flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                  />
+
+                  </div>
+                
+                
                 <button
                   className="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
                 >
