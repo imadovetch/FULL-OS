@@ -27,13 +27,13 @@ export default async function handler(req, res) {
             });
         }
 
-        // Save the updated or new conversation to the database
+   
         await conversation.save();
 
-        // Send a success response
+
         res.status(200).json({ success: true, message: 'Message added to conversation successfully' });
     } catch (error) {
-        // Handle errors
+
         console.error('Error handling conversation:', error);
         res.status(500).json({ success: false, error: 'Server error' });
     }

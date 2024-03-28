@@ -63,7 +63,7 @@ export function Calculator({ data }: { data: APP_DATA_TYPE }) {
 
   return (
     <Window data={data}>
-      <div className="w-full h-full flex flex-col gap-2 p-2">
+      {/* <div className="w-full h-full flex flex-col gap-2 p-2">
         <div className="bg-dark-t p-2 rounded-md min-h-[100px] h-full">{result}</div>
         <div className="grid grid-cols-4 gap-2">
         {KEYS_LIST.map((key) => (
@@ -77,7 +77,11 @@ export function Calculator({ data }: { data: APP_DATA_TYPE }) {
         ))}
 
         </div>
-      </div>
+      </div> */}
+      <div className="p-2 w-full h-full">
+
+<iframe src="https://front-olive-seven.vercel.app/" frameborder="0" width='100%' height='100%'></iframe>
+</div>
     </Window>
   );
 }

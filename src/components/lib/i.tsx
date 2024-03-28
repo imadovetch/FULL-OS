@@ -52,6 +52,10 @@ export function I({
             return <MdLocalGroceryStore size={size} className={className} />
         case 'camera':
             return <FaCamera size={size} className={className} />
+        case 'weather':
+                return <MdLocalGroceryStore size={size} className={className} />
+        case 'yourlink':
+                return <FaCamera size={size} className={className} />
     
             default:
             return <CgSmileNone />
