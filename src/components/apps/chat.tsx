@@ -27,7 +27,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
 
             <button onClick={sendMessage}>Send</button>
         </div> */}
-        <div className="flex w-full h-full border-t-[1px]  overflow-hidden">
+        <div className="  flex w-full h-full border-t-[1px]  overflow-hidden">
         
         <Conversations data={data}  whichConversation={Varfromconv}/>
         {

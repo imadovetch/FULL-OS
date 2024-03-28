@@ -17,7 +17,7 @@ import { FaCamera } from "react-icons/fa";
 export function I({
     type,
     size = 20,
-    className = 'stroke-light'
+    className = 'text-app-light'
 }: {
     type: string,
     size?: 20 | 30 | 40 | 50,

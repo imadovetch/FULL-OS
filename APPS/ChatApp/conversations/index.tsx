@@ -144,7 +144,7 @@ export default function Conversation({data,whichConversation}) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` // Adding the token to the Authorization header
+                'Authorization': `Bearer ${token}` 
             },
             body: JSON.stringify(data) 
         })
@@ -152,7 +152,7 @@ export default function Conversation({data,whichConversation}) {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
-            return response.json(); 
+            return response.json();
         })
         .then(data => {
             console.log('Friend added successfully:', data);
@@ -223,12 +223,12 @@ export default function Conversation({data,whichConversation}) {
 
 
     return (
-        <div className={`h-full ${data.width < 700 && !activeConversation ? 'w-full':''} ${!data.fullscreen ? ((data.width < 800) && activeConversation ? 'hidden' :''): ''} bg-white min-w-96 border-r border-gray-200      border-black flex`}>
+        <div className={`h-full ${data.width < 700 && !activeConversation ? 'w-full':''} ${!data.fullscreen ? ((data.width < 800) && activeConversation ? 'hidden' :''): ''} bg-app-light min-w-96 border-r border-gray-200      border-app-dark flex`}>
             <div className="flex flex-col w-full gap-4 h-full">
                 <div className="w-full border justify-between  gap-4  p-4 bg-gray-200 flex items-center">
                     <div className=" w-3/5 flex justify-start gap-4 items-center">
                     <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Avatar"/>
-                        <span className="text-black flex gap-4 items-center ">User 
+                        <span className="text-app-dark flex gap-4 items-center ">User 
                         <img width="15" height="15" src="https://img.icons8.com/material-rounded/24/00FF32/100-percents.png"  alt="Status Icon"/>
 
                         </span>
@@ -247,7 +247,7 @@ export default function Conversation({data,whichConversation}) {
 
                     </div>
                 </div>
-                <div className="flex flex-row gap-1 bg-white/80 border rounded-md py-1 px-4 w-4/5 mx-auto">
+                <div className="flex flex-row gap-1 bg-app-shadow h-10 border rounded-md py-1 px-4 w-4/5 mx-auto">
                     <svg viewBox="0 0 344 384" height="26.72093023255814" width="17" className="text-gray-700">
                         <path fill="#000000" d="M170.5 192q-35.5 0-60.5-25t-25-60.5T110 46t60.5-25T231 46t25 60.5t-25 60.5t-60.5 25zm0 43q31.5 0 69.5 9t69.5 29.5T341 320v43H0v-43q0-26 31.5-46.5T101 244t69.5-9z"/>
                     </svg>
@@ -256,7 +256,7 @@ export default function Conversation({data,whichConversation}) {
                         name="search" 
                         placeholder="Search contact" 
                         type="text" 
-                        className="text-black px-2 rounded-md focus:outline-none flex-1 ml-2"
+                        className="text-app-dark px-2 rounded-md focus:outline-none flex-1 ml-2"
                         value={searchText}
                         onChange={(e) => filterConversations(e.target.value)}
                     />                
@@ -267,12 +267,12 @@ export default function Conversation({data,whichConversation}) {
                         showrequests ?(
                            
                             requests.map(request => (
-                                <div key={request.id} className="bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-4 flex items-center justify-between">
+                                <div key={request.id} className="bg-app-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-4 flex items-center justify-between">
                                     <div className="flex items-center">
                                         <img className="rounded-full mr-2" width="40" height="40" src={`https://i.pravatar.cc/150?u=${request.sender}`} alt={request.sender} />
                                         <div>
-                                            <p className="text-lg font-semibold text-black">{request.sender}</p>
-                                            <p className="text-sm text-black">{request.message}</p>
+                                            <p className="text-lg font-semibold text-app-dark">{request.sender}</p>
+                                            <p className="text-sm text-app-dark">{request.message}</p>
                                         </div>
                                     </div>
                                     <div className="  flex gap-4">
@@ -283,9 +283,9 @@ export default function Conversation({data,whichConversation}) {
                             ))
                          
                         ) : newfriend ? (
-                       <div className="w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                       <div className="w-full bg-app-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                        <div className="flex items-center justify-between px-4 py-3">
-                           <h5 className="text-2xl font-bold leading-none text-black dark:text-white  m-auto p-2">Add New friends</h5>
+                           <h5 className="text-2xl font-bold leading-none text-app-dark dark:text-app-light  m-auto p-2">Add New friends</h5>
                        </div>
                        <div className="divide-y divide-gray-200 dark:divide-gray-700">
                            {nonfriends.map(friend => (
@@ -296,11 +296,11 @@ export default function Conversation({data,whichConversation}) {
                                                <img className="w-12 h-12 rounded-full" src={`${friend.avatar}`} alt="Friend" />
                                            </div>
                                            <div className="ml-3">
-                                               <p className="text-sm font-medium text-black dark:text-white">{friend.name}</p>
+                                               <p className="text-sm font-medium text-app-dark dark:text-app-light">{friend.name}</p>
                                                <p className="text-sm text-gray-500 dark:text-gray-400">{friend.email}</p>
                                            </div>
                                        </div>
-                                       <div onClick={() => handleAddFriend(friend.id)} className="  rounded-sm hover:cursor-pointer hover:shadow  hover:scale-110  text-base font-semibold text-black dark:text-white">
+                                       <div onClick={() => handleAddFriend(friend.id)} className="  rounded-sm hover:cursor-pointer hover:shadow  hover:scale-110  text-base font-semibold text-app-dark dark:text-app-light">
                                            <img width="35" height="35" src="https://img.icons8.com/color/35/add-user-group-woman-woman.png" alt="Add Friend" />
                                        </div>
                                    </div>
@@ -324,8 +324,8 @@ export default function Conversation({data,whichConversation}) {
                                     </div>
                                     <div className="ml-4 w-full border-b border-gray-300">
                                         <div className="flex items-center justify-between w-full">
-                                            <p className="text-black font-thin text-xl truncate">{conversation.title}</p>
-                                            <div className="ml-4 text-xs text-black">
+                                            <p className="text-app-dark font-thin text-xl truncate">{conversation.title}</p>
+                                            <div className="ml-4 text-xs text-app-dark">
                                                 <img width="15" height="15" src={conversation.status} alt="Status Icon"/>
                                             </div>
                                         </div>
@@ -334,12 +334,12 @@ export default function Conversation({data,whichConversation}) {
                                                 Get Andrés on ...
                                                 <div className="">
                                                     <div style={{ position: 'relative', display: 'inline-block' }}>
-                                                        <img width="25" height="25" src="https://img.icons8.com/sf-black/25/A20000/filled-circle.png" alt="filled-circle"/>
+                                                        <img width="25" height="25" src="https://img.icons8.com/sf-app-dark/25/A20000/filled-circle.png" alt="filled-circle"/>
                                                         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '12px', color: '#fff' }}>{conversation.unreadMessages}</div>
                                                     </div>
                                                 </div>
                                             </p>
-                                            <p className="text-xs text-black">{conversation.time}</p>
+                                            <p className="text-xs text-app-dark">{conversation.time}</p>
                                         </div>
                                     </div>
                                 </div>

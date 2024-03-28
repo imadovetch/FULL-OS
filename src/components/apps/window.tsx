@@ -166,7 +166,7 @@ export function Window({
             
             ref={windowref}
             
-            className={`  select-none bg-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
+            className={`  select-none bg-app-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
             style={
              !data.fullscreen ? {
                     left: data.x,
@@ -180,7 +180,7 @@ export function Window({
             { data.fullscreen && <Effect />}
 
             <div
-                className="bg-dark-t flex items-center justify-between"
+                className="bg-app-dark flex items-center justify-between"
                 onMouseDown={funcUpdatePosition}
             >
 

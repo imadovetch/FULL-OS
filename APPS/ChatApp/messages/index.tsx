@@ -137,17 +137,17 @@ function CancelSendingphotot(){
       setCurrentMessage('')
 }
     return (
-         <div className="flex flex-col  h-full flex-auto">
+         <div className={`flex flex-col ${data.fullscreen ?'h-[95%]' : 'h-full'}  flex-auto`}>
         <div
-          className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full py-2 px-3"
+          className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full  px-3"
         >
            
-          <div ref={messagesRef} className="relative flex  items-center flex-col h-full overflow-y-auto mb-4  ">
-          <div className={` fixed m-auto  h-10 z-10 ${((data.width > 700) && (data.with < 2000) ) ?'hidden' : 'w-2/5'}  flex justify-start items-center shadow bg-white rounded-lg px-4`}>
+          <div ref={messagesRef} className="border relative flex  items-center flex-col h-full overflow-y-auto   ">
+          <div className={` fixed m-auto  h-12 bg-app-shadow z-10 ${((data.width > 800)) ?'w-1/5' : 'w-2/5'}  flex justify-start items-center shadow bg-app-light rounded-lg px-4`}>
             <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-4/5 w-10 rounded-lg  mr-4' />
-            <span className='text-sm ml-1  text-black font-mono'>Alice Moon</span>
+            <span className='text-sm ml-1  text-app-dark font-mono'>Alice Moon</span>
         </div>
-            <div   className="flex flex-col h-full  w-full">
+            <div   className="flex flex-col    w-full">
             
                 
                  
@@ -155,10 +155,10 @@ function CancelSendingphotot(){
               if (element.sender === owner) {
                 if (element.type == 'text') {
                   return (
-                    <div key={index} className="col-start-1 col-end-8 p-3 rounded-lg">
+                    <div key={index} className={`col-start-1 ${index === 0 ?'mt-10' : ''} col-end-8 p-3 rounded-lg`}>
                       <div className="flex flex-row items-center">
                         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
-                        <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                        <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl">
                           <div className="text-black">{element.msg}</div>
                         </div>
                       </div>
@@ -166,10 +166,10 @@ function CancelSendingphotot(){
                   );
                 } else if (element.type === 'image') {
                   return (
-                    <div key={index} className="col-start-1 col-end-8 p-3 rounded-lg">
+                    <div key={index} className={`col-start-1 ${index === 0 ?'mt-10' : ''} col-end-8 p-3 rounded-lg`}>
                       <div className="flex flex-row items-center">
                         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
-                        <div className="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl">
+                        <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl">
                           <img src={element.msg} alt="Message Image" />
                         </div>
                       </div>
@@ -181,7 +181,7 @@ function CancelSendingphotot(){
                 }
               } else if (element.sender === totext) {
                 return (
-                  <div key={index} className="col-start-6 col-end-13 p-3 rounded-lg">
+                  <div key={index} className={`col-start-6 ${index === 0 ?'mt-10' : ''} col-end-13 p-3 rounded-lg`}>
                     <div className="flex items-center justify-start flex-row-reverse">
                       <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
                       <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
@@ -200,7 +200,7 @@ function CancelSendingphotot(){
             </div>
           </div>
           <div
-            className="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+            className="flex flex-row items-center h-16 rounded-xl bg-app-light w-full px-4"
           >
             <div>
               <button onClick={()=>{showChatGalery()}}
@@ -231,7 +231,7 @@ function CancelSendingphotot(){
                     {
                       photo !== '' && 
 
-                  <div onClick={()=>{CancelSendingphotot()}} className=' absolute  bg-white shadow rounded-lg p-1  bottom-11 right-0  w-3/5 h-40 border'>
+                  <div onClick={()=>{CancelSendingphotot()}} className=' absolute  bg-app-light shadow rounded-lg p-1  bottom-11 right-0  w-3/5 h-40 border'>
                     <img className='h-full w-full' src={photo} alt="" /> 
                   
                   </div>
@@ -270,7 +270,7 @@ function CancelSendingphotot(){
             <div className="ml-4">
               <button
               onClick={sendMessage}
-                className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-app-light px-4 py-1 flex-shrink-0"
               >
                 <span>Send</span>
                 <span className="ml-2">

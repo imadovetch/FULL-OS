@@ -10,7 +10,7 @@ import { STORE_DATA_TYPE } from '@/data/store'
 export function Header() {
 
     return (
-        <div className="bg-dark-t flex items-center z-50 justify-between">
+        <div className="bg-app-dark  flex items-center z-50 justify-between">
             <Apps />
             <Information />
         </div>
@@ -31,11 +31,11 @@ function Apps() {
                     return (
                         <button
                             key={name}
-                            className={`btn-simple relative group ${active_apps.includes(name) ? 'active' : 'hidden'}`}
+                            className={` btn-simple  relative group ${active_apps.includes(name) ? 'active' : 'hidden'}`}
                             onClick={() => {  dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) }}
                         >
                             <Title text={name} side="bottom" />
-                            <I type={name} />
+                            <I type={name} className={'text-white'} />
                         </button>
                     )
                 })
@@ -62,7 +62,7 @@ function Information() {
         }, [])
 
         return (
-            <div className="flex items-center gap-1 font-bold">
+            <div className="flex items-center gap-1 font-bold text-app-light">
                 <span>{funcGetHour()}</span>
                 <span>:</span>
                 <span>{funcGetMin()}</span>
@@ -84,8 +84,8 @@ function Information() {
             <div>
                 {
                     connection
-                        ? <I type='online' />
-                        : <I type='offline' />
+                        ? <I type='online' className='text-app-light' />
+                        : <I type='offline' className='text-app-light'/>
                 }
             </div>
         )

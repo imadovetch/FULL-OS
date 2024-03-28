@@ -4,14 +4,33 @@
 
 @layer base {
 
-  html {
-    --dark: theme(colors.zinc.950);
-    --dark-t: theme(colors.zinc.900);
-    --light: theme(colors.zinc.100);
-    --shadow-dark: #00000030;
-    --shadow-light: #ffffff30;
-    --primary: theme(colors.emerald.300);
-  }
+	html {
+		--app-dark: theme(colors.slate.950);
+		--app--dark: theme(colors.slate.900);
+		--app--dark: theme(colors.slate.800);
+		--app-light: theme(colors.slate.100);
+		--app--light: theme(colors.slate.200);
+		--app-shadow: #00000025;
+		--app-primary: theme(colors.lime.600);
+		--error: theme(colors.red.600);
+		--success: theme(colors.green.600);
+		--danger: theme(colors.yellow.600);
+		--text : theme(colors.black);
+	  }
+	
+	  html[theme="dark"] {
+		--app-dark: theme(colors.slate.100);
+		--app--dark: theme(colors.slate.200);
+		--app--dark: theme(colors.slate.300);
+		--app-light: theme(colors.slate.950);
+		--app--light: theme(colors.slate.900);
+		--app-shadow: #00000025;
+		--app-primary: theme(colors.lime.300);
+		--error: theme(colors.red.300);
+		--success: theme(colors.green.300);
+		--danger: theme(colors.yellow.300);
+		--text : theme(colors.white);
+	  }
 
   body {
     background-color: var(--dark);
@@ -25,7 +44,7 @@
   }
 
   .convchoosed{
-	background-color: rgba(75, 175, 219, 0.552);
+	background-color: rgba(23, 134, 153, 0.552);
 	
   }
 
@@ -264,21 +283,41 @@ video {
 	transition: bottom 2s ease, opacity 2s ease;
 }
 
+/* Containers */
+.main {
+    @apply w-screen bg-app--dark h-screen flex flex-col items-center p-4 animate-toright
+  }
+
+  
+
+  .center {
+    @apply flex justify-center items-center gap-4
+  }
+
+  .full {
+    @apply w-full h-full
+  }
 }
 
 @layer components {
 
+	.btn-base {
+		@apply
+		bg-app-primary text-app-light font-bold py-2 px-4 rounded-full hover:ring-2 capitalize
+		hover:ring-app-light hover:scale-110 duration-300 shadow-lg cursor-pointer outline-none
+	  }
+
   .btn-simple {
-    @apply w-full h-full p-1 hover:bg-shadow-light
+    @apply bg-app-dark w-full h-full p-1 hover:bg-app-light
   }
 
   .btn-simple.active {
-    @apply bg-shadow-light
+    @apply bg-app-dark
   }
 
 
   .btn-dark {
-    @apply bg-dark-t p-2 duration-300 hover:bg-shadow-light rounded-md
+    @apply bg-app-dark p-2 duration-300 hover:bg-app-light rounded-md
   }
   .appsbackground{
 
@@ -401,9 +440,123 @@ video {
 	  .checkbox-wrapper-10 .tgl-flip:checked + .tgl-btn:active:after {
 		transform: rotateY(20deg);
 	  }
+
+	  .containerpatern {
+		
+		width: 100%;
+		height: 100%;
+border-radius: 5px;
+border: .5px solid rgba(81, 80, 80, 0.538);
+box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+
+		--s: 600px;
+		--c1: #b2b2b2;
+		--c2: #ffffff;
+		--c3: #d9d9d9;
+	  
+		--_g: var(--c3) 0 120deg, #0000 0;
+		background: conic-gradient(from -60deg at 50% calc(100% / 3), var(--_g)),
+		  conic-gradient(from 120deg at 50% calc(200% / 3), var(--_g)),
+		  conic-gradient(
+			from 60deg at calc(200% / 3),
+			var(--c3) 60deg,
+			var(--c2) 0 120deg,
+			#0000 0
+		  ),
+		  conic-gradient(from 180deg at calc(100% / 3), var(--c1) 60deg, var(--_g)),
+		  linear-gradient(
+			90deg,
+			var(--c1) calc(100% / 6),
+			var(--c2) 0 50%,
+			var(--c1) 0 calc(500% / 6),
+			var(--c2) 0
+		  );
+		background-size: calc(1.732 * var(--s)) var(--s);
+		  
+	}
+	.authfront{
+		box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+	}
+	.authphoto{
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+		border: 2px solid white;
+		background-color: #d9d9d9;
+	}
+	  
 }
 
 @layer utilities {
+	.animate-toright {
+		animation: kfr-toright 1s;
+	  }
+	
+	  @keyframes kfr-toright {
+		from {
+		  transform: translate(-100%);
+		  opacity: 0;
+		}
+	  }
+	  @keyframes ripple {
+		0% {
+		  background-color: transparent;
+		}
+	  
+		30% {
+		  background-color: var(--cell-color);
+		}
+	  
+		60% {
+		  background-color: transparent;
+		}
+	  
+		100% {
+		  background-color: transparent;
+		}
+	  }
+	  .animate-toleft {
+		animation: kfr-toleft 2s;
+	  }
+	
+	  @keyframes kfr-toleft {
+		from {
+		  transform: translate(100%);
+		  opacity: 0;
+		}
+	  }
+	
+	  .animate-rotate45 {
+		animation: kfr-rotate45 2s;
+	  }
+	
+	  @keyframes kfr-rotate45 {
+		from {
+		  transform: rotate(45deg);
+		  opacity: 0;
+		}
+	  }
+	  .clignote {
+		animation: clignotes 1.5s infinite;
+	  }
+	
+	  @keyframes clignotes {
+		0% {
+		  opacity: 0;
+		}
+		100% {
+		  opacity: 1;
+		}}
+	
+	  .animate-zoom {
+		animation: kfr-zoom 2s;
+	  }
+	
+	  @keyframes kfr-zoom {
+		from {
+		  transform: scale(0);
+		  opacity: 0;
+		}
+	  }
+
   .animate-move {
     animation: kfr-animate-move 1s infinite;
   }

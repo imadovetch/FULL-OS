@@ -9,13 +9,18 @@ const config: Config = {
   ],
   theme: {
     extend: {
-      colors:{
-        'dark': 'var(--dark)',
-        'dark-t': 'var(--dark-t)',
-        'light': 'var(--light)',
-        'shadow-light': 'var(--shadow-light)',
-        'shadow-dark': 'var(--shadow-dark)',
-        'primary': 'var(--primary)',
+      colors: {
+        'app-dark': 'var(--app-dark)',
+        'app--dark': 'var(--app--dark)',
+        'app-light': 'var(--app-light)',
+        'app--light': 'var(--app--light)',
+        'app-primary': 'var(--app-primary)',
+        'app-shadow': 'var(--app-shadow)',
+        'app-error': 'var(--error)',
+        'app-success' : 'var(--success)',
+        'app-danger' : 'var(--danger)',
+        'quotes':'var(--quotes)',
+        'app---dark':'var(--app---dark)',
       }
     },
   },

@@ -24,7 +24,7 @@ export function Shortcuts(){
                             onClick={() => { active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}}
                         >
                             <Title text={'chat'} side="top" />
-                            <I type={name} size={30} className={'icon'} />
+                            <I type={name} size={30} className={'icon text-app-light'} />
                         </button>
                     )
                 })
