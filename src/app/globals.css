@@ -308,7 +308,7 @@ video {
 	  }
 
   .btn-simple {
-    @apply bg-app-dark w-full h-full p-1 hover:bg-app-light
+    @apply bg-app-dark w-full h-full p-1  hover:scale-105 hover:cursor-pointer hover:bg-gray-700
   }
 
   .btn-simple.active {
@@ -482,7 +482,9 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3)
 		border: 2px solid white;
 		background-color: #d9d9d9;
 	}
-	  
+	  .windowshadow{
+		box-shadow: rgba(255, 255, 255, 0.623) 0px 1px 1px, rgba(236, 245, 121, 0.273) 0px 0px 1px 1px;	  
+	}
 }
 
 @layer utilities {

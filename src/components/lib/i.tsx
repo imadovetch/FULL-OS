@@ -14,6 +14,9 @@ import { FaChessBishop } from "react-icons/fa";
 import { IoChatbubbles } from "react-icons/io5";
 import { MdLocalGroceryStore } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
+import { TiWeatherPartlySunny } from "react-icons/ti";
+import { SiLinkerd } from "react-icons/si";
+
 export function I({
     type,
     size = 20,
@@ -53,9 +56,9 @@ export function I({
         case 'camera':
             return <FaCamera size={size} className={className} />
         case 'weather':
-                return <MdLocalGroceryStore size={size} className={className} />
+                return <TiWeatherPartlySunny size={size} className={className} />
         case 'yourlink':
-                return <FaCamera size={size} className={className} />
+                return <SiLinkerd size={size} className={className} />
     
             default:
             return <CgSmileNone />

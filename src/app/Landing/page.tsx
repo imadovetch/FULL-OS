@@ -3,9 +3,10 @@
 import Link from "next/link";
 import { I, Title } from '@/components'
 import { useState , useEffect } from "react";
+import { BACKEND_LINK } from "@/data/const"
 
 export default function Register() {
-  const urlback = 'http://localhost:8000/';
+  const urlback = BACKEND_LINK;
   
   const [auth,setauth] = useState(true)
   const [secondregister,setregisterphase] = useState(false)
@@ -45,8 +46,8 @@ export default function Register() {
     })
     .then(data => {
         console.log('Login successful:', data);
-        setCookie("token", data.token, 1);
-
+        setCookie("token", data.message, 1);
+        
         //redirect
     })
     .catch(error => {
@@ -54,7 +55,8 @@ export default function Register() {
     });
 }
 
-function setCookie(name:string, value:string, daysToExpire:number) {
+function setCookie(name:string, value:any, daysToExpire:number) {
+  console.log(value + 'tuvio')
   const date = new Date();
   date.setTime(date.getTime() + (daysToExpire * 24 * 60 * 60 * 1000));
   const expires = "expires=" + date.toUTCString();

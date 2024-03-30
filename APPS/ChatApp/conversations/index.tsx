@@ -1,7 +1,11 @@
 import { useState , useEffect} from "react";
-const token = 'your_token_here';
 
+import { BACKEND_LINK } from "@/data/const"
+import { gettoken  } from "../../../utils/modules"
 export default function Conversation({data,whichConversation}) {
+    const token = gettoken('token');
+    if (!token) console.log('jri 3liiih'); 
+    
     const [activeConversation, setActiveConversation] = useState(null);
     const [searchText, setSearchText] = useState(null);
     const [filteredConversations, setFilteredConversations] = useState([]);
@@ -12,7 +16,7 @@ export default function Conversation({data,whichConversation}) {
     const [requests, setRequests] = useState([]);
     const [notifclicked, setchatnotif] = useState(false);
   
-    const urlback = 'http://localhost:8000/'
+    const urlback = BACKEND_LINK;
     const togglenotif = () => {
         setchatnotif(!notifclicked)
         fetch(urlback+'api/updateusersettings', {
@@ -20,7 +24,7 @@ export default function Conversation({data,whichConversation}) {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${token}` 
+                'Authorization': token 
             },
             body: JSON.stringify({
                 type:'chat',
@@ -52,7 +56,7 @@ export default function Conversation({data,whichConversation}) {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}` 
+                    'Authorization': token 
                 },
                 body: JSON.stringify({
                     status : status,
@@ -79,7 +83,7 @@ export default function Conversation({data,whichConversation}) {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}` 
+                    'Authorization': token 
                 },
                 body: JSON.stringify({
 
@@ -111,7 +115,7 @@ export default function Conversation({data,whichConversation}) {
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
-                'Authorization': `Bearer ${token}` 
+                'Authorization': token 
             },
             body: JSON.stringify({
 
@@ -144,7 +148,7 @@ export default function Conversation({data,whichConversation}) {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
-                'Authorization': `Bearer ${token}` 
+                'Authorization': token 
             },
             body: JSON.stringify(data) 
         })
@@ -196,7 +200,7 @@ export default function Conversation({data,whichConversation}) {
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
-                    'Authorization': `Bearer ${token}` 
+                    'Authorization': token 
                 },
                 body: JSON.stringify({
 

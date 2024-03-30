@@ -166,7 +166,7 @@ export function Window({
             
             ref={windowref}
             
-            className={`  select-none bg-app-dark origin-center absolute flex flex-col z-50 rounded-md shadow-md`}
+            className={`  windowshadow  select-none bg-app-dark origin-center absolute flex flex-col z-50 rounded-md `}
             style={
              !data.fullscreen ? {
                     left: data.x,
@@ -180,13 +180,13 @@ export function Window({
             { data.fullscreen && <Effect />}
 
             <div
-                className="bg-app-dark flex items-center justify-between"
+                className="bg-app-dark flex items-center   justify-between"
                 onMouseDown={funcUpdatePosition}
             >
 
-                <div className="flex items-center p-2">
+                <div className="flex items-center  p-2">
                     <I type={data.name} />
-                    <span className="capitalize font-bold px-2">{data.name}</span>
+                    <span className="capitalize text-app--light font-bold px-2">{data.name}</span>
                 </div>
 
                 <div className="flex">
@@ -202,7 +202,7 @@ export function Window({
                 </div>
 
             </div>
-            <div className={` ${resizing ? 'cursor-e-resize' : ''}  h-full`}  onMouseDown={handleMouseDown}>
+            <div className={` ${resizing ? 'cursor-e-resize' : ''} border-t border-inherit   h-full`}  onMouseDown={handleMouseDown}>
             {children}
             </div>
             

@@ -80,7 +80,7 @@ export function Calculator({ data }: { data: APP_DATA_TYPE }) {
       </div> */}
       <div className="p-2 w-full h-full">
 
-<iframe src="https://front-olive-seven.vercel.app/" frameborder="0" width='100%' height='100%'></iframe>
+<iframe src="https://calc-app-20d23.web.app/" frameborder="0" width='100%' height='100%'></iframe>
 </div>
     </Window>
   );

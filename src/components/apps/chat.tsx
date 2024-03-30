@@ -2,12 +2,14 @@ import { APP_DATA_TYPE } from "@/data/const"
 import { Window } from './window'
 import { useState, useEffect } from 'react';
 import io from 'socket.io-client';
+import { getuserid } from "../../../utils/modules";
 import Image from 'next/image';
+
 import  { Messages , Conversations }  from  '@/../../APPS/ChatApp'
 type ConversationId = number | null;
 export function Chat({ data }: { data: APP_DATA_TYPE }) {
     const [conversationid,setcovid] = useState<ConversationId>(null);  
-
+    const userid = getuserid();
     function Varfromconv(id:number){
       setcovid(id)
       console.log(id)
@@ -38,7 +40,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
      
              </div>
           :
-          <Messages data={data} owner={1} totext={conversationid}/>
+          <Messages data={data} owner={userid} totext={conversationid}/>
         }
         
         </div>

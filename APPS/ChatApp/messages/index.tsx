@@ -61,13 +61,15 @@ export default function Messages({owner ,data, totext }) {
           }
   
           const responseData = await response.json();
-            console.log('Messages fetched successfully:', responseData.messages);
+            console.log('Mfetched successfully:', responseData.messages);
+            console.log('njibojl' ,owner , 'j' ,totext ,'j' )
 
             const messagesToAdd = responseData.messages.map(message => {
-                if (Number(message.senderId) == owner) {
-                    return { sender: Number(message.senderId), receiver: totext, type:message.type, msg: message.content };
+              console.log(owner + 'j' +totext + 'j' + message.senderId)
+                if (message.senderId == owner) {
+                    return { sender: message.senderId, receiver: totext, type:message.type, msg: message.content };
                 } else {
-                    return { sender: Number(message.senderId), receiver: owner, type:message.type ,msg: message.content };
+                    return { sender: message.senderId, receiver: owner, type:message.type ,msg: message.content };
                 }
             });
             console.log(messagesToAdd)
@@ -180,6 +182,7 @@ function CancelSendingphotot(){
                   return null;
                 }
               } else if (element.sender === totext) {
+                if (element.type == 'text') {
                 return (
                   <div key={index} className={`col-start-6 ${index === 0 ?'mt-10' : ''} col-end-13 p-3 rounded-lg`}>
                     <div className="flex items-center justify-start flex-row-reverse">
@@ -190,6 +193,21 @@ function CancelSendingphotot(){
                     </div>
                   </div>
                 );
+                }else if (element.type === 'image') {
+                  return (
+                    <div key={index} className={`col-start-6 ${index === 0 ?'mt-10' : ''} col-end-13 p-3 rounded-lg`}>
+                    <div className="flex items-center justify-start flex-row-reverse">
+                      <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
+                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
+                          <img src={element.msg} alt="Message Image" />
+                        </div>
+                      </div>
+                    </div>
+                  );
+                } else if (element.type === 'audio') {
+
+                  return null;
+                }
               } else {
                 return null; 
               }
