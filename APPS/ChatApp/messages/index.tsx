@@ -25,7 +25,7 @@ export default function Messages({owner ,data, totext }) {
   }
 
   useEffect(() => {
-      const newSocket = io('https://full-os.vercel.app:3001');
+      const newSocket = io('http://localhost:3001');
       setSocket(newSocket);
 
       return () => {
