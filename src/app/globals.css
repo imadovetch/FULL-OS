@@ -11,7 +11,7 @@
 		--app-light: theme(colors.slate.100);
 		--app--light: theme(colors.slate.200);
 		--app-shadow: #00000025;
-		--app-primary: theme(colors.lime.600);
+		--app-primary: theme(colors.lime.100);
 		--error: theme(colors.red.600);
 		--success: theme(colors.green.600);
 		--danger: theme(colors.yellow.600);
@@ -321,7 +321,8 @@ video {
   }
   .appsbackground{
 
-    box-shadow: rgba(212, 208, 208, 0.4) 0px 2px 4px, rgba(216, 216, 216, 0.3) 0px 7px 13px -3px, rgba(247, 247, 247, 0.2) 0px -3px 0px , rgba(59, 59, 59, 0.06) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(2, 2, 2, 0.09) 0px 8px 4px, rgba(71, 71, 71, 0.09) 0px 16px 8px, rgba(92, 92, 92, 0.137) 0px 32px 16px;  }
+	box-shadow: rgba(135, 156, 180, 0.3) 0px 0px 0px 3px;
+}
 	.checkbox-wrapper-10 .tgl {
 		display: none;
 	  }
@@ -485,7 +486,123 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3)
 	  .windowshadow{
 		box-shadow: rgba(255, 255, 255, 0.623) 0px 1px 1px, rgba(236, 245, 121, 0.273) 0px 0px 1px 1px;	  
 	}
-}
+	.cardshadow{
+		box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset;
+	}
+				.custom-scrollbar {
+			overflow-y: scroll;
+		  }
+		  
+		  
+		  .custom-scrollbar::-webkit-scrollbar {
+			width: 8px; 
+		  }
+		  
+		  /* Track */
+		  .custom-scrollbar::-webkit-scrollbar-track {
+			background: #fefefe90; 
+		  }
+		  
+		  
+		  /* Handle */
+		  .custom-scrollbar::-webkit-scrollbar-thumb {
+			background: #888; 
+			border-radius: 4px; 
+		  }
+		  
+		  /* Handle on hover */
+		  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+			background: #555; 
+		  }
+		  /* The switch - the box around the slider */
+#theme-toggle-button {
+	font-size: 17px;
+	position: relative;
+	display: inline-block;
+	width: 7em;
+	cursor: pointer;
+  }
+  
+  /* Hide default HTML checkbox */
+  #toggle {
+	opacity: 0;
+	width: 0;
+	height: 0;
+  }
+  
+  #container,
+  #patches,
+  #stars,
+  #button,
+  #sun,
+  #moon,
+  #cloud {
+	transition-property: all;
+	transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+	transition-duration: 0.25s;
+  }
+  
+  /* night sky background */
+  #toggle:checked + svg #container {
+	fill: #2b4360;
+  }
+  
+  /* move button to right when checked */
+  #toggle:checked + svg #button {
+	transform: translate(28px, 2.333px);
+  }
+  
+  /* show/hide sun and moon based on checkbox state */
+  #sun {
+	opacity: 1;
+  }
+  
+  #toggle:checked + svg #sun {
+	opacity: 0;
+  }
+  
+  #moon {
+	opacity: 0;
+  }
+  
+  #toggle:checked + svg #moon {
+	opacity: 1;
+  }
+  
+  /* show or hide background items on checkbox state */
+  #cloud {
+	opacity: 1;
+  }
+  
+  #toggle:checked + svg #cloud {
+	opacity: 0;
+  }
+  
+  #stars {
+	opacity: 0;
+  }
+  
+  #toggle:checked + svg #stars {
+	opacity: 1;
+  }
+  .settings-background {
+
+	background-image: url('https://previews.123rf.com/images/natashapankina/natashapankina1606/natashapankina160600041/58183413-les-outils-de-construction-de-griffonnage-dessin%C3%A9-seamless-background-main-set-vector-ic%C3%B4nes-de.jpg');
+	
+
+	
+	background-repeat: no-repeat; /* Do not repeat the background image */
+	
+	backdrop-filter: blur(100px);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a drop shadow */
+	
+  }
+  .settingsdivsbackground{
+	background-color: rgba(253, 251, 251, 0.918);
+	
+	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+	}
 
 @layer utilities {
 	.animate-toright {

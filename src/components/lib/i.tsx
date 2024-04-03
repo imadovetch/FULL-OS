@@ -16,11 +16,12 @@ import { MdLocalGroceryStore } from "react-icons/md";
 import { FaCamera } from "react-icons/fa";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { SiLinkerd } from "react-icons/si";
+import { IoSettingsOutline } from "react-icons/io5";
 
 export function I({
     type,
     size = 20,
-    className = 'text-app-light'
+    className = 'text-app-light fill-app-light'
 }: {
     type: string,
     size?: 20 | 30 | 40 | 50,
@@ -59,7 +60,10 @@ export function I({
                 return <TiWeatherPartlySunny size={size} className={className} />
         case 'yourlink':
                 return <SiLinkerd size={size} className={className} />
-    
+        case 'Settings':
+                return <IoSettingsOutline size={size} className={className} />
+        
+              
             default:
             return <CgSmileNone />
     }

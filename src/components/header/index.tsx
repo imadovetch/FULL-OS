@@ -6,11 +6,25 @@ import { AVAILABLE_APPS } from '@/data/const'
 import { useDispatch, useSelector } from 'react-redux'
 import { APPS_ACTIONS } from '@/data/store/apps'
 import { STORE_DATA_TYPE } from '@/data/store'
+import {default as Notifications} from "./notification"
+import {default as Navnotif} from "./Navnotif"
 
 export function Header() {
-
+    const [ expandnotif , setexpandnotif] = useState(false)
+    
+    function expanthenotif(){
+        setexpandnotif(!expandnotif)
+    }
     return (
-        <div className="bg-app-dark  flex items-center z-50 justify-between">
+        <div
+        onMouseDown={expanthenotif}
+        
+        className="bg-app-dark w-full  relative  hover:cursor-grab flex items-center z-50 justify-between px-2">
+            {
+                expandnotif &&
+
+            <Navnotif/>
+            }
             <Apps />
             <Information />
         </div>
@@ -35,7 +49,7 @@ function Apps() {
                             onClick={() => {  dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) }}
                         >
                             <Title text={name} side="bottom" />
-                            <I type={name} className={'text-white'} />
+                            <I type={name} className={'text-app-light'} />
                         </button>
                     )
                 })
@@ -62,11 +76,11 @@ function Information() {
         }, [])
 
         return (
-            <div className="flex items-center gap-1 font-bold text-app-light">
-                <span>{funcGetHour()}</span>
-                <span>:</span>
-                <span>{funcGetMin()}</span>
-                <span>{funcGetPeriod()}</span>
+            <div className="flex h-8   items-center gap-1 font-bold text-app-light">
+                <div>{funcGetHour()}</div>
+                <div>:</div>
+                <div>{funcGetMin()}</div>
+                <div>{funcGetPeriod()}</div>
             </div>
         )
     }

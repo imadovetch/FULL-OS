@@ -34,7 +34,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
         <Conversations data={data}  whichConversation={Varfromconv}/>
         {
           !conversationid ?
-           <div  className={` ${((data.width < 700) || data.fullscreen) ? 'hidden':''} flex-1 h-full bg-white ${data.fullscreen ? 'p-10' : 'p-3'}`}>
+           <div  className={` ${((data.width < 700) || data.fullscreen) ? 'hidden':''} flex-1 h-full bg-app-light ${data.fullscreen ? 'p-10' : 'p-3'}`}>
            
           <Image className={`h-full w-[${data.width > 700 ? (data.width - (data.width - 300))+'px': 'w-full'}]  select-none `} src="/undraw_Mobile_encryption_re_yw3o.png" alt="Mobile Encryption" width={1000} height={1000} />
      
@@ -65,7 +65,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
                       A
                     </div>
                     <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+                      class="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl"
                     >
                       <div>Hey How are you today?</div>
                     </div>
@@ -79,7 +79,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
                       A
                     </div>
                     <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+                      class="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl"
                     >
                       <div>
                         Lorem ipsum dolor sit amet, consectetur adipisicing
@@ -127,7 +127,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
                       A
                     </div>
                     <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+                      class="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl"
                     >
                       <div>Lorem ipsum dolor sit amet !</div>
                     </div>
@@ -162,7 +162,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
                       A
                     </div>
                     <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+                      class="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl"
                     >
                       <div>
                         Lorem ipsum dolor sit amet consectetur adipisicing elit.
@@ -179,14 +179,14 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
                       A
                     </div>
                     <div
-                      class="relative ml-3 text-sm bg-white py-2 px-4 shadow rounded-xl"
+                      class="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl"
                     >
                       <div class="flex flex-row items-center">
                         <button
                           class="flex items-center justify-center bg-indigo-600 hover:bg-indigo-800 rounded-full h-8 w-10"
                         >
                           <svg
-                            class="w-6 h-6 text-white"
+                            class="w-6 h-6 text-app-light"
                             fill="none"
                             stroke="currentColor"
                             viewBox="0 0 24 24"
@@ -247,7 +247,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
             </div>
           </div>
           <div
-            class="flex flex-row items-center h-16 rounded-xl bg-white w-full px-4"
+            class="flex flex-row items-center h-16 rounded-xl bg-app-light w-full px-4"
           >
             <div>
               <button
@@ -297,7 +297,7 @@ export function Chat({ data }: { data: APP_DATA_TYPE }) {
             </div>
             <div class="ml-4">
               <button
-                class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-white px-4 py-1 flex-shrink-0"
+                class="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-app-light px-4 py-1 flex-shrink-0"
               >
                 <span>Send</span>
                 <span class="ml-2">

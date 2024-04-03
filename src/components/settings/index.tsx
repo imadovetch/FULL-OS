@@ -12,6 +12,7 @@ export function Settings(){
             onClick={() => dispatch(SETTINGS_ACTIONS.CHANGE_THEME({theme: 'light'}))}
         >
             {settings.theme}
+            
         </div>
     )
 }

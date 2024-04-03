@@ -11,6 +11,7 @@ import { Browser } from './browser'
 import { Chat } from './chat'
 import { Yourlink } from './yourlink'
 import { Weather } from './weather'
+import { Settings } from './Settings'
 
 
 export function Apps() {
@@ -32,6 +33,7 @@ export function Apps() {
                     if(data.name === AVAILABLE_APPS[6]) return <Chat key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[7]) return <Weather key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[8]) return <Yourlink key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[9]) return <Settings key={data.id} data={data} />
                     // ['manager', 'calculator', 'alarm', 'game', 'browser']
                 })
             }

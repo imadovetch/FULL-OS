@@ -139,12 +139,12 @@ function CancelSendingphotot(){
       setCurrentMessage('')
 }
     return (
-         <div className={`flex flex-col ${data.fullscreen ?'h-[95%]' : 'h-full'}  flex-auto`}>
+         <div className={`flex flex-col ${data.fullscreen ?'h-[100%]' : 'h-full'}  flex-auto`}>
         <div
           className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full  px-3"
         >
            
-          <div ref={messagesRef} className="border relative flex  items-center flex-col h-full overflow-y-auto   ">
+          <div ref={messagesRef} className="border relative h-[95%] flex  items-center flex-col overflow-y-auto   ">
           <div className={` fixed m-auto  h-12 bg-app-shadow z-10 ${((data.width > 800)) ?'w-1/5' : 'w-2/5'}  flex justify-start items-center shadow bg-app-light rounded-lg px-4`}>
             <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-4/5 w-10 rounded-lg  mr-4' />
             <span className='text-sm ml-1  text-app-dark font-mono'>Alice Moon</span>
@@ -161,7 +161,7 @@ function CancelSendingphotot(){
                       <div className="flex flex-row items-center">
                         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
                         <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl">
-                          <div className="text-black">{element.msg}</div>
+                          <div className="text-app-dark">{element.msg}</div>
                         </div>
                       </div>
                     </div>
@@ -188,7 +188,7 @@ function CancelSendingphotot(){
                     <div className="flex items-center justify-start flex-row-reverse">
                       <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
                       <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                        <div className="text-black">{element.msg}</div>
+                        <div className="text-app-dark">{element.msg}</div>
                       </div>
                     </div>
                   </div>
@@ -218,7 +218,7 @@ function CancelSendingphotot(){
             </div>
           </div>
           <div
-            className="flex flex-row items-center h-16 rounded-xl bg-app-light w-full px-4"
+            className="flex flex-row items-center h-16 rounded-xl mt-auto bg-app-light w-full px-4"
           >
             <div>
               <button onClick={()=>{showChatGalery()}}
@@ -259,7 +259,7 @@ function CancelSendingphotot(){
                     type="text"
                     value={photo === '' ? currentMessage : ''}
                     onChange={(e) => setCurrentMessage(e.target.value)}
-                    className="text-black flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                    className="text-app-dark flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                   />
 
                   </div>

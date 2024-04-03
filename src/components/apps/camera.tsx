@@ -43,19 +43,22 @@ export function Camera({ data }: CameraProps) {
                 const isWebcam = videoElement?.getAttribute("data-iswebcam") === "true";
                 if (videoElement) {
                     videoElement.classList.add("flipping-out");
+                    var x = false
                     videoElement.onanimationend = () => {
-                        if (isWebcam) {
+                        if (x) {
                             if (videoElement.srcObject) {
                                 const tracks = (videoElement.srcObject as MediaStream).getTracks();
                                 tracks.forEach((track) => track.stop());
                             }
                             videoElement.srcObject = null;
                             videoElement.setAttribute("crossorigin", "anonymous");
-                            videoElement.src = "https://ismailvtl.github.io/images/video-codepen-dance.mp4";
+                            
+                            videoElement.src = "https://s3.amazonaws.com/www-inside-design/uploads/2014/08/video-blog-post-v21.gif";
                             videoElement.setAttribute("data-iswebcam", "false");
                             videoElement.classList.remove("flipping-out");
                             videoElement.classList.add("flipping-in");
                             videoElement.play();
+                            
                         } else {
                           if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
                             navigator.mediaDevices.getUserMedia({ video: { width: { ideal: 1920 }, height: { ideal: 1080 } } })
@@ -172,7 +175,7 @@ export function Camera({ data }: CameraProps) {
         <Window data={data}>
             <div className="imageContainer">
                 <div className="imageContainerInner">
-                    <video id="videoElement" src="https://ismailvtl.github.io/images/video-codepen-dance.mp4" autoPlay loop muted data-iswebcam="false" poster="https://images.pexels.com/videos/8688878/pexels-photo-8688878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" crossOrigin="anonymous" preload="metadata" ></video>
+                    <video id="videoElement" src="https://s3.amazonaws.com/www-inside-design/uploads/2014/08/video-blog-post-v21.gif" autoPlay loop muted data-iswebcam="false" poster="https://static.thenounproject.com/png/282960-200.png" crossOrigin="anonymous" preload="metadata" ></video>
                     <div className="flash"></div>
                 </div>
                 <div className="controls">
@@ -182,12 +185,12 @@ export function Camera({ data }: CameraProps) {
                 </div>
                 <div className="otherControls">
                     <button className="thumbnail">
-                        <img src="https://images.pexels.com/videos/8688878/pexels-photo-8688878.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" alt="" />
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQg1mQfgebfAAZ3tZAzsuu-Fm1dZzU0FW9O9Bv_rL7alw&s" alt="" />
                     </button>
                     <button className="camerabutton"></button>
                     <button className="switchCamera">
                         <span className="material-symbols-outlined">
-                            <img width="100" height="100" src="https://img.icons8.com/ios-filled/100/replace.png" alt="replace" />
+                            <img width="100" height="100" src="https://img.icons8.com/ios-filled/ffffff/replace.png" alt="replace" />
                         </span>
                     </button>
                 </div>
