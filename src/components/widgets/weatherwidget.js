@@ -5,7 +5,7 @@ import './add.css';
 
 const WeatherWidgetPage = () => {
     const [weather, setWeather] = useState({});
-    const [location, setLocation] = useState('');
+    const [location, setLocation] = useState('Asfi');
     const [date, setDate] = useState('');
 
     useEffect(() => {

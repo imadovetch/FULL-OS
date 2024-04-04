@@ -28,9 +28,21 @@ const [darkTheme, setDarkTheme] = useState('light')
         
 
       ])
+      const [imageUrl, setImageUrl] = useState('');
 
       const containerapp = useSelector((store:STORE_DATA_TYPE) => store.AppContainer)
     const dispatch = useDispatch()
+    function  handleFileChange1(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        setImageUrl(reader.result);
+        Getphotoclicked(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
   const handleColorChange1 = (event) => {
     setColer1(event.target.value);
   };
@@ -64,14 +76,17 @@ const [darkTheme, setDarkTheme] = useState('light')
 			document.documentElement.setAttribute('theme', 'light')
 			setDarkTheme('light')
 		}
-    
+  
+  
 
   }
     return (
         <Window data={data}>
-            <div className="p-2 flex w-full h-full  overflow-hidden  bg-app-light ">
+            <div  className="p-2 flex w-full h-full  overflow-hidden  bg-app-light ">
             
-    <div className=" flex flex-col    w-1/6">
+    <div className={`  ${((data.width > 800) || data.fullscreen) ?'flex' :'hidden'}   w-1/6`}
+    
+    >
         <div className="flex flex-col flex-grow pt-5  custom-scrollbar bg-app-light">
             
 
@@ -139,7 +154,7 @@ const [darkTheme, setDarkTheme] = useState('light')
             </div>
         </div>
     </div>
-            <div className="flex flex-col settings-background  h-full w-5/6 border   custom-scrollbar bg-app-light ">
+            <div className={`flex flex-col settings-background  h-full ${data.width < 800 ?'w-full' :'w-4/5'} border   custom-scrollbar bg-app-light `}>
       
         <main>
   <div className="py-6 gap-5 flex flex-col h-full">
@@ -154,17 +169,21 @@ const [darkTheme, setDarkTheme] = useState('light')
             key={index}
             onClick={() => { Getphotoclicked(photo) }}
             style={{ backgroundImage: `url(${photo})`, backgroundSize: 'cover' }}
-            className="cardshadow hover:cursor-pointer w-52 h-48 rounded-lg shadow-lg"
+            className="cardshadow hover:cursor-pointer w-24 h-24  rounded-lg shadow-lg"
             ></div>
         ))}
 
 </div>
+<div className="input-div mx-auto  mt-6">
+<input className="input" name="file" type="file" onChange={handleFileChange1} />
+<svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon"><polyline points="16 16 12 12 8 16"></polyline><line y2="21" x2="12" y1="12" x1="12"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
+</div>
 
-      <button className="cursor-pointer mx-auto mt-4  transition-all bg-blue-500 text-app-light px-6 py-2 rounded-lg
+      <button className="cursor-pointer mx-auto mt-4  transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
             border-blue-600
-            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-            active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
-            Change Background
+            border-b-[4px] hover:brightness-110 
+            ">
+            Save Background
         </button>
     </div>
     <div className="px-4 py-5 mx-auto w-full flex flex-col justify-center sm:px-6 md:px-8 settingsdivsbackground">
@@ -178,15 +197,15 @@ const [darkTheme, setDarkTheme] = useState('light')
       key={index}
       onClick={()=>{GetColerclicked(colors)}}
       style={{ background: `${colors}` }}
-      className="cardshadow hover:cursor-pointer w-52 h-48 rounded-lg shadow-lg"
+      className="cardshadow hover:cursor-pointer w-24 h-24 rounded-lg shadow-lg"
     ></div>
   ))}
 </div>
 
-      <button className="cursor-pointer mx-auto mt-4  transition-all bg-blue-500 text-app-light px-6 py-2 rounded-lg
+      <button className="cursor-pointer mx-auto mt-4  transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
             border-blue-600
-            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-            active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+            border-b-[4px] hover:brightness-110 
+            ">
             Apply
         </button>
     </div>
@@ -269,7 +288,7 @@ const [darkTheme, setDarkTheme] = useState('light')
   onClick={Togglethem}
   />
   <svg viewBox="0 0 69.667 44" xmlns="http://www.w3.org/2000/svg">
-    <g transform="translate(3.5 3.5)" data-name="Component 15 – 1" id="Component_15_1">
+    <g transform="translate(3.5 3.5)" data-name="Component 15 â 1" id="Component_15_1">
       
       
       <g filter="url(#container)" transform="matrix(1, 0, 0, 1, -3.5, -3.5)">

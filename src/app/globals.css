@@ -11,7 +11,7 @@
 		--app-light: theme(colors.slate.100);
 		--app--light: theme(colors.slate.200);
 		--app-shadow: #00000025;
-		--app-primary: theme(colors.lime.100);
+		--app-primary: theme(colors.lime.600);
 		--error: theme(colors.red.600);
 		--success: theme(colors.green.600);
 		--danger: theme(colors.yellow.600);
@@ -47,7 +47,77 @@
 	background-color: rgba(23, 134, 153, 0.552);
 	
   }
+  /* photoinpu */
+  .input-div {
+	position: relative;
+	
+	width: 70px;
+	height: 70px;
+	border-radius: 50%;
+	border: 2px solid rgb(1, 235, 252);
+	display: flex;
+	background-color: rgba(183, 225, 228, 0.349);;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	box-shadow: none;
+  }
+  .input-div:hover{
+		box-shadow: 0px 0px 20px rgb(1, 235, 252) , inset 0px 0px 5px rgb(1, 235, 252),0px 0px 5px rgb(255, 255, 255);
 
+	border: none;
+	  
+  }
+  .icon {
+	color: rgb(1, 235, 252);
+	font-size: 2rem;
+	cursor: pointer;
+	animation:  2s linear infinite;
+  
+  }
+  
+  .input {
+	position: absolute;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	cursor: pointer !important;
+  }
+  
+  @keyframes flicker {
+	0% {
+	  border: 2px solid rgb(1, 235, 252);
+	  box-shadow: 0px 0px 100px rgb(1, 235, 252) , inset 0px 0px 10px rgb(1, 235, 252),0px 0px 5px rgb(255, 255, 255);
+	}
+  
+	5% {
+	  border: none;
+	  box-shadow: none;
+	}
+  
+	10% {
+	  border: 2px solid rgb(1, 235, 252);
+	  box-shadow: 0px 0px 100px rgb(1, 235, 252) , inset 0px 0px 10px rgb(1, 235, 252),0px 0px 5px rgb(255, 255, 255);
+	}
+  
+	25% {
+	  border: none;
+	  box-shadow: none;
+	}
+  
+	30% {
+	  border: 2px solid rgb(1, 235, 252);
+	  box-shadow: 0px 0px 100px rgb(1, 235, 252) , inset 0px 0px 10px rgb(1, 235, 252),0px 0px 5px rgb(255, 255, 255);
+	}
+  
+	100% {
+	  border: 2px solid rgb(1, 235, 252);
+	  box-shadow: 0px 0px 100px rgb(1, 235, 252) , inset 0px 0px 10px rgb(1, 235, 252),0px 0px 5px rgb(255, 255, 255);
+	}
+  }
+  
+  
+  
   /* Chat */
   .cardPhotoChat {
 	width: 100%;
@@ -216,6 +286,7 @@ video {
 		margin: 0;
 	}
   /* end cam */
+  
 }
 
 /* Styles for flip animation */
