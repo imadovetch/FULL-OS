@@ -16,7 +16,7 @@ export function Shortcuts(){
     const active_apps = apps.map(app => app.name)
     
     return (
-       <div className='    w-3/5 m-auto grid  grid-cols-8   items-start h-56'>
+       <div className='    w-3/5 m-auto grid  grid-cols-8 z-30  items-start h-56'>
             {
                 AVAILABLE_APPS.map(name => {
                     return (
@@ -25,7 +25,7 @@ export function Shortcuts(){
                             style={{
                                 background: `${icons.COLER}`,
                               }}
-                            className={`mx-auto  iconholder flex ))} to-green-400  justify-center items-center appsbackground rounded-lg p-4 z-40   hover:cursor-pointer  ${active_apps.includes(name) ? 'active' : ''}`}
+                            className={`mx-auto  iconholder flex ))} to-green-400  justify-center items-center appsbackground rounded-lg p-4   hover:cursor-pointer  ${active_apps.includes(name) ? 'active' : ''}`}
                             onClick={() => { active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}}
                         >
                             <Title text={'chat'} side="top" />

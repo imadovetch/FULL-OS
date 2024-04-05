@@ -94,79 +94,118 @@ export function Window({
 
     }, { scope: windowref, dependencies: [data.fullscreen] })
     
-    const [startX, setStartX] = useState<number | null>(null);
-    const [startY, setStartY] = useState<number | null>(null);
-    const [startWidth, setStartWidth] = useState<number | null>(null);
-    const [startHeight, setStartHeight] = useState<number | null>(null);
     const [isDragging, setIsDragging] = useState(false);
-    const [resizing, setresizing] = useState(false);
+  const [resizing, setResizing] = useState(false);
+  const [startX, setStartX] = useState(null);
+  const [startY, setStartY] = useState(null);
+  const [startWidth, setStartWidth] = useState(null);
+  const [startHeight, setStartHeight] = useState(null);
+  const [resizePosition, setResizePosition] = useState(null);
 
-    useEffect(() => {
-        if (isDragging) {
-            document.documentElement.addEventListener('mousemove', handleDrag);
-            document.documentElement.addEventListener('mouseup', handleMouseUp);
-        } else {
-            document.documentElement.removeEventListener('mousemove', handleDrag);
-            document.documentElement.removeEventListener('mouseup', handleMouseUp);
-        }
-
-        return () => {
-            document.documentElement.removeEventListener('mousemove', handleDrag);
-            document.documentElement.removeEventListener('mouseup', handleMouseUp);
-        };
-    }, [isDragging]);
-
-    function handleMouseDown(event) {
-        const marginBorder = 10; 
-        
-        const rightEdge = data.x + data.width;
-        const bottomEdge = data.y + data.height;
-    
-        if (
-            (rightEdge - event.clientX <= marginBorder) ||
-            (bottomEdge - event.clientY <= marginBorder)
-        ) {
-            setresizing(!resizing);
-            setStartX(event.clientX);
-            setStartY(event.clientY);
-            setStartWidth(data.width);
-            setStartHeight(data.height);
-            setIsDragging(true);
-        }
-    }
-    
-
-    function handleDrag(event) {
-        if (!isDragging) return;
-
-        const diffX = event.clientX - startX!;
-        const diffY = event.clientY - startY!;
-        let finalWidth = startWidth! + diffX;
-        let finalHeight = startHeight! + diffY;
-
-        finalWidth = Math.max(finalWidth, 500);
-        finalHeight = Math.max(finalHeight, 500);
-
-        dispatch(APPS_ACTIONS.UPDATE({
-            id: data.id,
-            newProps: {
-                width: finalWidth,
-                height: finalHeight
-            }
-        }));
+  useEffect(() => {
+    if (isDragging) {
+      document.documentElement.addEventListener('mousemove', Resize);
+      document.documentElement.addEventListener('mouseup', handleMouseUp);
+    } else {
+      document.documentElement.removeEventListener('mousemove', Resize);
+      document.documentElement.removeEventListener('mouseup', handleMouseUp);
     }
 
-    function handleMouseUp() {
-        setIsDragging(false);
-        setresizing(!resizing);
+    return () => {
+      document.documentElement.removeEventListener('mousemove', Resize);
+      document.documentElement.removeEventListener('mouseup', handleMouseUp);
+    };
+  }, [isDragging]);
+
+  function handleMouseUp() {
+    setIsDragging(false);
+    setResizing(!resizing);
+    setResizePosition(null);
+  }
+
+  function Resize(event) {
+    console.log(resizePosition);
+    if (!startX || !startY || !startWidth || !startHeight || !resizePosition) return;
+
+    const diffX = event.clientX - startX;
+    const diffY = event.clientY - startY;
+
+    let finalWidth = startWidth + diffX;
+    let finalHeight = startHeight + diffY;
+
+    // Ensure final width and height are at least 500
+    finalWidth = Math.max(finalWidth, 500);
+    finalHeight = Math.max(finalHeight, 500);
+
+    switch (resizePosition) {
+        case 'top':
+            dispatch(
+                APPS_ACTIONS.UPDATE({
+                    id: data.id,
+                    newProps: {
+                        y: data.y + diffY,
+                        height: (startHeight - diffY) > 500 ? startHeight - diffY : 500,
+                    },
+                })
+            );
+            break;
+        case 'left':
+            dispatch(
+                APPS_ACTIONS.UPDATE({
+                    id: data.id,
+                    newProps: {
+                        x: data.x + diffX,
+                        width: (startWidth - diffX) > 500 ? startWidth - diffX : 500,
+                    },
+                })
+            );
+            break;
+        case 'right':
+            dispatch(
+                APPS_ACTIONS.UPDATE({
+                    id: data.id,
+                    newProps: {
+                        width: finalWidth,
+                    },
+                })
+            );
+            break;
+        case 'bottom':
+            dispatch(
+                APPS_ACTIONS.UPDATE({
+                    id: data.id,
+                    newProps: {
+                        height: finalHeight,
+                    },
+                })
+            );
+            break;
+        default:
+            break;
     }
+}
+
+
+
+  function handleMouseDown(position, event) {
+    setIsDragging(true);
+    console.log(position + 'j')
+    setResizePosition(position);
+    setStartX(event.clientX);
+    setStartY(event.clientY);
     
+    setStartWidth(500);
+    setStartHeight(500);
+  }
+  function resizehovred(position, event){
+    
+  }
     return (
         <div
             
             ref={windowref}
             
-            className={`  windowshadow  select-none bg-app-dark origin-center absolute flex flex-col z-50 rounded-md `}
+            className={`  windowshadow relative select-none bg-app-dark origin-center absolute flex flex-col z-40 rounded-md `}
             style={
              !data.fullscreen ? {
                     left: data.x,
@@ -176,8 +215,27 @@ export function Window({
                 } : {}
             }
         >
+            <div>
+            <div 
+    onMouseMove={(event) => resizehovred('left', event)}
+    onMouseDown={(event) => handleMouseDown('left', event)} 
+    className="hover:cursor-e-resize absolute h-full w-1 z-50 border top-0 left-0"
+></div>
+<div 
+    onMouseDown={(event) => handleMouseDown('right', event)} 
+    className="hover:cursor-e-resize   absolute h-full z-50 w-1 border top-0 right-0"
+></div>
+<div
+    onMouseDown={(event) => handleMouseDown('top', event)}
+    className="hover:cursor-ns-resize absolute h-1 z-50 w-full border top-0"
+></div>
+<div 
+    onMouseDown={(event) => handleMouseDown('bottom', event)} 
+    className="hover:cursor-ns-resize absolute h-1 z-50 w-full border bottom-0"
+></div>
 
-            { data.fullscreen && <Effect />}
+    </div>
+                { data.fullscreen && <Effect />}
 
             <div
                 className="bg-app-dark flex items-center   justify-between"
@@ -202,7 +260,7 @@ export function Window({
                 </div>
 
             </div>
-            <div className={` ${resizing ? 'cursor-e-resize' : ''} border-t border-inherit   h-full`}  onMouseDown={handleMouseDown}>
+            <div className={`  cursor-${resizing} relative border-t border-inherit   h-full`}  >
             {children}
             </div>
             

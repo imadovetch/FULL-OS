@@ -123,6 +123,7 @@ export default function Conversation({data,whichConversation}) {
         })
         .then(response => response.json())
         .then(data => {
+            console.log(data)
             setconversations(data.map(user => ({
                 id: user.UniqueId,
                 avatar:user.avatar,
@@ -315,7 +316,7 @@ export default function Conversation({data,whichConversation}) {
                    
                     
                     ) : (
-                            // Render normal conversations
+                       
                             chosenConversations.map(conversation => (
                                 <div 
                                     key={conversation.id} 
