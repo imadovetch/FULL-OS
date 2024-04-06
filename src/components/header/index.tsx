@@ -19,7 +19,7 @@ export function Header() {
         <div
         onMouseDown={expanthenotif}
         
-        className="bg-app-dark w-full  relative  hover:cursor-grab flex items-center z-50 justify-between px-2">
+        className="bg-app-dark w-full   relative  hover:cursor-grab flex items-center z-30 justify-between px-2">
             {
                 expandnotif &&
 

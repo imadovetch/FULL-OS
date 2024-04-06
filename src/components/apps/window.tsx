@@ -121,6 +121,10 @@ export function Window({
     setIsDragging(false);
     setResizing(!resizing);
     setResizePosition(null);
+    setStartX(null)
+    setStartY(null)
+    setStartWidth(null)
+    setStartHeight(null)
   }
 
   function Resize(event) {
@@ -194,8 +198,8 @@ export function Window({
     setStartX(event.clientX);
     setStartY(event.clientY);
     
-    setStartWidth(500);
-    setStartHeight(500);
+    setStartWidth(data.width);
+    setStartHeight(data.height);
   }
   function resizehovred(position, event){
     
@@ -205,7 +209,7 @@ export function Window({
             
             ref={windowref}
             
-            className={`  windowshadow relative select-none bg-app-dark origin-center absolute flex flex-col z-40 rounded-md `}
+            className={`  windowshadow   overflow-hidden select-none bg-app-dark origin-center absolute flex flex-col z-40 rounded-md `}
             style={
              !data.fullscreen ? {
                     left: data.x,
@@ -219,26 +223,26 @@ export function Window({
             <div 
     onMouseMove={(event) => resizehovred('left', event)}
     onMouseDown={(event) => handleMouseDown('left', event)} 
-    className="hover:cursor-e-resize absolute h-full w-1 z-50 border top-0 left-0"
+    className="hover:cursor-e-resize bg-app---dark absolute h-full w-1 z-50 top-0 left-0"
 ></div>
 <div 
     onMouseDown={(event) => handleMouseDown('right', event)} 
-    className="hover:cursor-e-resize   absolute h-full z-50 w-1 border top-0 right-0"
+    className="hover:cursor-e-resize bg-app---dark  absolute h-full z-50 w-1 top-0 right-0"
 ></div>
 <div
     onMouseDown={(event) => handleMouseDown('top', event)}
-    className="hover:cursor-ns-resize absolute h-1 z-50 w-full border top-0"
+    className="hover:cursor-ns-resize bg-app---dark absolute h-1 z-50 w-full top-0"
 ></div>
 <div 
     onMouseDown={(event) => handleMouseDown('bottom', event)} 
-    className="hover:cursor-ns-resize absolute h-1 z-50 w-full border bottom-0"
+    className="hover:cursor-ns-resize bg-app---dark absolute h-1 z-50 w-full bottom-0"
 ></div>
 
     </div>
                 { data.fullscreen && <Effect />}
 
             <div
-                className="bg-app-dark flex items-center   justify-between"
+                className="bg-app-dark flex items-center pr-2  justify-between"
                 onMouseDown={funcUpdatePosition}
             >
 
@@ -290,3 +294,5 @@ function Effect() {
         </div>
     )
 }
+
+

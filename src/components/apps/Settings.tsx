@@ -82,7 +82,7 @@ const [darkTheme, setDarkTheme] = useState('light')
   }
     return (
         <Window data={data}>
-            <div  className="p-2 flex w-full h-full  overflow-hidden  bg-app-light ">
+            <div  className="p-2 flex w-full  max-h-full   custom-scrollbar  bg-app-light ">
             
     <div className={`  ${((data.width > 800) || data.fullscreen) ?'flex' :'hidden'}   w-1/6`}
     
