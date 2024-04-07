@@ -189,9 +189,18 @@ export function Window({
     }
 }
 
+function PRORITE(){
 
+dispatch(
+    APPS_ACTIONS.PRORITE({
+        id: data.id,
+   
+    })
+);
+}
 
   function handleMouseDown(position, event) {
+    
     setIsDragging(true);
     console.log(position + 'j')
     setResizePosition(position);
@@ -208,8 +217,8 @@ export function Window({
         <div
             
             ref={windowref}
-            
-            className={`  windowshadow   overflow-hidden select-none bg-app-dark origin-center absolute flex flex-col z-40 rounded-md `}
+            onMouseDown={PRORITE}
+            className={`  windowshadow   overflow-hidden select-none bg-app-dark origin-center absolute flex flex-col ${data.prorite ? 'z-50':'z-40'} rounded-md `}
             style={
              !data.fullscreen ? {
                     left: data.x,

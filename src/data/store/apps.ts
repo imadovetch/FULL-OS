@@ -28,7 +28,8 @@ const s = createSlice({
                 height: 500,
                 hide: false,
                 fullscreen: false,
-                data: null
+                data: null,
+                prorite : false
             })
             return state
         },
@@ -36,7 +37,8 @@ const s = createSlice({
             return state.map(app => {
                 return app.id === action.payload.id ? {
                     ...app,
-                    ...action.payload.newProps
+                    ...action.payload.newProps,
+                    prorite: app.id === action.payload.id
                 } : app
             })
         },
@@ -55,10 +57,18 @@ const s = createSlice({
             return state.map(app =>{
                 return app.id === action.payload.id ? {
                     ...app,
-                    ...action.payload.newProps
+                    ...action.payload.newProps,
+                    prorite: app.id === action.payload.id
                 } : app
             })
         },
+        PRORITE(state: APP_DATA_TYPE[], action: PayloadAction<{ id: number }>) {
+            const { id } = action.payload;
+            return state.map(app => ({
+                ...app,
+                prorite: app.id === id
+            }));
+        }
     }
 
 })

@@ -14,5 +14,6 @@ export type APP_DATA_TYPE = {
     height: number,
     hide: boolean,
     fullscreen: boolean,
-    data: any
+    data: any,
+    prorite : boolean
 }
