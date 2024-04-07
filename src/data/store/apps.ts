@@ -38,7 +38,6 @@ const s = createSlice({
                 return app.id === action.payload.id ? {
                     ...app,
                     ...action.payload.newProps,
-                    prorite: app.id === action.payload.id
                 } : app
             })
         },
@@ -58,7 +57,6 @@ const s = createSlice({
                 return app.id === action.payload.id ? {
                     ...app,
                     ...action.payload.newProps,
-                    prorite: app.id === action.payload.id
                 } : app
             })
         },
