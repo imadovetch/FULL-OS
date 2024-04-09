@@ -128,11 +128,29 @@
 	box-shadow: 2px 2px 3px #bebebe,
 				  -1px -1px 3px #ffffff;
    }
-   .Chatphotoholder{
-	
-	background-color: rgba(75, 176, 219, 0.74);
-	border-radius:10px 0 10px 0;
-   }
+   .Chatphotoholder {
+    background-color: #f0f0f0;
+    border-radius: 15px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    grid-gap: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.Chatphotoholder img {
+    width: 100%;
+    
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+
+.Chatphotoholder img:hover {
+    transform: scale(1.05);
+}
+
 /* camera */
 video {
 	height: 100%;

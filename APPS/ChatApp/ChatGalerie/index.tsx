@@ -19,7 +19,7 @@ export default function ChatGalery({data,status , getphoto}){
     getphoto(photoId)
   };
     return(
-     <div className={` grid ${(data.width > 800 && data.width<1000) ? ' grid-cols-1' : 'grid-cols-2'} overflow-y-auto  gap-2 absolute bottom-0 p-1  right-0 ${(data.fullscreen || (data.width > 1000)) ? 'w-2/5' : ((data.width > 800 ) ? 'w-1/5' : 'w-3/5')}  h-4/5 Chatphotoholder z-50 ${status ? '' : 'hidden'}`}>
+     <div className={` grid ${(data.width > 800 && data.width<1000) ? ' grid-cols-1' : 'grid-cols-2'}  custom-scrollbar  gap-2 absolute bottom-0 p-1  right-0 ${(data.fullscreen || (data.width > 1000)) ? 'w-2/5' : ((data.width > 800 ) ? 'w-1/5' : 'w-3/5')}  h-4/5 Chatphotoholder z-50 ${status ? '' : 'hidden'}`}>
            {photos.map((photo) => (
         <div key={photo.id} className="cardPhotoChat" onClick={() => handlePhotoClick(photo.src)}>
           <img className='w-full h-full' src={photo.src} alt={`Photo ${photo.id}`} />

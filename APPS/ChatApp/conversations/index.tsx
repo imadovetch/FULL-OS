@@ -329,13 +329,13 @@ export default function Conversation({data,whichConversation}) {
                                     </div>
                                     <div className="ml-4 w-full border-b border-gray-300">
                                         <div className="flex items-center justify-between w-full">
-                                            <p className="text-app-dark font-thin text-xl truncate">{conversation.title}</p>
+                                            <div className="text-app-dark font-thin text-xl truncate">{conversation.title}</div>
                                             <div className="ml-4 text-xs text-app-dark">
                                                 <img width="15" height="15" src={conversation.status} alt="Status Icon"/>
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between mt-2">
-                                            <p className="text-gray-500 font-mono font-bold flex gap-2 items-center text-sm">
+                                            <div className="text-gray-500 font-mono font-bold flex gap-2 items-center text-sm">
                                                 Get Andrés on ...
                                                 <div className="">
                                                     <div style={{ position: 'relative', display: 'inline-block' }}>
@@ -343,8 +343,8 @@ export default function Conversation({data,whichConversation}) {
                                                         <div style={{ position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', fontSize: '12px', color: '#fff' }}>{conversation.unreadMessages}</div>
                                                     </div>
                                                 </div>
-                                            </p>
-                                            <p className="text-xs text-app-dark">{conversation.time}</p>
+                                            </div>
+                                            <div className="text-xs text-app-dark">{conversation.time}</div>
                                         </div>
                                     </div>
                                 </div>
