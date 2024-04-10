@@ -154,11 +154,13 @@ const [darkTheme, setDarkTheme] = useState('light')
             </div>
         </div>
     </div>
-            <div className={`flex flex-col settings-background  h-full ${data.width < 800 ?'w-full' :'w-4/5'} border   custom-scrollbar bg-app-light `}>
-      
+            <div className={`flex flex-col  relative  h-full ${data.width < 800 ?'w-full' :'w-4/5 '}  custom-scrollbar bg-app-light `}>
+            <div className=" absolute top-0 right-0 w-full h-full settings-background z-0">
+
+            </div>
         <main>
-  <div className="py-6 gap-5 flex flex-col h-full">
-  <div className="px-4 py-5 mx-auto w-full flex flex-col justify-center sm:px-6 md:px-8 settingsdivsbackground">
+  <div className="py-6 gap-5 flex flex-col h-full ">
+  <div className="px-4 py-5 mx-auto w-full flex flex-col justify-center sm:px-6 md:px-8 settingsdivsbackground ">
       <h1 className="text-xl mb-5 font-serif text-gray-900 dark:text-app-light">
         <span className="text-transparent bg-clip-text bg-gradient-to-r to-app-dark from-gray-400">Change Screen Background</span>
       </h1>
@@ -179,9 +181,9 @@ const [darkTheme, setDarkTheme] = useState('light')
 <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" stroke-linejoin="round" stroke-linecap="round" viewBox="0 0 24 24" stroke-width="2" fill="none" stroke="currentColor" class="icon"><polyline points="16 16 12 12 8 16"></polyline><line y2="21" x2="12" y1="12" x1="12"></line><path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path><polyline points="16 16 12 12 8 16"></polyline></svg>
 </div>
 
-      <button className="cursor-pointer mx-auto mt-4  transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
+      <button className="cursor-pointer mx-auto mt-4 hover:scale-105  active:scale-100 transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
             border-blue-600
-            border-b-[4px] hover:brightness-110 
+            border-b-[4px]  
             ">
             Save Background
         </button>
@@ -202,9 +204,9 @@ const [darkTheme, setDarkTheme] = useState('light')
   ))}
 </div>
 
-      <button className="cursor-pointer mx-auto mt-4  transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
+      <button className="cursor-pointer mx-auto mt-4 hover:scale-105  active:scale-100 transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
             border-blue-600
-            border-b-[4px] hover:brightness-110 
+            border-b-[4px]  
             ">
             Apply
         </button>
@@ -265,10 +267,10 @@ const [darkTheme, setDarkTheme] = useState('light')
         </div>
         <button
         onClick={()=>{changeicon()}}
-        className="cursor-pointer transition-all bg-blue-500 text-app-light px-6 py-2 rounded-lg
-            border-blue-600
-            border-b-[4px] hover:brightness-110 hover:-translate-y-[1px] hover:border-b-[6px]
-            active:border-b-[2px] active:brightness-90 active:translate-y-[2px]">
+        className="cursor-pointer mx-auto mt-4 hover:scale-105  active:scale-100 transition-all bg-blue-500 text-app-light px-4 py-1 rounded-lg
+        border-blue-600
+        border-b-[4px]  
+        ">
             Change Icon
             </button>
         

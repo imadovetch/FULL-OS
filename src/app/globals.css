@@ -18,7 +18,7 @@
 		--text : theme(colors.black);
 	  }
 	
-	  html[theme="dark"] {
+	  html[theme="light"] {
 		--app-dark: theme(colors.slate.100);
 		--app--dark: theme(colors.slate.200);
 		--app---dark: theme(colors.slate.300);
@@ -680,16 +680,105 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3)
 	
 
 	
-	background-repeat: no-repeat; /* Do not repeat the background image */
 	
-	backdrop-filter: blur(100px);
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add a drop shadow */
+	 filter: blur(1px);
+	backdrop-filter: blur(100%);
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); 
 	
   }
   .settingsdivsbackground{
 	background-color: rgba(253, 251, 251, 0.918);
-	
+	z-index: 10;
 	box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+  }
+  .messages{
+	
+	font-size: larger;
+	letter-spacing: 0.3px;
+
+  }
+  .storiecardowner{
+	--background: linear-gradient(to right, #fff200 0%, #bfff00 100%);
+	cursor:pointer;
+	width: 150px;
+	height: 254px;
+	padding: 5px;
+	margin: auto;
+	border-radius: 1rem;
+	overflow: visible;
+	background: #74ebd5;
+	background: var(--background);
+	position: relative;
+	z-index: 1;
+  }
+  .storiecard {
+	--background: linear-gradient(to right, #74ebd5 0%, #acb6e5 100%);
+	cursor:pointer;
+	width: 150px;
+	height: 254px;
+	padding: 5px;
+	margin: auto;
+	border-radius: 1rem;
+	overflow: visible;
+	background: #74ebd5;
+	background: var(--background);
+	position: relative;
+	z-index: 1;
+  }
+  
+  .storiecard::before,
+  .storiecard::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 1rem;
+	z-index: -1;
+  }
+  
+  .storiecard::before {
+	background: linear-gradient(to bottom right, #f6d365 0%, #fda085 100%);
+	transform: rotate(2deg);
+  }
+  
+  .storiecard::after {
+	background: linear-gradient(to top right, #84fab0 0%, #8fd3f4 100%);
+	transform: rotate(-2deg);
+  }
+  
+  .card-info {
+	--color: #292b2c;
+	background: var(--color);
+	color: var(--color);
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+	border-radius: 0.7rem;
+	position: relative;
+	z-index: 2;
+  }
+  
+  .storiecard .title {
+	font-weight: bold;
+	letter-spacing: 0.1em;
+  }
+  
+  .storiecard:hover::before,
+  .storiecard:hover::after {
+	opacity: 0;
+  }
+  
+  .storiecard:hover .card-info {
+	color: #74ebd5;
+	transition: color 1s;
+  }
+  .photosshadowgalery{
+	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
   }
 	}
 

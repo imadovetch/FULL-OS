@@ -22,7 +22,7 @@ export default async function handler(req, res) {
             conversation.msgs.push({ senderId, content , type });
         } else {
             conversation = await ConversationModel.create({
-                id: `between${user1}and${user2}`,
+                id: conversationId,
                 msgs: [{ senderId, content , type}]
             });
         }

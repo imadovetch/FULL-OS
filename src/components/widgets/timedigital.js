@@ -27,7 +27,7 @@ const Clockdigitale = () => {
 
   return (
     <div class="card">
-      <div className=' w-2/4 h-full  flex justify-center  items-start flex-col '>
+      <div className=' w-2/4 h-full  p-16 flex justify-center  items-start flex-col '>
       <div class="time-text">
         <div>{currentTime}</div>
         <div class="time-sub-text">divM</div></div>    

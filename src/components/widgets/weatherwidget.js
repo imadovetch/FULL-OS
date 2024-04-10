@@ -11,9 +11,13 @@ const WeatherWidgetPage = () => {
     useEffect(() => {
         if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(function(position) {
+                console.log(position.coords.latitude, position.coords.longitude)
                 fetchWeather(position.coords.latitude, position.coords.longitude);
                 fetchLocation(position.coords.latitude, position.coords.longitude);
             });
+        }else{
+            fetchWeather(32.309879,-9.232620);
+                fetchLocation(32.309879,-9.232620);
         }
 
         const fetchWeather = async (latitude, longitude) => {

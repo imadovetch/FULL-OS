@@ -43,7 +43,15 @@ export default function Messages({owner ,data, totext }) {
           if ((message.receiver === totext && message.sender === owner) ||
               (message.receiver === owner && message.sender === totext)) {
               setMessages(prevMessages => [...prevMessages, message]);
+              if (messagesRef.current) {
+                console.log("hihhhh")
+                messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+              }
           }
+          if (messagesRef.current) {
+    console.log("hihhhh")
+    messagesRef.current.scrollTop = messagesRef.current.scrollHeight;
+  }
       });
       setMessages([]);
       const fetchmessages = async ()=>{
@@ -74,11 +82,13 @@ export default function Messages({owner ,data, totext }) {
             });
             console.log(messagesToAdd)
             setMessages(messagesToAdd);
+            
       } catch (error) {
           console.error('Error fetching messages:', error);
       }
       }
       fetchmessages();
+      
       // Cleanup socket listener when component unmounts
       return () => {
           socket.off('message');
@@ -95,6 +105,7 @@ export default function Messages({owner ,data, totext }) {
       contenttosend = photo
       setphoto('')
     }
+    if(contenttosend === '') return;
     if (!socket) return;
     const messagepack = { sender: owner, receiver: totext, type:msgtype, msg: contenttosend };
     socket.emit('message', messagepack);
@@ -137,9 +148,34 @@ export default function Messages({owner ,data, totext }) {
 function CancelSendingphotot(){
       setphoto('');
       setCurrentMessage('')
+      setmessagetype('text')
 }
+
+const GetterName = localStorage.getItem('fastiuslesgettername') ? localStorage.getItem('fastiuslesgettername') : 'User';
+const [showIconDiv, setShowIconDiv] = useState(false);
+
+  
+const emojis = [
+  '😀', '😃', '😄', '😁', '😆', '😅', '🤣', '😂', '🙂', '🙃', '😉', '😊', '😇',
+  '❤️', '🧡', '💛', '💚', '💙', '💜', '🖤', '💔', '❣️', '💕', '💞', '💓', '💗', '💖', '💘', '💝',
+  '👍', '👎', '👌', '✌️', '👋', '✋', '🤚', '🖐️', '✊', '👊', '🤛', '🤜', '🤞', '✍️',
+  '👏', '🙌', '👐', '🤲', '🤝', '🙏', '💪',
+];
+
+    const toggleIconDiv = () => {
+        setShowIconDiv(!showIconDiv);
+    };
+
+
+    const handleIconClick = (emoji) => {
+        console.log('Selected emoji:', emoji);
+        setCurrentMessage(currentMessage + emoji)
+    };
+    
+
+    
     return (
-         <div className={`flex flex-col ${data.fullscreen ?'h-[100%]' : 'h-full'}  flex-auto`}>
+         <div className={`flex flex-col ${data.fullscreen ?'min-h-[100%]' : 'min-h-full'}  bg-gray-100 pb-12  flex-auto`}>
         <div
           className="flex flex-col flex-auto flex-shrink-0  bg-gray-100 h-full  px-3"
         >
@@ -147,7 +183,7 @@ function CancelSendingphotot(){
           <div ref={messagesRef} className="border relative h-[95%] flex  items-center flex-col overflow-y-auto   ">
           <div className={` fixed m-auto  h-12 bg-app-shadow z-10 ${((data.width > 800)) ?'w-1/5' : 'w-2/5'}  flex justify-start items-center shadow bg-app-light rounded-lg px-4`}>
             <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-4/5 w-10 rounded-lg  mr-4' />
-            <span className='text-sm ml-1  text-app-dark font-mono'>Alice Moon</span>
+            <span className='text-sm ml-1  text-app-dark font-mono'>{GetterName}</span>
         </div>
             <div   className="flex flex-col    w-full">
             
@@ -160,8 +196,8 @@ function CancelSendingphotot(){
                     <div key={index} className={`col-start-1 ${index === 0 ?'mt-10' : ''} col-end-8 p-3 rounded-lg`}>
                       <div className="flex flex-row items-center">
                         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
-                        <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl">
-                          <div className="text-app-dark">{element.msg}</div>
+                        <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow border border-gray-300 rounded-xl">
+                          <div className="messages text-app-dark">{element.msg}</div>
                         </div>
                       </div>
                     </div>
@@ -187,8 +223,8 @@ function CancelSendingphotot(){
                   <div key={index} className={`col-start-6 ${index === 0 ?'mt-10' : ''} col-end-13 p-3 rounded-lg`}>
                     <div className="flex items-center justify-start flex-row-reverse">
                       <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
-                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow rounded-xl">
-                        <div className="text-app-dark">{element.msg}</div>
+                      <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow border border-gray-300 rounded-xl">
+                        <div className="messages text-app-dark">{element.msg}</div>
                       </div>
                     </div>
                   </div>
@@ -218,9 +254,18 @@ function CancelSendingphotot(){
             </div>
           </div>
           <div
-            className="flex flex-row items-center h-16 rounded-xl mt-auto bg-app-light w-full px-4"
+            className="flex  flex-row items-center h-16 rounded-xl mt-auto bg-app-light w-full px-4"
           >
             <div>
+            { <div className={`icon-list absolute  right-0 w-[300px] text-wrap bg-app-light p-2 rounded border border-app--light  bottom-1/3 ${showIconDiv ? 'visible' : 'hidden'}`}>
+                {emojis.map((emoji, index) => (
+                    <span key={index} className='hover:scale-105 cursor-pointer' role="img" aria-label="Emoji" onClick={() => handleIconClick(emoji)}>
+                        {emoji}
+                    </span>
+                ))}
+            </div> }
+            <ChatGalery data={data} getphoto={getPhotoparent} status={ChatGalerie}/>
+
               <button onClick={()=>{showChatGalery()}}
                 className="flex items-center justify-center text-gray-400 hover:text-gray-600"
               >
@@ -239,7 +284,7 @@ function CancelSendingphotot(){
                   ></path>
                 </svg>
               </button>
-              <ChatGalery data={data} getphoto={getPhotoparent} status={ChatGalerie}/>
+              
             </div>
             <div className="flex-grow ml-4">
               
@@ -250,7 +295,7 @@ function CancelSendingphotot(){
                       photo !== '' && 
 
                   <div onClick={()=>{CancelSendingphotot()}} className=' absolute  bg-app-light shadow rounded-lg p-1  bottom-11 right-0  w-3/5 h-40 border'>
-                    <img className='h-full w-full' src={photo} alt="" /> 
+                    <img className={`h-full ${((data.fullscreen)||(data.width > 1000)) ?  'w-[200px]': 'w-full'} `} src={photo} alt="" /> 
                   
                   </div>
                     }
@@ -266,6 +311,7 @@ function CancelSendingphotot(){
                 
                 
                 <button
+                onClick={toggleIconDiv}
                   className="absolute flex items-center justify-center h-full w-12 right-0 top-0 text-gray-400 hover:text-gray-600"
                 >
                   <svg

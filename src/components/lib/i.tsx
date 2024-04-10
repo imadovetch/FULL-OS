@@ -17,6 +17,7 @@ import { FaCamera } from "react-icons/fa";
 import { TiWeatherPartlySunny } from "react-icons/ti";
 import { SiLinkerd } from "react-icons/si";
 import { IoSettingsOutline } from "react-icons/io5";
+import { GrGallery } from "react-icons/gr";
 
 export function I({
     type,
@@ -62,7 +63,8 @@ export function I({
                 return <SiLinkerd size={size} className={className} />
         case 'Settings':
                 return <IoSettingsOutline size={size} className={className} />
-        
+        case 'Gallery':
+            return <GrGallery size={size} className={className} />
               
             default:
             return <CgSmileNone />
