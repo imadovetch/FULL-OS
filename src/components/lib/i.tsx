@@ -18,7 +18,7 @@ import { TiWeatherPartlySunny } from "react-icons/ti";
 import { SiLinkerd } from "react-icons/si";
 import { IoSettingsOutline } from "react-icons/io5";
 import { GrGallery } from "react-icons/gr";
-
+import { MdQuiz } from "react-icons/md";
 export function I({
     type,
     size = 20,
@@ -65,7 +65,8 @@ export function I({
                 return <IoSettingsOutline size={size} className={className} />
         case 'Gallery':
             return <GrGallery size={size} className={className} />
-              
+        case 'Yomahoot':   
+        return <MdQuiz size={size} className={className} />
             default:
             return <CgSmileNone />
     }

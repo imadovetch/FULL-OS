@@ -1,4 +1,3 @@
-// next.config.js
 const nextConfig = {
   images: {
     domains: [
@@ -6,7 +5,9 @@ const nextConfig = {
       'encrypted-tbn0.gstatic.com',
       'cdn.wallpapersafari.com',
       'cdn.weatherapi.com',
-      'wallpapercave.com'
+      'wallpapercave.com',
+      'localhost', 
+      'images.unsplash.com',
     ],
   },
   typescript: {
@@ -15,4 +16,5 @@ const nextConfig = {
 };
 
 export default nextConfig;
+
 

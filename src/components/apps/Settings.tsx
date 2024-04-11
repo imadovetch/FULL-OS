@@ -20,7 +20,7 @@ export function Settings({ data }: { data: APP_DATA_TYPE }) {
     "linear-gradient(to right, #A9F1DF, #FFBBBB)", // Light blue to light sky blue
     "linear-gradient(to right, #C33764, #1D2671)", // Light grey to grey
 ]);
-const [darkTheme, setDarkTheme] = useState('light')
+const [darkTheme, setDarkTheme] = useState('dark')
       const [somephotos,setphotos] =  useState([
         "/43afd01dc42127c352f1fde070cc2be0.jpg",
         "/1289176.jpg",

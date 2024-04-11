@@ -28,20 +28,22 @@ export function Shortcuts() {
     }
 
     return (
-        <div className='w-3/5 m-auto grid grid-cols-5 z-30 items-start h-56'>
-            {AVAILABLE_APPS.map((name, index) => (
-                <button
-                    onMouseDown={(e) => icondraged(e,index)}
-                    onMouseUp={(e) => placetochange(e,index)}
-                    key={name}
-                    style={{ background: `${icons.COLER}` }}
-                    className={`mx-auto iconholder flex justify-center items-center appsbackground rounded-lg p-4 hover:cursor-pointer ${active_apps.includes(name) ? 'active' : ''}`}
-                    onClick={() => active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
-                >
-                    <Title text={name} side="top" />
-                    <I type={name} size={30} className={'icon fill-app-light text-app-light'} />
-                </button>
-            ))}
-        </div>
+        <div className='w-3/5 m-auto grid grid-cols-5 z-30 gap-8 items-start h-56'>
+        {AVAILABLE_APPS.map((name, index) => (
+            <button
+                onMouseDown={(e) => icondraged(e, index)}
+                onMouseUp={(e) => placetochange(e, index)}
+                key={name}
+                style={{ background: `${icons.COLER}` }}
+                className={`mx-auto iconholder flex justify-center items-center appsbackground rounded-lg p-4 hover:cursor-pointer ${active_apps.includes(name) ? 'active' : ''} ${index >= AVAILABLE_APPS.length - 2 ? 'col-span-2 text-center' : ''}`}
+                onClick={() => active_apps.includes(name) ? dispatch(APPS_ACTIONS.SWITCH_DISPLAY({ name })) : dispatch(APPS_ACTIONS.OPEN({ appName: name }))}
+            >
+                <Title text={name} side="top" />
+                <I type={name} size={30} className={'icon fill-app-light text-app-light'} />
+            </button>
+        ))}
+    </div>
+    
+
     )
 }

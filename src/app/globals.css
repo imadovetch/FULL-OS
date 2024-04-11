@@ -4,7 +4,7 @@
 
 @layer base {
 
-	html {
+	html[theme="light"] {
 		--app-dark: theme(colors.slate.950);
 		--app--dark: theme(colors.slate.900);
 		--app---dark: theme(colors.gray.800);
@@ -17,8 +17,8 @@
 		--danger: theme(colors.yellow.600);
 		--text : theme(colors.black);
 	  }
-	
-	  html[theme="light"] {
+	  html {
+	  
 		--app-dark: theme(colors.slate.100);
 		--app--dark: theme(colors.slate.200);
 		--app---dark: theme(colors.slate.300);
@@ -779,6 +779,9 @@ box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset, rgba(0, 0, 0, 0.3)
   }
   .photosshadowgalery{
 	box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 2px 6px 2px;
+  }
+  .lightshadow{
+	background-color: rgba(255, 255, 255, 0.433);
   }
 	}
 

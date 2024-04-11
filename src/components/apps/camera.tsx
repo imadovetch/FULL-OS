@@ -1,13 +1,15 @@
 import { useEffect } from 'react';
 import { APP_DATA_TYPE } from "@/data/const";
 import { Window } from './window';
-
+import { gettoken  } from "../../../utils/modules"
+import { BACKEND_LINK } from "@/data/const"
 interface CameraProps {
     data: APP_DATA_TYPE;
 }
 
 export function Camera({ data }: CameraProps) {
     var tmp:any = null;
+    const token = gettoken('token');
     useEffect(() => {
         const videoElement = document.getElementById("videoElement") as HTMLVideoElement;
         const switchCameraButton = document.querySelector<HTMLButtonElement>(".switchCamera");
@@ -52,9 +54,12 @@ export function Camera({ data }: CameraProps) {
             const formData = new FormData();
             formData.append('photo', imageFile);
           
-            fetch('http://localhost:8000/api/save-camera-photo', {
+            fetch(BACKEND_LINK+'api/save-camera-photo', {
               method: 'POST',
               body: formData,
+              headers: {
+                'Authorization': token 
+            },
             })
             .then(response => response.json())
             .then(data => {

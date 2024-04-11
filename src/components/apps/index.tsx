@@ -36,6 +36,7 @@ export function Apps() {
                     if(data.name === AVAILABLE_APPS[8]) return <Yourlink key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[9]) return <Settings key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[10]) return <Gallery key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[11]) return <Gallery key={data.id} data={data} />
                     // ['manager', 'calculator', 'alarm', 'game', 'browser']
                 })
             }
