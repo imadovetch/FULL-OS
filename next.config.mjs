@@ -8,6 +8,7 @@ const nextConfig = {
       'wallpapercave.com',
       'localhost', 
       'images.unsplash.com',
+      'full-os-backhosted-production.up.railway.app' // Add the hostname here
     ],
   },
   typescript: {
@@ -16,5 +17,4 @@ const nextConfig = {
 };
 
 export default nextConfig;
-
 
