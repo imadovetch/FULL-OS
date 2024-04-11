@@ -142,9 +142,9 @@ function setCookie(name:string, value:any, daysToExpire:number) {
     <div
       className="relative overflow-hidden md:flex w-1/2 authphoto i justify-around items-center hidden">
       <div>
-        <h1 className="text-app-light font-bold text-4xl font-sans">SpaceTech</h1>
-        <p className="text-app-light mt-1">The most popular peer to peer lending at SEA</p>
-        <button type="submit"  className="block w-28 bg-app-light text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
+        <h1 className="text-white font-bold text-4xl font-sans">SpaceTech</h1>
+        <p className="text-white mt-1">The most popular peer to peer lending at SEA</p>
+        <button type="submit"  className="block w-28 bg-white text-indigo-800 mt-4 py-2 rounded-2xl font-bold mb-2">Read More</button>
       </div>
       <div className="absolute -bottom-32 -left-40 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
       <div className="absolute -bottom-40 -left-20 w-80 h-80 border-4 rounded-full border-opacity-30 border-t-8"></div>
@@ -153,14 +153,14 @@ function setCookie(name:string, value:any, daysToExpire:number) {
     </div>
     {
         !auth ?
-        <div className="flex  flex-col md:w-1/2 gap-4 justify-center py-10 items-center bg-app-light">
+        <div className="flex  flex-col md:w-1/2 gap-4 justify-center py-10 items-center bg-white">
           <div className=" overflow-hidden flex relative w-4/5 h-3 border rounded-2xl">
            
             <div className="  bg-app-primary w-1/2  right-0 h-full"></div>
             <div className={`${secondregister ? 'bg-app-primary' :  ''}   w-1/2 self-end left-0 h-full`}></div>
 
           </div>
-      <form  className="bg-app-light">
+      <form  className="bg-white">
         <h1 className="text-gray-800 font-bold text-2xl mb-1">Welkome to SpaceTech!</h1>
         <p className="text-sm font-normal text-gray-600 mb-7">Ohaui</p>
         {
@@ -203,7 +203,7 @@ function setCookie(name:string, value:any, daysToExpire:number) {
               <Title coler={'orange-700'} text={msgErrorMrMrs} side="bottom" />
             }
           </div>
-          <div className="  hover:cursor-pointer gap-5 flex items-center h-12 bg-app-light  border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-app-dark  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+          <div className="  hover:cursor-pointer gap-5 flex items-center h-12 bg-white  border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-app-dark  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img width="20" height="20" src="https://img.icons8.com/color/20/google-logo.png" alt="google-logo"/>
                     <span className=" text-sm  font-serif ">Continue with Google</span>
             
@@ -281,18 +281,18 @@ function setCookie(name:string, value:any, daysToExpire:number) {
         
                 {
                   secondregister ?
-                  <div  onClick={handleRegister} className="w-4/5 m-auto justify-center flex  btn-base mt-4 py-2 rounded-2xl text-app-light font-semibold mb-2">Register</div>
+                  <div  onClick={handleRegister} className="w-4/5 m-auto justify-center flex  btn-base mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Register</div>
 
                   :
-                  <div onClick={switchphase}  className=" w-4/5 m-auto justify-center flex  btn-base mt-4 py-2 rounded-2xl text-app-light font-semibold mb-2 ">Next</div>
+                  <div onClick={switchphase}  className=" w-4/5 m-auto justify-center flex  btn-base mt-4 py-2 rounded-2xl text-white font-semibold mb-2 ">Next</div>
 
                 }
                   <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ? </span><span  onClick={toggleauth} className="text-sm ml-2 text-blue-500 underline hover:text-red-500 cursor-pointer">Register</span>
       </form>
     </div>
         :
-    <div className="flex md:w-1/2 justify-center py-10 items-center bg-app-light">
-      <form className="bg-app-light" onSubmit={handleLogin}>
+    <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
+      <form className="bg-white" onSubmit={handleLogin}>
       <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
       <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>
       
@@ -332,12 +332,12 @@ function setCookie(name:string, value:any, daysToExpire:number) {
               <Title coler={'orange-700'} text={msgErrorPassword} side="bottom" />
             }
         </div>
-      <div className="  hover:cursor-pointer gap-5 flex items-center h-12 bg-app-light  border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-app-dark  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+      <div className="  hover:cursor-pointer gap-5 flex items-center h-12 bg-white  border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-app-dark  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img width="20" height="20" src="https://img.icons8.com/color/20/google-logo.png" alt="google-logo"/>
                     <span className=" text-sm  font-serif ">Continue with Google</span>
             
           </div>
-      <button type="submit" className="block w-full btn-base mt-4 py-2 rounded-2xl text-app-light font-semibold mb-2">Login</button>
+      <button type="submit" className="block w-full btn-base mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Login</button>
       <span className="text-sm ml-2 hover:text-blue-500 cursor-pointer">Forgot Password ? </span><span  onClick={toggleauth} className="text-sm ml-2 hover:text-red-500 text-blue-500 underline cursor-pointer">Login</span>
     </form>
     </div>
