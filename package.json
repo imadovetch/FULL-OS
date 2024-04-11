@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "concurrently \"next dev\" \"cd server && node index.js\"",
+    "dev": "concurrently \"cd server && node index.js\"",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"

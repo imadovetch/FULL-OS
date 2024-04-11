@@ -26,6 +26,7 @@ export default function Messages({owner ,data, totext }) {
 
   useEffect(() => {
       const newSocket = io('http://localhost:3001');
+  
       setSocket(newSocket);
 
       return () => {
