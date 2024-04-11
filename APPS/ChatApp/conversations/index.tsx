@@ -1,10 +1,14 @@
+'use client';
 import { useState , useEffect} from "react";
 
+import { useRouter } from 'next/navigation';
 import { BACKEND_LINK } from "@/data/const"
 import { gettoken  } from "../../../utils/modules"
 export default function Conversation({data,whichConversation}) {
+    
     const token = gettoken('token');
-    const {Name} = JSON.parse(gettoken('userinfos'));
+    const {Name} = !gettoken('userinfos') ? {Name:'User'}:  JSON.parse(gettoken('userinfos'));
+    
     console.log( Name)
     if (!token) console.log('jri 3liiih'); 
     
