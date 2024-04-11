@@ -25,7 +25,7 @@ export default function Messages({owner ,data, totext }) {
   }
 
   useEffect(() => {
-      const newSocket = io('http://localhost:3001');
+      const newSocket = io('https://socketht-fullos.onrender.com');
   
       setSocket(newSocket);
 
