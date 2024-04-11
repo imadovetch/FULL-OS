@@ -49,7 +49,7 @@ export default function Register() {
         setCookie("token", data.message, 3);
         setCookie("userinfos",JSON.stringify({Name:loginUsername,Email:loginEmail}) , 3);
         
-        //redirect
+        window.location.href = '/';
     })
     .catch(error => {
         setLoginError('Credentials Are Wrong');
