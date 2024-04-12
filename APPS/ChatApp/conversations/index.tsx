@@ -18,6 +18,7 @@ export default function Conversation({data,whichConversation}) {
     const [newfriend, setnewfriends] = useState(false);
     const [conversations, setconversations] = useState([]);
     const [nonfriends, setnonfriends] = useState([]);
+    const [suggetions, setsuggetions] = useState([]);
     const [showrequests, setshowrequests] = useState(false);
     const [requests, setRequests] = useState([]);
     const [notifclicked, setchatnotif] = useState(false);
@@ -85,20 +86,18 @@ export default function Conversation({data,whichConversation}) {
             setnewfriends(true);
            
 
-            fetch(urlback+'api/nonfriends', {
+            fetch(urlback + 'api/nonfriends', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json',
                     'Authorization': token 
                 },
-                body: JSON.stringify({
-
-                })
+                body: JSON.stringify({})
             })
             .then(response => response.json())
             .then(data => {
-                setnonfriends(data.map(user => ({
+                setnonfriends(data.filter(user => user.email.includes(searchText)).map(user => ({
                     id: user.id,
                     name: user.name,
                     email: user.email,
@@ -107,8 +106,8 @@ export default function Conversation({data,whichConversation}) {
             })
             .catch(error => {
                 console.error('Error fetching non-friends:', error);
-
             });
+            
 
         } else {
             console.log('Not empty');
@@ -117,6 +116,32 @@ export default function Conversation({data,whichConversation}) {
         }
     }, [filteredConversations]);
     useEffect(() => {
+        fetch(urlback+'api/nonfriends', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+                'Authorization': token 
+            },
+            body: JSON.stringify({
+
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            setsuggetions(data.slice(0, 6).map(user => ({
+                id: user.id,
+                name: user.name,
+                email: user.email,
+                avatar: user.avatar
+            })));
+            
+        })
+        .catch(error => {
+            console.error('Error fetching non-friends:', error);
+
+        });
+
         fetch(urlback+'api/getconversations', {
             method: 'POST',
             headers: {
@@ -233,12 +258,12 @@ export default function Conversation({data,whichConversation}) {
     }
     
     return (
-        <div className={`h-full ${data.width < 700 && !activeConversation ? 'w-full':''} ${!data.fullscreen ? ((data.width < 800) && activeConversation ? 'hidden' :''): ''} bg-app-light min-w-96 border-r border-gray-200      border-app-dark flex`}>
+        <div className={`h-[95%] ${data.width < 700 && !activeConversation ? 'w-full':''} ${!data.fullscreen ? ((data.width < 800) && activeConversation ? 'hidden' :''): ''} bg-app--dark min-w-96 border-r border-gray-200      border-dark flex`}>
             <div className="flex flex-col w-full gap-4 h-full">
                 <div className="w-full border justify-between  gap-4  p-4 bg-gray-200 flex items-center">
                     <div className=" w-3/5 flex justify-start gap-4 items-center">
                     <img className="w-10 h-10 rounded-full" src="https://darrenjameseeley.files.wordpress.com/2014/09/expendables3.jpeg" alt="User Avatar"/>
-                        <span className="text-app-dark flex gap-4 items-center ">{Name} 
+                        <span className="text-app-black flex gap-4 items-center ">{Name} 
                         <img width="15" height="15" src="https://img.icons8.com/material-rounded/24/00FF32/100-percents.png"  alt="Status Icon"/>
 
                         </span>
@@ -263,7 +288,7 @@ export default function Conversation({data,whichConversation}) {
                         name="search" 
                         placeholder="Search contact" 
                         type="text" 
-                        className="text-app-dark px-2 rounded-md focus:outline-none flex-1 ml-2"
+                        className="text-dark px-2 rounded-md focus:outline-none flex-1 ml-2"
                         value={searchText}
                         onChange={(e) => filterConversations(e.target.value)}
                     />                
@@ -292,21 +317,21 @@ export default function Conversation({data,whichConversation}) {
    
 
                 </div>
-                <div className={`bg-gray-100 border h-full ${storiesmode ? 'hidden': ''}  rounded-md gap-2 w-full p-1  overflow-auto flex-1`} style={{ minWidth: "450px" }}>
+                <div className={`bg-gray-100 border h-full ${storiesmode ? 'hidden': ''}  rounded-md gap-2 w-full p-1  custom-scrollbar flex-1`} style={{ minWidth: "450px" }}>
                     {
                         showrequests ?(
-                            <div className="w-full bg-app-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                            <div className="w-full bg-app--dark border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                             <div className="flex items-center justify-between px-4 py-3">
-                                <h5 className="text-2xl font-bold leading-none text-app-dark dark:text-app-light  m-auto p-2">Pending Requests</h5>
+                                <h5 className="text-2xl font-bold leading-none text-dark dark:text-app--dark  m-auto p-2">Pending Requests</h5>
                             </div>
                             <div className="divide-y divide-gray-200 dark:divide-gray-700">
                            { requests.map(request => (
-                                <div key={request.id} className="bg-app-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-4 flex items-center justify-between">
+                                <div key={request.id} className="bg-app--dark border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700 p-4 mb-4 flex items-center justify-between">
                                     <div className="flex items-center">
                                         <img className="rounded-full mr-2" width="40" height="40" src={`https://i.pravatar.cc/150?u=${request.sender}`} alt={request.sender} />
                                         <div>
-                                            <div className="text-lg font-semibold text-app-dark">{request.sender}</div>
-                                            <div className="text-sm text-app-dark">{request.message}</div>
+                                            <div className="text-lg font-semibold text-dark">{request.sender}</div>
+                                            <div className="text-sm text-dark">{request.message}</div>
                                         </div>
                                     </div>
                                     <div className="  flex gap-4">
@@ -318,9 +343,9 @@ export default function Conversation({data,whichConversation}) {
                             </div>
                    </div>
                         ) : newfriend ? (
-                       <div className="w-full bg-app-light border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+                       <div className="w-full bg-app--dark border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
                        <div className="flex items-center justify-between px-4 py-3">
-                           <h5 className="text-2xl font-bold leading-none text-app-dark dark:text-app-light  m-auto p-2">Add New friends</h5>
+                           <h5 className="text-2xl font-bold leading-none text-black dark:text-app--dark  m-auto p-2">Add New friends</h5>
                        </div>
                        <div className="divide-y divide-gray-200 dark:divide-gray-700">
                            {nonfriends.map(friend => (
@@ -331,11 +356,11 @@ export default function Conversation({data,whichConversation}) {
                                                <img className="w-12 h-12 rounded-full" src={`${friend.avatar}`} alt="Friend" />
                                            </div>
                                            <div className="ml-3">
-                                               <div className="text-sm font-medium text-app-dark dark:text-app-light">{friend.name}</div>
+                                               <div className="text-sm font-medium text-dark dark:text-app--dark">{friend.name}</div>
                                                <div className="text-sm text-gray-500 dark:text-gray-400">{friend.email}</div>
                                            </div>
                                        </div>
-                                       <div onClick={() => handleAddFriend(friend.id)} className="  rounded-sm hover:cursor-pointer hover:shadow  hover:scale-110  text-base font-semibold text-app-dark dark:text-app-light">
+                                       <div onClick={() => handleAddFriend(friend.id)} className="  rounded-sm hover:cursor-pointer hover:shadow  hover:scale-110  text-base font-semibold text-dark dark:text-app--dark">
                                            <img width="35" height="35" src="https://img.icons8.com/color/35/add-user-group-woman-woman.png" alt="Add Friend" />
                                        </div>
                                    </div>
@@ -346,12 +371,12 @@ export default function Conversation({data,whichConversation}) {
                    
                     
                     ) : (
-                       
-                            chosenConversations.map((conversation,index) => (
+                        <>
+                            {chosenConversations.map((conversation, index) => (
                                 <div 
                                     key={conversation.id} 
                                     className={`px-3 hover:cursor-pointer border-t pt-2 mt-2 flex w-full items-center cursor-pointer rounded-md ${activeConversation === conversation.id ? 'convchoosed p-2 ' : 'bg-gray-200 hover:bg-gray-300'}`}
-                                    onClick={() => handleConversationClick(conversation.id,index)}
+                                    onClick={() => handleConversationClick(conversation.id, index)}
                                 >
                                     <div className="relative flex-shrink-0">
                                         <img className="h-12 w-12 rounded-full" src={conversation.avatar} alt="Contact Avatar"/>
@@ -359,22 +384,42 @@ export default function Conversation({data,whichConversation}) {
                                     </div>
                                     <div className="ml-4 w-full border-b border-gray-300">
                                         <div className="flex items-center justify-between w-full">
-                                            <div className="text-app-dark   text-xl truncate">{conversation.title}</div>
-                                            <div className="ml-4 text-xs text-app-dark">
+                                            <div className="text-dark text-xl truncate">{conversation.title}</div>
+                                            <div className="ml-4 text-xs text-dark">
                                                 <img width="15" height="15" src={conversation.status} alt="Status Icon"/>
                                             </div>
                                         </div>
                                         <div className="flex items-center justify-between mt-2">
-                                            <div className="text-app--dark  font-mono font-bold flex gap-2 items-center text-sm">
+                                            <div className="text-black font-mono font-bold flex gap-2 items-center text-sm">
                                                 Get Andrés on ...
-                                               
                                             </div>
-                                            <div className="text-xs text-app-dark">{conversation.time}</div>
+                                            <div className="text-xs text-dark">{conversation.time}</div>
                                         </div>
                                     </div>
                                 </div>
-                            ))
-                        )}
+                            ))}
+                            <div className=" underline w-full text-red-600 text-center text-mono mt-3">Suggetions For you</div>
+                            {suggetions.map(friend => (
+                                <div key={friend.id} className="p-4">
+                                    <div className="flex items-center justify-between">
+                                        <div className="flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <img className="w-12 h-12 rounded-full" src={`${friend.avatar}`} alt="Friend" />
+                                            </div>
+                                            <div className="ml-3">
+                                                <div className="text-sm font-medium text-dark dark:text-app--dark">{friend.name}</div>
+                                                <div className="text-sm text-gray-500 dark:text-gray-400">{friend.email}</div>
+                                            </div>
+                                        </div>
+                                        <div onClick={() => handleAddFriend(friend.id)} className="rounded-sm hover:cursor-pointer hover:shadow hover:scale-110 text-base font-semibold text-dark dark:text-app--dark">
+                                            <img width="35" height="35" src="https://img.icons8.com/color/35/add-user-group-woman-woman.png" alt="Add Friend" />
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </>
+                    )
+                    }
                     </div>
 
                 

@@ -6,7 +6,7 @@
 
 	html[theme="light"] {
 		--app-dark: theme(colors.slate.950);
-		--app--dark: theme(colors.slate.900);
+		--app--dark: theme(colors.slate.300);
 		--app---dark: theme(colors.gray.800);
 		--app-light: theme(colors.slate.100);
 		--app--light: theme(colors.slate.200);

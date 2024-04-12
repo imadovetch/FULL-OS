@@ -182,9 +182,9 @@ const emojis = [
         >
            
           <div ref={messagesRef} className="border relative h-[95%] flex  items-center flex-col overflow-y-auto   ">
-          <div className={` fixed m-auto  h-12 bg-app-shadow z-10 ${((data.width > 800)) ?'w-1/5' : 'w-2/5'}  flex justify-start items-center shadow bg-app-light rounded-lg px-4`}>
+          <div className={` fixed m-auto  h-12 bg-app-shadow z-10 ${((data.width > 800)) ?'w-1/5' : 'w-2/5'}  flex justify-start items-center shadow bg-app-dark rounded-lg px-4`}>
             <img src='https://randomuser.me/api/portraits/men/1.jpg' alt='https://randomuser.me/api/portraits/men/1.jpg' className='h-4/5 w-10 rounded-lg  mr-4' />
-            <span className='text-sm ml-1  text-app-dark font-mono'>{GetterName}</span>
+            <span className='text-sm ml-1  text-black font-mono'>{GetterName}</span>
         </div>
             <div   className="flex flex-col    w-full">
             
@@ -197,8 +197,8 @@ const emojis = [
                     <div key={index} className={`col-start-1 ${index === 0 ?'mt-10' : ''} col-end-8 p-3 rounded-lg`}>
                       <div className="flex flex-row items-center">
                         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
-                        <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow border border-gray-300 rounded-xl">
-                          <div className="messages text-app-dark">{element.msg}</div>
+                        <div className="relative ml-3 text-sm bg-app-dark py-2 px-4 shadow border border-gray-300 rounded-xl">
+                          <div className="messages text-app-light">{element.msg}</div>
                         </div>
                       </div>
                     </div>
@@ -208,7 +208,7 @@ const emojis = [
                     <div key={index} className={`col-start-1 ${index === 0 ?'mt-10' : ''} col-end-8 p-3 rounded-lg`}>
                       <div className="flex flex-row items-center">
                         <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
-                        <div className="relative ml-3 text-sm bg-app-light py-2 px-4 shadow rounded-xl">
+                        <div className="relative ml-3 text-sm bg-app-dark py-2 px-4 shadow rounded-xl">
                           <img src={element.msg} alt="Message Image" />
                         </div>
                       </div>
@@ -225,7 +225,7 @@ const emojis = [
                     <div className="flex items-center justify-start flex-row-reverse">
                       <div className="flex items-center justify-center h-10 w-10 rounded-full bg-indigo-500 flex-shrink-0">A</div>
                       <div className="relative mr-3 text-sm bg-indigo-100 py-2 px-4 shadow border border-gray-300 rounded-xl">
-                        <div className="messages text-app-dark">{element.msg}</div>
+                        <div className="messages text-black">{element.msg}</div>
                       </div>
                     </div>
                   </div>
@@ -255,10 +255,10 @@ const emojis = [
             </div>
           </div>
           <div
-            className="flex  flex-row items-center h-16 rounded-xl mt-auto bg-app-light w-full px-4"
+            className="flex  flex-row items-center h-16 rounded-xl mt-auto bg-app-dark w-full px-4"
           >
             <div>
-            { <div className={`icon-list absolute  right-0 w-[300px] text-wrap bg-app-light p-2 rounded border border-app--light  bottom-1/3 ${showIconDiv ? 'visible' : 'hidden'}`}>
+            { <div className={`icon-list absolute  right-0 w-[300px] text-wrap bg-app-dark p-2 rounded border border-app--light  bottom-1/3 ${showIconDiv ? 'visible' : 'hidden'}`}>
                 {emojis.map((emoji, index) => (
                     <span key={index} className='hover:scale-105 cursor-pointer' role="img" aria-label="Emoji" onClick={() => handleIconClick(emoji)}>
                         {emoji}
@@ -295,7 +295,7 @@ const emojis = [
                     {
                       photo !== '' && 
 
-                  <div onClick={()=>{CancelSendingphotot()}} className=' absolute  bg-app-light shadow rounded-lg p-1  bottom-11 right-0  w-3/5 h-40 border'>
+                  <div onClick={()=>{CancelSendingphotot()}} className=' absolute  bg-app-dark shadow rounded-lg p-1  bottom-11 right-0  w-3/5 h-40 border'>
                     <img className={`h-full ${((data.fullscreen)||(data.width > 1000)) ?  'w-[200px]': 'w-full'} `} src={photo} alt="" /> 
                   
                   </div>
@@ -305,7 +305,7 @@ const emojis = [
                     type="text"
                     value={photo === '' ? currentMessage : ''}
                     onChange={(e) => setCurrentMessage(e.target.value)}
-                    className="text-app-dark flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                    className="text-app--dark flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                   />
 
                   </div>
@@ -335,7 +335,7 @@ const emojis = [
             <div className="ml-4">
               <button
               onClick={sendMessage}
-                className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-app-light px-4 py-1 flex-shrink-0"
+                className="flex items-center justify-center bg-indigo-500 hover:bg-indigo-600 rounded-xl text-app-dark px-4 py-1 flex-shrink-0"
               >
                 <span>Send</span>
                 <span className="ml-2">
