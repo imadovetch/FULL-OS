@@ -12,6 +12,7 @@ import { Chat } from './chat'
 import { Yourlink } from './yourlink'
 import { Weather } from './weather'
 import { Settings } from './Settings'
+import { Manager } from './manager'
 import Gallery from './Gallery'
 
 
@@ -25,7 +26,7 @@ export function Apps() {
 
                 apps.map((data: APP_DATA_TYPE) => {
                     console.log(data.name + 'g');
-                    if(data.name === AVAILABLE_APPS[0]) return <Browser key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[0]) return <Manager key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[1]) return <Calculator key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[2]) return <Camera key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[3]) return <Game key={data.id} data={data} />
