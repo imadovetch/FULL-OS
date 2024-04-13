@@ -23,7 +23,14 @@ export default function Conversation({data,whichConversation}) {
     const [requests, setRequests] = useState([]);
     const [notifclicked, setchatnotif] = useState(false);
     const [storiesmode, setstoriesmode] = useState(false);
-  
+    const [imageFile, setImageFile] = useState(null);
+    const [storie, setstories] = useState(null);
+
+    const handleFileChange = (event:any) => {
+        const file = event.target.files[0];
+        setImageFile(file);
+    };
+
     const urlback = BACKEND_LINK;
     const togglenotif = () => {
         setchatnotif(!notifclicked)
@@ -170,6 +177,21 @@ export default function Conversation({data,whichConversation}) {
             console.error('Error fetching non-friends:', error);
 
         });
+
+        fetch(BACKEND_LINK + 'api/chat-stories')
+    .then(response => response.json())
+    .then(data => {
+        setstories(data.map(storie => ({
+            id: storie.id,
+            path: storie.path,
+            name: storie.name, 
+        })));
+        console.log('Fetched stories:', data);
+    })
+    .catch(error => {
+        console.error('Error fetching stories:', error);
+    });
+
     },[])
     const handleAddFriend = (friendId) => {
        
@@ -256,7 +278,24 @@ export default function Conversation({data,whichConversation}) {
             });
 
     }
-    
+    function uploadstorie(){
+        const formData = new FormData();
+            formData.append('photo', imageFile);
+        fetch(BACKEND_LINK+'api/add-chatstorie', {//add-chatstorie
+            method: 'POST',
+            body: formData,
+            headers: {
+              'Authorization': token 
+          },
+          })
+          .then(response => response.json())
+          .then(data => {
+            console.log('Photo upload response:', data);
+          })
+          .catch(error => {
+            console.error('Error uploading photo:', error);
+          });
+    }
     return (
         <div className={`h-[95%] ${data.width < 700 && !activeConversation ? 'w-full':''} ${!data.fullscreen ? ((data.width < 800) && activeConversation ? 'hidden' :''): ''} bg-app--dark min-w-96 border-r border-gray-200      border-dark flex`}>
             <div className="flex flex-col w-full gap-4 h-full">
@@ -293,25 +332,25 @@ export default function Conversation({data,whichConversation}) {
                         onChange={(e) => filterConversations(e.target.value)}
                     />                
                 </div>
-                <div className={`${storiesmode ? '': 'hidden'}  ${(data.fullscreen || (data.width >700) ? 'w-5/5 mx-auto ': 'grid-cols-2 w-full')} border  grid ${(data.fullscreen || (data.width >900) ? 'grid-cols-3 ': 'grid-cols-2 ')} max-h-full gap-4 p-5 custom-scrollbar border-app--light `}>
+                <div className={`${storiesmode ? '': 'hidden'}   border   max-h-full gap-4 p-5 custom-scrollbar border-app--light `}>
          
 
-                <div className="storiecardowner relative">
-  <div className="card-info">
-    <p className="title">Magic Card</p>
-    <img width="37" className=" bottom-5 right-2  absolute" height="37" src="https://img.icons8.com/color/37/plus--v1.png" alt="plus--v1"/>
-  </div>
-</div>
+                <input type="file" onChange={handleFileChange} />
+                <button onClick={()=>{uploadstorie()}}>upload</button>
+  
+<div className={`${storiesmode ? '': 'hidden'}  ${(data.fullscreen || (data.width >700) ? 'w-5/5 mx-auto ': 'grid-cols-2 w-full')}   grid ${(data.fullscreen || (data.width >900) ? 'grid-cols-3 ': 'grid-cols-2 ')} max-h-full gap-4 p-5 custom-scrollbar border-app--light `}>
+{storie && storie.map(storiei => (
 <div className="storiecard">
-  <div className="card-info">
-    <p className="title">Magic Card</p>
-  </div>
+  
+    <div className="card-info" key={storiei.id} style={{ backgroundImage: `url(${BACKEND_LINK}api/images/${storiei.path})` }}>
+      <p className="title">{storiei.name}</p>
+    </div>
+ 
 </div>
-<div className="storiecard">
-  <div className="card-info">
-    <p className="title">Magic Card</p>
-  </div>
+ ))}
 </div>
+
+
 
 
    

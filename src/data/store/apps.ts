@@ -22,7 +22,7 @@ const s = createSlice({
             state.push({
                 id: new Date().getTime(),
                 name: action.payload.appName,
-                x: Math.floor(Math.random() * (1380 - 0) + 0),
+                x: Math.floor(Math.random() * (500 - 0) + 0),
                 y: Math.floor(Math.random() * (max - min) + min),
                 width: 500,
                 height: 500,

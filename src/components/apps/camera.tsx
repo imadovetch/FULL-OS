@@ -54,7 +54,7 @@ export function Camera({ data }: CameraProps) {
             const formData = new FormData();
             formData.append('photo', imageFile);
           
-            fetch(BACKEND_LINK+'api/save-camera-photo', {
+            fetch(BACKEND_LINK+'api/save-camera-photo', {//add-chatstorie
               method: 'POST',
               body: formData,
               headers: {
