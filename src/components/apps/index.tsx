@@ -26,7 +26,7 @@ export function Apps() {
 
                 apps.map((data: APP_DATA_TYPE) => {
                     console.log(data.name + 'g');
-                    if(data.name === AVAILABLE_APPS[0]) return <Manager key={data.id} data={data} />
+                    if(data.name === AVAILABLE_APPS[0]) return <Manager key={data.id} data={{ ...data, width: 500,fullscreen:false }} />
                     if(data.name === AVAILABLE_APPS[1]) return <Calculator key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[2]) return <Camera key={data.id} data={data} />
                     if(data.name === AVAILABLE_APPS[3]) return <Game key={data.id} data={data} />

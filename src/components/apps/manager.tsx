@@ -1,22 +1,33 @@
 import { useEffect, useState } from "react";
-import { LineChart } from '@mui/x-charts/LineChart';
+import {
+  GaugeContainer,
+  GaugeValueArc,
+  GaugeReferenceArc,
+  useGaugeState,
+} from '@mui/x-charts/Gauge';
 import Stack from '@mui/material/Stack';
-import ToggleButton from '@mui/material/ToggleButton';
-import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-
+import { Gauge } from '@mui/x-charts/Gauge';
 import { APP_DATA_TYPE } from "@/data/const"
 import { Window } from './window'
+import { PieChart, pieArcLabelClasses } from '@mui/x-charts/PieChart';
+
+
+
+const size = {
+  width: 400,
+  height: 200,
+};
+
 
 export function Manager({ data }: { data: APP_DATA_TYPE }) {
     const [browserMemoryUsage, setBrowserMemoryUsage] = useState<number>(512);
     const [websiteMemoryUsage, setWebsiteMemoryUsage] = useState<number>(0);
-    const [ramUsage, setRAMUsage] = useState<string>('');
-    const [cpuUsage, setCPUUsage] = useState<string>('');
+    const [ramUsage, setRAMUsage] = useState<Number | null>(null);
+    const [cpuUsage, setCPUUsage] = useState<Number | null>(null);
     const [internetSpeed, setInternetSpeed] = useState<number>(0);
     const [ipAddress, setIPAddress] = useState<string>('');
-    var cpuvalues = []
-    const [cpuData, setCpuData] = useState([]);
-    var a = [13, 13, 54]
+    const [cpuData, setCpuData] = useState<number[]>([]);
+
     // Function to format bytes into human-readable format
     const formatBytes = (bytes: number, decimals: number = 2): string => {
         if (bytes === 0) return '0 Bytes';
@@ -39,25 +50,18 @@ export function Manager({ data }: { data: APP_DATA_TYPE }) {
             setWebsiteMemoryUsage(websiteMemoryUsage);
         };
 
-        // Function to get RAM usage
         const getRAMUsage = () => {
-            // Performance API provides detailed performance metrics
             const memory = performance.memory;
-            setRAMUsage(`${formatBytes(memory.usedJSHeapSize)} / ${formatBytes(memory.totalJSHeapSize)}`);
+            setRAMUsage(formatBytes(memory.usedJSHeapSize));//  / formatBytes(memory.totalJSHeapSize)
         };
-
-        // Function to get CPU usage
-       
 
         const getCPUUsage = () => {
             const cpu = performance.now();
             const cpuUsage = Number(Math.floor(cpu) / 100);
             setCpuData(prevData => [...prevData, cpuUsage]); 
-            setCPUUsage(`CPU Usage: ${cpu} milliseconds`);
+            setCPUUsage(cpu);
         };
         
-
-        // Function to get internet speed
         const getInternetSpeed = () => {
             const startTime = performance.now();
             fetch('https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest.py')
@@ -73,7 +77,6 @@ export function Manager({ data }: { data: APP_DATA_TYPE }) {
                 });
         };
 
-        // Function to get IP address
         const getIPAddress = () => {
             // Fetch IP address using a third-party service
             fetch('https://api.ipify.org?format=json')
@@ -86,19 +89,20 @@ export function Manager({ data }: { data: APP_DATA_TYPE }) {
                 });
         };
 
-        // Call the functions to get resource usage
-        
-        
-        setInterval(()=>{
+        const intervalIds = setInterval(() => {
             getBrowserMemoryUsage();
-        getWebsiteMemoryUsage();
+            getWebsiteMemoryUsage();
             getRAMUsage();
             getCPUUsage();
             getInternetSpeed();
             getIPAddress();
-        },1000)
+        }, 1000);
 
+        return () => {
+            clearInterval(intervalIds);
+        };
     }, []);
+
     useEffect(() => {
         console.log(cpuData);
         if (cpuData.length >= 10) {
@@ -106,68 +110,130 @@ export function Manager({ data }: { data: APP_DATA_TYPE }) {
         }
     }, [cpuData]);
     
-    const Tableau10 = [
-        '#4e79a7',
-        '#f28e2c',
-        '#e15759',
-      ];
-      
-      const chartsParams = {
-        margin: { bottom: 20, left: 55, right: 5 },
-        height: 300,
-      };
-      
-        const [color, setColor] = useState('#4e79a7');
-      
-        const handleChange = (event: MouseEvent<HTMLElement>, nextColor: string) => {
-          setColor(nextColor);
-        };
+    
+    
     return (
         <Window data={data}>
-            <div className="p-5 border">
-                
-                    <Stack direction="column" spacing={2} alignItems="center" sx={{ width: '100%' }}>
-      <LineChart
-        {...chartsParams}
+          <div className="h-[95%] w-full p-4 ">
+          <span className="mb-3 w-full  text-center">Your Current {ipAddress}</span>
+
+          <div className="grid grid-cols-2 gap-4">
+
+  <div className="col-span-2 flex flex-col  justify-center items-center   pr-5  border" w-full style={{  height: '300px' }}>
+     
+      <PieChart
         series={[
           {
-            data: cpuData,
-          
-            color,
-          },
+            arcLabel: (item) => `${item.label} (${item.value})`,
+            data: [
+              { value: 5, label: 'Media' },
+              { value: 10, label: 'Cache' },
+              { value: 15, label: 'Photos' },
+              
+            ],
+            innerRadius: 30,
+            outerRadius: 120,
+            paddingAngle: 5,
+            cornerRadius: 5,
+            startAngle: -90,
+            endAngle: 180,
+            cx: 150,
+            cy: 150,
+          }
         ]}
       />
-      <ToggleButtonGroup
-        orientation="vertical"
-        value={color}
-        exclusive
-        onChange={handleChange}
-      >
-        <div className="flex">
-        {Tableau10.map((value) => (
-          <ToggleButton key={value} value={value} sx={{ p: 1 }}>
-            <div
-              style={{
-                width: 15,
-                height: 15,
-                backgroundColor: value,
-                display: 'inline-block',
-              }}
-            />
-          </ToggleButton>
-        ))}
-        </div>
-        
-      </ToggleButtonGroup>
+        <div>StoRAGE</div>
+
+    </div>
+
+
+  <div className="h-48 border p-2  flex flex-col  justify-center items-center ">
+  <GaugeContainer
+  
+  width={200}
+  height={200}
+  startAngle={-110}
+  endAngle={110}
+  value={websiteMemoryUsage.toFixed(2) /10}
+>
+  
+  <GaugeReferenceArc />
+  <GaugeValueArc />
+  <GaugePointer />
+  <text x="-15" y="10">Start: {0} Mb</text>
+
+  <text x="-15" y="30">Total Ram USED: {ramUsage} </text>
+
+  <text  x="85" y="10">Current: {websiteMemoryUsage.toFixed(2) } Mb</text>
+</GaugeContainer>
+    
+  <div>Website Memory Usage</div>
+  </div>
+  <div className="h-48 p-2 border flex flex-col  justify-center items-center ">
+
+  <GaugeContainer
+  
+      width={200}
+      height={200}
+      startAngle={-110}
+      endAngle={110}
+      value={internetSpeed.toFixed(2)}
+      
+    >
+      
+      <GaugeReferenceArc />
+      <GaugeValueArc />
+      <GaugePointer />
+      <text x="-15" y="10">Start: {0} Mb/s</text>
+   
+      <text x="-15" y="30">End: {220} Mb/s</text>
+    
+      <text  x="85" y="10">Current: {internetSpeed.toFixed(2)} Mb/s</text>
+    </GaugeContainer>
+  <div>Internet Speed</div>
+  </div>
+  <div className="col-span-2 ...">
+  <div className="h-48 p-2 border flex flex-col  justify-center items-center ">
+  <Stack direction={{ xs: 'column', md: 'row' }} spacing={{ xs: 1, md: 3 }}>
+      
+      <Gauge width={150} height={150} value={ cpuUsage} valueMin={0} valueMax={cpuUsage * 3} />
     </Stack>
-                </div>
-                <div id="browserMemory">Browser Memory Usage: {browserMemoryUsage} MB</div>
-                <div id="websiteMemory">Website Memory Usage: {websiteMemoryUsage.toFixed(2)} MB</div>
-                <div id="ramUsage">{ramUsage}</div>
-                <div id="cpuUsage">{cpuUsage}</div>
-                <div id="internetSpeed">Internet Speed: {internetSpeed.toFixed(2)} Mbps</div>
-                <div id="ipAddress">{ipAddress}</div>
-            
+    <div>CPU Usage: Per/milliseconds</div>
+  </div>
+  </div>
+</div>
+            {/* <div id="browserMemory">Browser Memory Usage: {browserMemoryUsage} MB</div>
+            <div id="websiteMemory">Website Memory Usage: {websiteMemoryUsage.toFixed(2)} MB</div>
+            <div id="ramUsage">rsm usage{ramUsage}</div>
+            <div id="cpuUsage">{cpuUsage}</div>
+            <div id="internetSpeed">Internet Speed: {internetSpeed.toFixed(2)} Mbps</div>
+            <div id="ipAddress">{ipAddress}</div> */}
+          </div>
+           
         </Window>
     );
 }
+function GaugePointer() {
+  const { valueAngle, outerRadius, cx, cy } = useGaugeState();
+
+  if (valueAngle === null) {
+    // No value to display
+    return null;
+  }
+
+  const target = {
+    x: cx + outerRadius * Math.sin(valueAngle),
+    y: cy - outerRadius * Math.cos(valueAngle),
+  };
+  return (
+    <g>
+      <circle cx={cx} cy={cy} r={5} fill="red" />
+      <path
+        d={`M ${cx} ${cy} L ${target.x} ${target.y}`}
+        stroke="red"
+        strokeWidth={3}
+      />
+    </g>
+  );
+}
+
