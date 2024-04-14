@@ -114,7 +114,7 @@ export function Manager({ data }: { data: APP_DATA_TYPE }) {
     
     return (
         <Window data={data}>
-          <div className="h-[95%] w-full p-4 ">
+          <div className="h-[95%] w-full p-4  custom-scrollbar">
           <span className="mb-3 w-full  text-center">Your Current {ipAddress}</span>
 
           <div className="grid grid-cols-2 gap-4">
