@@ -153,7 +153,7 @@ function setCookie(name:string, value:any, daysToExpire:number) {
     </div>
     {
         !auth ?
-        <div className="flex  flex-col md:w-1/2 gap-4 justify-center py-10 items-center bg-white">
+        <div className="flex  flex-col md:w-1/2 gap-4 justify-center py-10 items-center h-full bg-white">
           <div className=" overflow-hidden flex relative w-4/5 h-3 border rounded-2xl">
            
             <div className="  bg-app-primary w-1/2  right-0 h-full"></div>
@@ -291,7 +291,7 @@ function setCookie(name:string, value:any, daysToExpire:number) {
       </form>
     </div>
         :
-    <div className="flex md:w-1/2 justify-center py-10 items-center bg-white">
+    <div className="flex md:w-1/2 justify-center py-10 items-center h-full bg-white">
       <form className="bg-white" onSubmit={handleLogin}>
       <h1 className="text-gray-800 font-bold text-2xl mb-1">Hello Again!</h1>
       <p className="text-sm font-normal text-gray-600 mb-7">Welcome Back</p>

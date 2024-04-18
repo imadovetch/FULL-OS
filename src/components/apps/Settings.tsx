@@ -80,14 +80,22 @@ const [darkTheme, setDarkTheme] = useState('dark')
   
 
   }
+  const zoomIn = () => {
+    document.documentElement.style.fontSize = `${parseFloat(window.getComputedStyle(document.documentElement).fontSize) * 1.1}px`;
+  };
+
+  const zoomOut = () => {
+    document.documentElement.style.fontSize = `${parseFloat(window.getComputedStyle(document.documentElement).fontSize) * 0.9}px`;
+  };
     return (
         <Window data={data}>
-            <div  className="p-2 flex w-full  max-h-full   custom-scrollbar  bg-app-light ">
+          
+            <div  className="p-2 flex w-full  max-h-full   custom-scrollbar  bg-app-dark ">
             
-    <div className={`  ${((data.width > 800) || data.fullscreen) ?'flex' :'hidden'}   w-1/6`}
+    <div className={`  ${((data.width > 800) || data.fullscreen) ?'flex' :'hidden'}    w-1/6`}
     
     >
-        <div className="flex flex-col flex-grow pt-5  custom-scrollbar bg-app-light">
+        <div className="flex flex-col flex-grow pt-5  custom-scrollbar bg-app-dark">
             
 
             <div className="px-4 mt-3">
@@ -124,7 +132,7 @@ const [darkTheme, setDarkTheme] = useState('dark')
                     <nav className="flex-1 space-y-2">
                         
 
-                        <a  className="flex gap-5 items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-app-light rounded-lg hover:bg-indigo-600 group">
+                        <a  className="flex gap-5 items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-app--light hover:text-app-light rounded-lg hover:bg-indigo-600 group">
                             <svg className="flex-shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                             </svg>
@@ -136,7 +144,7 @@ const [darkTheme, setDarkTheme] = useState('dark')
                     <hr className="border-gray-200" />
 
                     <nav className="flex-1 space-y-2">
-                        <a  className="flex gap-5 items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-gray-900 hover:text-app-light rounded-lg hover:bg-indigo-600 group">
+                        <a  className="flex gap-5 items-center px-4 py-2.5 text-sm font-medium transition-all duration-200 text-app--light hover:text-app-light rounded-lg hover:bg-indigo-600 group">
                             <svg className="flex-shrink-0 w-5 h-5 mr-4" xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                                 <path
                                     stroke-linecap="round"
@@ -346,6 +354,27 @@ const [darkTheme, setDarkTheme] = useState('dark')
 </label>
              </div>
       
+    </div>
+
+    <div className="px-4 mx-auto w-full max-w-7xl flex flex-col justify-center sm:px-6 md:px-8 settingsdivsbackground mb-16">
+      <h1 className="text-xl mb-5 font-serif text-gray-900 dark:text-app-light">
+        <span className="text-transparent bg-clip-text bg-gradient-to-r to-app-dark from-gray-400">Zoom</span>
+      </h1>
+      <div className="w-full flex justify-center items-center p-9 gap-5">
+      <button
+  className="text-app--light hover:text-green-600 backdrop-blur-lg bg-app--dark from-transparent via-[rgba(121,121,121,0.16)] to-transparent rounded-md py-2 px-6 shadow hover:shadow-green-600 duration-700"
+  onClick={zoomIn}
+>
+  +
+</button>
+<button
+  className="text-app--light hover:text-green-600 backdrop-blur-lg bg-app--dark from-transparent via-[rgba(121,121,121,0.16)] to-transparent rounded-md py-2 px-6 shadow hover:shadow-green-600 duration-700"
+  onClick={zoomOut}
+>
+  -
+</button>
+
+    </div>
     </div>
   </div>
 </main>
