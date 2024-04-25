@@ -305,7 +305,7 @@ const emojis = [
                     type="text"
                     value={photo === '' ? currentMessage : ''}
                     onChange={(e) => setCurrentMessage(e.target.value)}
-                    className="text-app--dark flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
+                    className="text-app-light flex w-full border rounded-xl focus:outline-none focus:border-indigo-300 pl-4 h-10"
                   />
 
                   </div>
