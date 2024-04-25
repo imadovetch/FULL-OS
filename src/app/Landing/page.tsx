@@ -205,7 +205,7 @@ function setCookie(name:string, value:any, daysToExpire:number) {
           </div>
           <div className="  hover:cursor-pointer gap-5 flex items-center h-12 bg-white  border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-app-dark  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img width="20" height="20" src="https://img.icons8.com/color/20/google-logo.png" alt="google-logo"/>
-                    <span className=" text-sm text-app-light font-serif ">Continue with Google</span>
+                    <span className=" text-sm text-app--light font-serif ">Continue with Google</span>
             
           </div>
         
@@ -334,7 +334,7 @@ function setCookie(name:string, value:any, daysToExpire:number) {
         </div>
       <div className="  hover:cursor-pointer gap-5 flex items-center h-12 bg-white  border border-gray-300 rounded-lg shadow-md px-4 py-2 text-sm font-medium text-app-dark  hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
           <img width="20" height="20" src="https://img.icons8.com/color/20/google-logo.png" alt="google-logo"/>
-                    <span className=" text-sm  font-serif ">Continue with Google</span>
+                    <span className=" text-sm text-app--light font-serif ">Continue with Google</span>
             
           </div>
       <button type="submit" className="block w-full btn-base mt-4 py-2 rounded-2xl text-white font-semibold mb-2">Login</button>
